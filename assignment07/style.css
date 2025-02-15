@@ -1,0 +1,31 @@
+.box{
+    /* border: 1px solid none; */
+    width: 40vh;
+    height: 20vw;
+    align-content: center;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 800;
+    background: linear-gradient(to bottom , rgb(6, 186, 231) , rgb(11, 25, 107) );
+    transition: all .9s ease-in-out;
+   
+}
+.box:hover{
+    cursor: pointer;
+    transform: skew(10deg, 10deg);
+    background: linear-gradient(to bottom , rgb(5, 104, 50) , rgb(146, 207, 3) );
+    /* transform: translate(40px,120px); */
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+.box h1{
+    
+    background: -webkit-linear-gradient(rgb(5, 48, 49), rgb(90, 3, 148), rgb(87, 5, 240));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
