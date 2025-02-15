@@ -1,0 +1,535 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    
+}
+body{
+    background-color: black;
+}
+.main{
+    display: flex;
+    justify-content:space-around ;
+    align-items: center;
+    gap: 150px;
+}
+.logo{
+    width: 15vw;
+}
+.img-container{
+    background-image: url("images/header-back.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 0;    
+}
+.bg-color{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+} 
+/* .main::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 0;
+} */
+.logo{
+    /* margin-left: 110px; */
+    font-size: 20px;
+    color: rgb(230, 0, 0);
+    /* margin-top: 25px; */
+}
+.login button{
+    padding: 7px 17px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgb(230, 0, 0);
+    color: white;
+    border: 1px solid rgb(190, 3, 3);
+    border-radius: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+}
+.login button:hover{
+    background-color: rgb(190, 3, 3);
+}
+/* .login{
+    margin: 35px 150px;
+} */
+.content {
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    justify-content: center;    
+    align-items:center;
+    height: 80vh;
+    font-size: 40px;
+    color: white;
+
+}
+.content h1{
+    width: 60vw;
+    text-align: center;
+    
+}
+.para3{
+    /* width: 70vw; */
+    text-align: center;
+}
+.para2{
+    font-size: 22px;
+}
+.inputF{
+    padding: 18px 70px;
+    background: transparent;
+    border: 1px solid gray;
+    border-radius: 3px;
+    
+}
+.inputF::placeholder{
+    font-size: 17px;
+    color: white;
+    
+}
+.button2{
+padding: 12px 35px;
+background-color: rgb(230, 0, 0);
+border: 1px solid rgb(230, 0, 0);
+color: white;
+font-weight: bold;
+cursor: pointer;
+font-size: 21px;
+border-radius: 3px;
+}
+/* --------------------------------------------------------------------------------------- */
+.card-heading h1{
+    margin-left: 80px;
+    color: white;
+    margin-top: 30px;
+    font-weight: bold;
+}
+.card-main select{
+    margin-left: 80px;
+    margin-top: 20px;
+    padding: 8px;
+    background-color: black;
+    color: white;
+    font-size: 17px;
+    box-shadow: 0px 1px 2px rgba(204, 201, 201, 0.9);
+}
+.card{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+.card img{
+    border-radius: 8px;
+}
+.card1:hover{
+    transform: scale(1.1);
+    transition: 0.5s all ease-in-out;
+    border-radius: 8px;
+}
+.card2:hover{
+    transform: scale(1.1);
+    transition: 0.5s all ease-in-out;
+    border-radius: 8px;
+}
+.card3:hover{
+    transform: scale(1.1);
+    transition: 0.5s all ease-in-out;
+    border-radius: 8px;
+}
+.card4:hover{
+    transform: scale(1.1);
+    transition: 0.5s all ease-in-out;
+    border-radius: 8px;
+}
+.card5:hover{
+    transform: scale(1.1);
+    transition: 0.5s all ease-in-out;
+    border-radius: 8px;
+}
+.card h1{
+    font-size: 120px;
+    font-weight: bold;
+    color: black;
+    text-shadow: -2px -2px 0 #fff,
+   2px -2px 0#fff,
+   -2px 2px 0 #fff,
+   2px 2px 0 #fff ;
+}
+.card1{
+ position: relative;
+}
+.card1 h1{
+    position: absolute;
+    bottom: 0px;
+    left: -15px;
+}
+.card2{
+    position: relative;
+   }
+   .card2 h1{
+       position: absolute;
+       bottom: 0px;
+       left: -15px;
+   }
+   .card3{
+    position: relative;
+   }
+   .card3 h1{
+       position: absolute;
+       bottom: 0px;
+       left: -15px;
+   }
+   .card4{
+    position: relative;
+   }
+   .card4 h1{
+       position: absolute;
+       bottom: 0px;
+       left: -15px;
+   }
+   .card5{
+    position: relative;
+   }
+   .card5 h1{
+       position: absolute;
+       bottom: 0px;
+       left: -15px;
+   }
+   /* -------------------------------------------------------------------------------- */
+.heading-section h1{
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 50px 50px;
+}
+.card-container{
+    /* border: 1px solid red; */
+cursor: pointer;
+}
+.card-container1{
+    color: white;
+    border: 1px solid black;
+    height: 35vh;
+    width: 15vw;
+    border-radius: 20px;
+    padding: 30px;
+    background: linear-gradient(to top, rgb(1, 1, 75), rgb(29, 26, 29), rgb(61, 1, 61));
+    transition: all ease-in-out .5s;
+    font-size: 17px;
+}
+
+.card-container2{
+    color: white;
+    border: 1px solid black;
+    height: 35vh;
+    width: 15vw;
+    border-radius: 20px;
+    padding: 30px 30px;
+    background: linear-gradient(to top, rgb(1, 1, 75), rgb(29, 26, 29), rgb(61, 1, 61));
+    transition: all ease-in-out .5s;
+    font-size: 17px;
+    
+}
+
+.card-container3{
+    color: white;
+    border: 1px solid black;
+    height: 35vh;
+    width: 15vw;
+    border-radius: 20px;
+    padding: 30px 30px;
+    background: linear-gradient(to top, rgb(1, 1, 75), rgb(29, 26, 29), rgb(61, 1, 61));
+    transition: all ease-in-out .5s;
+    font-size: 17px;
+}
+
+.card-container4{
+    color: white;
+    border: 1px solid black;
+    height: 35vh;
+    width: 15vw;
+    border-radius: 20px;
+    padding: 30px 30px;
+    background: linear-gradient(to top, rgb(1, 1, 75), rgb(29, 26, 29), rgb(61, 1, 61));
+    transition: all ease-in-out .5s;
+    font-size: 17px;
+}
+.card-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.card-container .card-container1:hover{
+    transform: scale(1.1);
+}
+.card-container .card-container2:hover{
+    transform: scale(1.1);
+}
+.card-container .card-container3:hover{
+    transform: scale(1.1);
+}
+.card-container .card-container4:hover{
+    transform: scale(1.1);
+}
+.card-container1 .icon1{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding-top: 2rem;
+}
+.card-container2 .icon2{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding-top: .5rem;
+}
+.card-container3 .icon3{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding-top: 4.5rem;
+}
+
+.card-container4 .icon4{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding-top: 1rem;
+}
+/* --------------------------------------------------------------------------------- */
+.qus h2{
+    color: white;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 800;
+    margin-top: 60px;
+    margin-left: 120px;
+}
+.qus1{
+ border: 1px solid rgb(46, 46, 46);
+ color: white;
+ height: 60px;
+ background-color: rgb(46, 46, 46);
+ width: 80vw;
+}
+.qus1 h3{
+    padding: 17px;
+    font-size: 23px;
+}
+.qus1 h3:hover{
+    background-color: rgb(78, 78, 78);
+}
+.qus2{
+ border: 1px solid rgb(46, 46, 46);
+ color: white;
+ height: 60px;
+ background-color: rgb(46, 46, 46);
+ width: 80vw;
+}
+.qus2 h3{
+    padding: 17px;
+    font-size: 23px;
+}
+.qus2 h3:hover{
+    background-color: rgb(78, 78, 78);
+}
+.qus3{
+ border: 1px solid rgb(46, 46, 46);
+ color: white;
+ height: 60px;
+ background-color: rgb(46, 46, 46);
+ width: 80vw;
+}
+.qus3 h3{
+    padding: 17px;
+    font-size: 23px;
+}
+.qus3 h3:hover{
+    background-color: rgb(78, 78, 78);
+}
+.qus4{
+ border: 1px solid rgb(46, 46, 46);
+ color: white;
+ height: 60px;
+ background-color: rgb(46, 46, 46);
+ width: 80vw;
+}
+.qus4 h3{
+    padding: 17px;
+    font-size: 23px;
+}
+.qus4 h3:hover{
+    background-color: rgb(78, 78, 78);
+}
+.qus5{
+ border: 1px solid rgb(46, 46, 46);
+ color: white;
+ height: 60px;
+ background-color: rgb(46, 46, 46);
+ width: 80vw;
+}
+.qus5 h3{
+    padding: 17px;
+    font-size: 23px;
+}
+.qus5 h3:hover{
+    background-color: rgb(78, 78, 78);
+}
+.qus6{
+ border: 1px solid rgb(46, 46, 46);
+ color: white;
+ height: 60px;
+ background-color: rgb(46, 46, 46);
+ width: 80vw;
+}
+.qus6 h3{
+    padding: 17px;
+    font-size: 23px;
+}
+.qus6 h3:hover{
+    background-color: rgb(78, 78, 78);
+}
+.qus-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+    margin-top: 20px;   
+}
+.qus-main .qus1 span{
+    /* display: flex;
+    justify-content: end;
+    font-size: 25px;
+    font-weight: bold; */
+    margin-bottom: 20px;
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    right: 140px;
+    margin-top: -16px;
+}
+
+.qus-main .qus2 span{
+    /* display: flex;
+    justify-content: end;
+    font-size: 25px;
+    font-weight: bold; */
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    right: 140px;
+    margin-top: -16px;
+}
+
+.qus-main .qus3 span{
+    /* display: flex;
+    justify-content: end;
+    font-size: 25px;
+    font-weight: bold; */
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    right: 140px;
+    margin-top: -16px;
+}
+
+.qus-main .qus4 span{
+    /* display: flex;
+    justify-content: end;
+    font-size: 25px;
+    font-weight: bold; */
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    right: 140px;
+    margin-top: -16px;
+}
+
+.qus-main .qus5 span{
+    /* display: flex;
+    justify-content: end;
+    font-size: 25px;
+    font-weight: bold; */
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    right: 140px;
+    margin-top: -16px;
+}
+
+.qus-main .qus6 h3 span{
+    /* display: flex;
+    justify-content: end;
+    padding-bottom: 20px;
+    font-size: 25px;
+    font-weight: bold;     */
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    right: 140px;
+    margin-top: -16px;
+
+}
+/* --------------------------------------------------------------------------------- */
+.main-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+.para2{
+    color: white;
+}
+.main-footerpara p{
+    text-align: center;
+    margin-top: 60px;
+
+}
+.footer-columns{
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.footer-column{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 20px;
+}
+.footer-columns a{
+    color: rgb(155, 153, 153);
+}
+.footer-bottom select{
+    color: white;
+    background-color: black;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+.footer-bottom .netflix{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+     margin-top: 20px;
+     
+
+}
+.footer-bottom{
+    margin-left: 9%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
