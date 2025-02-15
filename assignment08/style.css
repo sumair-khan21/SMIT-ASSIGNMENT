@@ -1,0 +1,33 @@
+.topbar{
+    max-width: 1400px;
+    margin: auto;
+}
+.color{
+    transition: all .3s ease-out;
+}
+.color:hover{
+    color: #51fafa;
+}
+.nav-item a{
+font-weight: bold;
+}
+.now h5{
+    font-size: 25px;
+}
+.now p{
+    font-size: 60px;
+    font-weight: 500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.now button{
+    background: transparent;
+    border: 1px solid #51fafa;
+    padding: 10px 40px;
+    color: white;
+}
+.now button:hover{
+    background-color: #51fafa;
+    border: 1px solid #51fafa;
+    padding: 10px 40px;
+    color: white;
+}
