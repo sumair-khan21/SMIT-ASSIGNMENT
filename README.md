@@ -5,7 +5,7 @@ Welcome to my **SMIT Assignments** repository! This repo contains all my assignm
 ## 📂 What's Inside?  
 This repository has multiple folders, each containing a different assignment.  
 
-📁 **Assignment-top** → HTML
+📁 **Assignment-top** → HTML 
 📁 **Assignment-middle** → CSS  
 📁 **Assignment-bottom** → JavaScript  
 📁 **More Assignments Coming Soon...**  
