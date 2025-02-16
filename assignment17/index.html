@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Birds</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <!-- <li><a href="#">Portfolio</a></li> -->
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+     <!-- Hero Section -->
+     <!-- <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Transform Your Digital Experience</h1>
+            <p class="hero-subtitle">Innovative solutions for a connected world. Let's build something amazing together.</p>
+            <div class="hero-cta">
+                <a href="#" class="cta-btn primary">Get Started</a>
+                <a href="#" class="cta-btn secondary">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>       -->
+    <!-- Hero Section End -->
+
+
+     <!-- Slider Section  Start-->
+     <section class="slider-container">
+        <div class="slider">
+            <img src="images/bird1.jpg" alt="Bird" id="bird">
+        </div>
+        <div class="buttons">
+            <button class="btn" onclick="prev()">Previous</button>
+            <button class="btn" onclick="next()">Next</button>
+        </div>
+    </section>
+    <!-- Slider Section  End-->
+
+    <!-- About Section Start -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="images/about-bird.jpg" alt="About Birds">
+            </div>
+            <div class="about-content">
+                <h2>About Our Feathered Birds</h2>
+                <p>Birds are among the most fascinating creatures on our planet. With over 10,000 species worldwide, they come in all shapes, sizes, and colors. From the tiny hummingbird to the majestic eagle, each bird has its unique characteristics and behaviors.</p>
+                <p>Our mission is to raise awareness about bird conservation and help people appreciate the beauty of these winged wonders. Join us in our journey to explore and protect the avian world.</p>
+                <a href="#" class="about-btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+    
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Birds</h3>
+                <p>Discover the fascinating world of birds and learn about their habitats, behaviors, and conservation efforts.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <p>Email: info@birds.com</p>
+                <p>Phone:  +9227-2222222</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Birds. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="app.js"></script>
+</body>
+</html>
