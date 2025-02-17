@@ -27,5 +27,33 @@ function autoslide(){
 }
 
 setTimeout(autoslide, 2000);
-
 // slider End
+
+// top button
+var goToBtn = document.getElementById('goTopBtn');
+window.onscroll = function(){
+    if(document.documentElement.scrollTop > 100){
+        goToBtn.style.display = 'block'
+    }else{
+        goToBtn.style.display = 'none';
+    }
+}
+function scrollOnTop(){
+    window.scrollTo({top: 0, behavior:"smooth"})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
