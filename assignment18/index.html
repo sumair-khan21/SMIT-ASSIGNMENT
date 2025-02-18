@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Formatter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">Text Formatter</div>
+        <div class="button-group">
+            <button onclick="formatText('bold')" class="bold-btn">Bold</button>
+            <button onclick="formatText('italic')" class="italic-btn">Italic</button>
+            <button onclick="formatText('strikeThrough')" class="strike-btn">Strike</button>
+        </div>
+        <div class="editor" id="editor" contenteditable="true">Enter Your Text Here...</div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
