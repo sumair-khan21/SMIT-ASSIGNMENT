@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Controller</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">Shadow Controller</div>
+        <div class="box" id="box"></div>
+        <div class="slider-container">
+            <label>Horizontal <span id="h-value" class="value-display">0px</span></label>
+            <input type="range" id="horizontal" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-container">
+            <label>Vertical <span id="v-value" class="value-display">0px</span></label>
+            <input type="range" id="vertical" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-container">
+            <label>Blur <span id="b-value" class="value-display">30px</span></label>
+            <input type="range" id="blur" min="0" max="100" value="30">
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
