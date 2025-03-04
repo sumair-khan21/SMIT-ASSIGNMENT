@@ -15,79 +15,112 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 20px;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 h1 {
     margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .input-container {
     display: flex;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
 input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     outline: none;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: center;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .add-btn {
-    background-color: #006d52;
+    background-color: #008f68;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 18px;
     color: white;
     font-size: 16px;
-    border-radius: 5px;
+    font-weight: bold;
+    border-radius: 6px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease-in-out;
 }
 
 .add-btn:hover {
     background-color: #2ecc71;
+    transform: scale(1.05);
 }
 
 ul {
     list-style: none;
-    margin-top: 15px;
+    margin-top: 10px;
     padding: 0;
 }
 
 li {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 10px;
-    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 12px;
+    margin: 8px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 6px;
+    transition: 0.3s ease-in-out;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+li:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.02);
 }
 
 button {
-    background: #e74c3c;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 12px;
     color: white;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
     transition: 0.3s;
 }
 
-button:hover {
+.del {
+    background: #e74c3c;
+}
+
+.del:hover {
     background: #c0392b;
 }
 
@@ -97,4 +130,14 @@ button:hover {
 
 .edit-btn:hover {
     background: #e67e22;
+}
+
+@media (max-width: 500px) {
+    .input-container {
+        flex-direction: column;
+    }
+
+    input, .add-btn {
+        width: 100%;
+    }
 }
