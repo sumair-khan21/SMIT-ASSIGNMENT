@@ -1,4 +1,29 @@
 
+function checkLogin() {
+    let loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+        document.getElementById("logoutContainer").style.display = "block";
+    } else {
+        document.getElementById("logoutContainer").style.display = "none";
+    }
+}
+
+
+document.getElementById("logout").addEventListener("click", function () {
+    localStorage.removeItem("loggedInUser");
+    alert("Logged out successfully!");
+    window.location.href = "index.html"; 
+});
+
+checkLogin();
+
+
+
+
+
+
+
+
 // 0   1    2              0      3     6        0  4  8
 // 3   4    5              1      4     7        2  4  6
 // 6   7    8              2      5     8  
@@ -39,4 +64,8 @@ function handleClick(ele){
 
 
 
+
+
+
+// ------------------------------------------------------------
 

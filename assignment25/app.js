@@ -1,6 +1,3 @@
-// START SIGNUP
-
-
 document.getElementById("signup").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -15,8 +12,14 @@ document.getElementById("signup").addEventListener("click", function (event) {
     }
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
+   let userExists = false;
 
-    let userExists = users.some(user => user.email === email);
+   for(let i = 0; i < users.length; i++){
+    if(users[i].email === email){
+        userExists = true;
+        break;
+    }
+   }
 
     if (userExists) {
         alert("This email is already registered. Please login.");
@@ -34,10 +37,6 @@ document.getElementById("signup").addEventListener("click", function (event) {
     document.getElementById("signupPassword").value = "";
 });
 
-
-
-
-// START LOGIN
 document.getElementById("loginBtn").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -46,15 +45,21 @@ document.getElementById("loginBtn").addEventListener("click", function (event) {
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    let validUser = users.find(user => user.email === email && user.password === password);
+    let validUser = null;
+    for(let i = 0; i < users.length; i++){
+        if(users[i].email === email && users[i].password === password){
+            validUser = users[i];
+            break;
+        }
+    }
+    // let validUser = users.find(user => user.email === email && user.password === password);
 
-    if (validUser) {
+    if (validUser !== null) {
         alert("Login successful! Redirecting to dashboard...");
+        localStorage.setItem("loggedInUser", email);
         window.location.href = "dashboard.html";
     } else {
         alert("Invalid email or password. Please try again.");
     }
 });
-
-
 
