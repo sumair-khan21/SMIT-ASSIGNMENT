@@ -216,47 +216,47 @@
 //     }
 // } 
 
-// let subject1 = prompt("Enter first subject name");
-// let subject2 = prompt("Enter second subject name");
-// let subject3 = prompt("Enter third subject name");
-// let totalMarks = 100;
-// let obtainedMarks1 = +prompt("Enter first subject obtained marks");
-// let obtainedMarks2 = +prompt("Enter second subject obtained marks");
-// let obtainedMarks3 = +prompt("Enter third subject obtained marks");
-// let totalObtainedMarks = obtainedMarks1 + obtainedMarks2 + obtainedMarks3;
-// let percentage = (totalObtainedMarks / 300) * 100;
-// document.write(`<table border="1">
-// <tr>
-// <th>Subject</th>
-// <th>Total Marks</th>
-// <th>Obtained Marks</th>
-// <th>Percentage</th>
-// </tr>
-// <tr>
-// <td>${subject1}</td>
-// <td>${totalMarks}</td>
-// <td>${obtainedMarks1}</td>
-// <td>${(obtainedMarks1 / totalMarks) * 100}</td>
-// </tr>
-// <tr>
-// <td>${subject2}</td>
-// <td>${totalMarks}</td>
-// <td>${obtainedMarks2}</td>
-// <td>${(obtainedMarks2 / totalMarks) * 100}</td>
-// </tr>
-// <tr>
-// <td>${subject3}</td>
-// <td>${totalMarks}</td>
-// <td>${obtainedMarks3}</td>
-// <td>${(obtainedMarks3 / totalMarks) * 100}</td>
-// </tr>
-// <tr>
-// <td></td>
-// <td>${totalMarks * 3}</td>
-// <td>${totalObtainedMarks}</td>
-// <td>${percentage}</td>
-// </tr>
-// </table>`)
+let subject1 = prompt("Enter first subject name");
+let subject2 = prompt("Enter second subject name");
+let subject3 = prompt("Enter third subject name");
+let totalMarks = 100;
+let obtainedMarks1 = +prompt("Enter first subject obtained marks");
+let obtainedMarks2 = +prompt("Enter second subject obtained marks");
+let obtainedMarks3 = +prompt("Enter third subject obtained marks");
+let totalObtainedMarks = obtainedMarks1 + obtainedMarks2 + obtainedMarks3;
+let percentage = (totalObtainedMarks / 300) * 100;
+document.write(`<table border="1">
+<tr>
+<th>Subject</th>
+<th>Total Marks</th>
+<th>Obtained Marks</th>
+<th>Percentage</th>
+</tr>
+<tr>
+<td>${subject1}</td>
+<td>${totalMarks}</td>
+<td>${obtainedMarks1}</td>
+<td>${(obtainedMarks1 / totalMarks) * 100}</td>
+</tr>
+<tr>
+<td>${subject2}</td>
+<td>${totalMarks}</td>
+<td>${obtainedMarks2}</td>
+<td>${(obtainedMarks2 / totalMarks) * 100}</td>
+</tr>
+<tr>
+<td>${subject3}</td>
+<td>${totalMarks}</td>
+<td>${obtainedMarks3}</td>
+<td>${(obtainedMarks3 / totalMarks) * 100}</td>
+</tr>
+<tr>
+<td></td>
+<td>${totalMarks * 3}</td>
+<td>${totalObtainedMarks}</td>
+<td>${percentage}</td>
+</tr>
+</table>`)
 
  
 // let subject1 = prompt("subject");

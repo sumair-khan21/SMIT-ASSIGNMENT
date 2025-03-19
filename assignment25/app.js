@@ -8,6 +8,7 @@ document.getElementById("signup").addEventListener("click", function (event) {
 
     if (!username || !email || !phone || !password) {
         alert("Please fill all fields.");
+        // Swal.fire("Please fill all fields.");
         return;
     }
 
@@ -28,8 +29,14 @@ document.getElementById("signup").addEventListener("click", function (event) {
 
     users.push({ username, email, phone, password });
     localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Signup successful! Please login now.");
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Signup successful! Please click on login.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    // alert("Signup successful! Please login now.");
 
     document.getElementById("signupUsername").value = "";
     document.getElementById("signupEmail").value = "";
@@ -52,14 +59,20 @@ document.getElementById("loginBtn").addEventListener("click", function (event) {
             break;
         }
     }
-    // let validUser = users.find(user => user.email === email && user.password === password);
+   
 
     if (validUser !== null) {
         alert("Login successful! Redirecting to dashboard...");
         localStorage.setItem("loggedInUser", email);
         window.location.href = "dashboard.html";
     } else {
-        alert("Invalid email or password. Please try again.");
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Invalid email or password. Please try again.",
+            // footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        // alert("Invalid email or password. Please try again.");
     }
 });
 
