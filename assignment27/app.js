@@ -21,10 +21,10 @@ let interval;
 let isRunning = false;
 
 function timer() {
-    miliSec += 10;
+    miliSec++;
     miliValue.innerHTML = miliSec;
     
-    if (miliSec == 1000) {
+    if (miliSec == 100) {
         sec++;
         secValue.innerHTML = sec;
         miliSec = 0;

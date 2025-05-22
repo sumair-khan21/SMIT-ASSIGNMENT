@@ -1,6 +1,6 @@
 let bird = document.getElementById('bird');
 let index = 1;
-let maxImage = 4;
+let maxImage = 6;
 let minImage = 1;
 
 function next(){
