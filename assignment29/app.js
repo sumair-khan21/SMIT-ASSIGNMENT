@@ -19,7 +19,7 @@
 
 
 let submit = document.getElementById('submit')
-submit.addEventListener('click',function(){
+submit.addEventListener('click',function(){ 
     let firstName = document.getElementById('firstName')
     let lastName = document.getElementById('lastName')
     let education = document.getElementById('education')
