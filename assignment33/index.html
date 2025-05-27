@@ -8,19 +8,101 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Student Marks Management System</h1>
-        <form >
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Enter your name">
-            <label for="marks">Marks</label>
-            <input type="text" id="marks" placeholder="Enter your marks">
-            <button type="button" id="addMarks">Add Marks</button>
-            <ul id="markList1"></ul>
-            <ul id="markList2"></ul>
-            <!-- <p>Average Marks: <span id="averageMarks"></span></p> -->
-        </form>
+        <!-- <div class="container">
+
+            <h1>Student Marks Management System</h1>
+            <form >
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+                <label for="marks">Marks</label>
+                <input type="text" id="marks" placeholder="Enter your marks">
+                <button type="button" id="addMarks">Add Marks</button>
+                <ul id="markList1"></ul>
+                <ul id="markList2"></ul>
+                <p>Average Marks: <span id="averageMarks"></span></p>
+            </form>
+        </div> -->
+
+<!-- ========================================================================== -->
+
+
+     <h1>Student Mark Management System</h1>
+     <div class="container">
+        <button onclick="modelOpen()">Add Student</button>
+     </div>
+
+     <div id="studentModel" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModel()" >&times;</span>
+            <h2>Add Student Marks</h2>
+            
+            <label for="studentName">Student Name</label>
+            <input type="text" name="studentName" id="studentName" placeholder="Enter Student Name">
+
+            <label for="EnglishMark">English Mark</label>
+            <input type="number" name="EnglishMark" id="EnglishMark" placeholder="Enter Mark">
+
+            <label for="MathMark">Math Mark</label>
+            <input type="number" name="MathMark" id="MathMark" placeholder="Enter Mark">
+
+            
+            <label for="ScienceMark">Science Mark</label>
+            <input type="number" name="ScienceMark" id="ScienceMark" placeholder="Enter Mark">
+            
+            <label for="UrduMark">Urdu Mark</label>
+            <input type="number" name="UrduMark" id="UrduMark" placeholder="Enter Mark">
+            
+            <label for="ComputerMark">Computer Mark</label>
+            <input type="number" name="ComputerMark" id="ComputerMark" placeholder="Enter Mark">
+
+            
+
+            <button onclick="submitForm()" style="margin-top: 20px;">Submit</button>
+
+        </div>
+
+
+
+     </div>
+
+    <div class="table-content">
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>English</th>
+                    <th>Math</th>
+                    <th>Science</th>
+                    <th>Urdu</th>
+                    <th>Computer</th>
+                    <th>Percentage</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     <script src="app.js"></script>
 </body>
