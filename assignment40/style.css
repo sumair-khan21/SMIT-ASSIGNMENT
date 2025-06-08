@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .slider-container {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+  }
+
+  #slider {
+    width: 100%;
+    height: auto;
+    max-height: 310px;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: all 0.4s ease;
+  }
+
+  .btn-group {
+    margin-top: 15px;
+  }
+
+  button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #0056b3;
+  }
+
+  @media (max-width: 500px) {
+    button {
+      padding: 8px 14px;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+  }
