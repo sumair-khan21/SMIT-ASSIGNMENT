@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM FORM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="main">
+        <label for="user_name">User Name
+            <input type="text" name="user_name" id="user_name">
+        </label>
+
+        <label for="email">Email
+            <input type="email" name="email" id="email">
+        </label>
+
+        <label for="phone">Phone Number
+            <input type="number" name="phone" id="phone">
+        </label>
+
+        <label for="password">Password
+            <input type="password" name="password" id="password">
+        </label>
+
+        <label for="cpassword">Confirm Password
+            <input type="password" name="cpassword" id="confirm_password">
+        </label>
+
+        <label for="city">City
+            <select name="city" id="city">
+                <option value="syd">Sydney</option>
+                <option value="mel">Melbourne</option>
+                <option value="bris">Brisbane</option>
+            </select>
+        </label>
+
+        <label>Gender
+            <div class="radio-group">
+                <label><input type="radio" name="gender" id="gender_male" value="male"> Male</label>
+                <label><input type="radio" name="gender" id="gender_female" value="female"> Female</label>
+                <label><input type="radio" name="gender" id="gender_other" value="other"> Other</label>
+            </div>
+        </label>
+
+        <label>Hobby
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="hobby" id="hobby_cricket" value="cricket"> Cricket</label>
+                <label><input type="checkbox" name="hobby" id="hobby_football" value="football"> Football</label>
+                <label><input type="checkbox" name="hobby" id="hobby_tennis" value="tennis"> Tennis</label>
+            </div>
+        </label>
+
+        <button type="submit" id="submit">Submit</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
