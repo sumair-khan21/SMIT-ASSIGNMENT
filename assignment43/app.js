@@ -12,32 +12,22 @@ let hobby_football = document.getElementById('hobby_football');
 let hobby_tennis = document.getElementById('hobby_tennis');
 let userData = []
 
-document.getElementById('submit').addEventListener('click', function () {
 
-    let selectedGender = ""
-    if (gender_male.checked) {
-        selectedGender = gender_male.value;
-    }
-    else if (gender_female.checked) {
-        selectedGender = gender_female.value;
-    }
-    else if (gender_other.checked) {
-        selectedGender = gender_other.value;
-    } else {
+document.getElementById('submit').addEventListener('click', function (e) {
+   e.preventDefault();
+    let selectedGender = "";
+    if (gender_male.checked) selectedGender = gender_male.value;
+    else if (gender_female.checked) selectedGender = gender_female.value;
+    else if (gender_other.checked) selectedGender = gender_other.value;
+    else {
         alert('Please select your gender');
         return;
     }
 
-    let selectedHobby = ""
-    if (hobby_cricket.checked) {
-        selectedHobby += hobby_cricket.value + ", ";
-    }
-    if (hobby_football.checked) {
-        selectedHobby += hobby_football.value + ", ";
-    }
-    if (hobby_tennis.checked) {
-        selectedHobby += hobby_tennis.value;
-    }
+    let selectedHobby = "";
+    if (hobby_cricket.checked) selectedHobby += hobby_cricket.value + ", ";
+    if (hobby_football.checked) selectedHobby += hobby_football.value + ", ";
+    if (hobby_tennis.checked) selectedHobby += hobby_tennis.value;
 
     if (selectedHobby.length == 0) {
         alert('Please select your hobby');
@@ -47,80 +37,73 @@ document.getElementById('submit').addEventListener('click', function () {
     if (userName.value.trim() == '') {
         alert('Please enter your name');
         return;
-    }
-    else if (email.value.trim() == '') {
+    } else if (email.value.trim() == '') {
         alert('Please enter your email');
         return;
-    }
-    else if (password.value.trim() == '') {
+    } else if (password.value.trim() == '') {
         alert('Please enter your password');
         return;
-    }
-    else if (confirm_password.value.trim() == '') {
+    } else if (confirm_password.value.trim() == '') {
         alert('Please enter your confirm password');
         return;
-    }
-    else if (phone.value.trim().length != 10) {
+    } else if (phone.value.trim().length != 10) {
         alert('Phone number must be 10 digits');
         return;
-    }
-    else if (password.value.trim() != confirm_password.value.trim()) {
+    } else if (password.value.trim() != confirm_password.value.trim()) {
         alert('Password and confirm password must be same');
         return;
-    }
-    else if (phone.value.trim() == '') {
-        alert('Please enter your phone number');
-        return;
-    }
-    else if (city.value.trim() == '') {
+    } else if (city.value.trim() == '') {
         alert('Please enter your city');
         return;
     }
-    else {
-        let user = {
-            userName: userName.value,
-            email: email.value,
-            password: password.value,
-            confirm_password: confirm_password.value,
-            phone: phone.value,
-            city: city.value,
-            gender: selectedGender,
-            hobby: selectedHobby,
+
+    let user = {
+        userName: userName.value,
+        email: email.value,
+        password: password.value,
+        confirm_password: confirm_password.value,
+        phone: phone.value,
+        city: city.value,
+        gender: selectedGender,
+        hobby: selectedHobby,
+    };
+
+    for (let i = 0; i < userData.length; i++) {
+        if (userData[i].email == user.email) {
+            alert('This email is already registered');
+            return;
         }
-    
-        // console.log(userData)
-        for (let i = 0; i < userData.length; i++) {
-            // console.log(userData[i])
-            // same email show alert this email is alerady register
-            
-            if (userData[i].email == user.email) {
-                alert('This email is already register');
-                return;
-            }
-        }
-        userData.push(user)
-        console.log(userData)
-        alert('Form submitted successfully');
     }
 
-    
-    
-    userName.value = ""
-    email.value = ""
-    password.value = ""
-    confirm_password.value = ""
-    phone.value = ""
-    city.value = ""
-    gender_male.checked = false
-    gender_female.checked = false
-    gender_other.checked = false
-    hobby_cricket.checked = false
-    hobby_football.checked = false
-    hobby_tennis.checked = false
-    window.location.href = "user-card.html";
-    
-})
+    userData.push(user);
+    alert('Form submitted successfully');
+
+let div = document.createElement('div');
+div.classList.add('user-card');
+
+div.innerHTML = `
+  <h2>User Details</h2>
+  <p><strong>Name:</strong> <span>${user.userName}</span></p>
+  <p><strong>Email:</strong> <span>${user.email}</span></p>
+  <p><strong>Phone:</strong> <span>${user.phone}</span></p>
+  <p><strong>City:</strong> <span>${user.city}</span></p>
+  <p><strong>Gender:</strong> <span>${user.gender}</span></p>
+  <p><strong>Hobbies:</strong> <span>${user.hobby}</span></p>
+`;
+
+document.getElementById('cardsContainer').appendChild(div);
 
 
-
-
+    userName.value = "";
+    email.value = "";
+    password.value = "";
+    confirm_password.value = "";
+    phone.value = "";
+    city.value = "";
+    gender_male.checked = false;
+    gender_female.checked = false;
+    gender_other.checked = false;
+    hobby_cricket.checked = false;
+    hobby_football.checked = false;
+    hobby_tennis.checked = false;
+});
