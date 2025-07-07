@@ -3,16 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+        <title>Enhanced Dice Roller</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Dice Game -->
-    <div class="dice-main">
+    <!-- <div class="dice-main">
         <h1>Dice Roller</h1>
         <img src="images/dice1.png" class="dice" alt="dice game" id="img">
         <button onclick="DiceRoll()" class="roll-btn">ROLL DICE</button>
+    </div> -->
+
+
+<!-- ======================================================================== -->
+
+
+
+    <div class="game-container">
+        <div class="game-header">
+            <h1 class="game-title">🎲 Dice Master</h1>
+            <p class="game-subtitle">Roll the dice and test your luck!</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <span class="control-label">Number of Dice</span>
+                <div class="dice-count-controls">
+                    <button class="dice-count-btn active" data-count="1">1</button>
+                    <button class="dice-count-btn" data-count="2">2</button>
+                    <button class="dice-count-btn" data-count="3">3</button>
+                    <button class="dice-count-btn" data-count="4">4</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">Dice Type</span>
+                <div class="dice-type-controls">
+                    <button class="dice-type-btn active" data-sides="6">D6</button>
+                    <button class="dice-type-btn" data-sides="8">D8</button>
+                    <button class="dice-type-btn" data-sides="10">D10</button>
+                    <button class="dice-type-btn" data-sides="20">D20</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dice-area" id="diceArea">
+            <div class="dice" id="dice-0">?</div>
+        </div>
+
+        <button class="roll-btn" id="rollBtn">🎲 ROLL DICE</button>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="result-item">
+                <span class="result-label">Individual Rolls:</span>
+                <span class="result-value" id="individualRolls">-</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Total Sum:</span>
+                <span class="result-value" id="totalSum">-</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Average:</span>
+                <span class="result-value" id="average">-</span>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalRolls">0</div>
+                <div class="stat-label">Total Rolls</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="highestRoll">-</div>
+                <div class="stat-label">Highest Roll</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="lowestRoll">-</div>
+                <div class="stat-label">Lowest Roll</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgRoll">-</div>
+                <div class="stat-label">Avg Roll</div>
+            </div>
+        </div>
+
+        <button class="reset-btn" id="resetBtn">🔄 Reset Statistics</button>
     </div>
+
+
+
+
     <script src="app.js"></script>
 </body>
 </html>
