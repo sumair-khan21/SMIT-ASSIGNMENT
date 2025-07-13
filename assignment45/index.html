@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<div class="container">
+        <div class="header">
+            <h1>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                Attendance App
+            </h1>
+            <p>Mark your attendance with photo proof</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Stats Section -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="todayCount">0</div>
+                    <div class="stat-label">Today's Attendance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCount">0</div>
+                    <div class="stat-label">Total Records</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentTime">--:--</div>
+                    <div class="stat-label">Current Time</div>
+                </div>
+            </div>
+
+            <!-- Mark Attendance Section -->
+            <div class="attendance-section">
+                <h2 style="color: #2d3748; margin-bottom: 20px;">Mark Your Attendance</h2>
+                
+                <div class="user-info">
+                    <!-- <input type="text" id="userName" placeholder="Enter your name" required> -->
+                     <input type="text" id="rollNo" placeholder="Enter your Roll No or Scan QR" required>
+                     <!-- QR Scan button -->
+<button id="startQR" class="btn btn-secondary">Scan QR</button>
+<!-- Div where QR video preview will appear -->
+<div id="qrReader" style="width:300px; margin:auto; margin-top:10px;"></div>
+
+
+                    <!-- <input type="text" id="userRole" placeholder="Enter your role/department" required> -->
+                </div>
+
+                <div class="camera-section">
+                    <div class="camera-container">
+                        <video id="video" autoplay muted></video>
+                        <canvas id="canvas"></canvas>
+                        <div id="photoPreview" style="display: none;"></div>
+                    </div>
+                    
+                    <div class="camera-controls">
+                        <button class="btn btn-primary" id="startCamera">
+                            <svg class="icon" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Start Camera
+                        </button>
+                        <button class="btn btn-secondary" id="capturePhoto" disabled>
+                            <svg class="icon" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Capture Photo
+                        </button>
+                        <button class="btn btn-secondary" id="retakePhoto" style="display: none;">
+                            <svg class="icon" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Retake
+                        </button>
+                    </div>
+                </div>
+
+                <button class="attendance-btn" id="markAttendance">
+                    <svg class="icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Mark Attendance
+                </button>
+
+                <div id="statusMessage"></div>
+            </div>
+
+            <!-- Attendance History -->
+            <div class="attendance-history">
+                <h3>Today's Attendance Records</h3>
+                <div class="attendance-list" id="attendanceList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <p>No attendance records for today</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <img id="modalImage" src="" alt="Attendance Photo">
+        </div>
+    </div>
+
+    
+    <script src="https://unpkg.com/html5-qrcode@2.3.7/minified/html5-qrcode.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

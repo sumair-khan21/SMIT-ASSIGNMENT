@@ -1,13 +1,13 @@
 let text = document.getElementById("todo-list");
 let ui = document.getElementById("show");
-let todoData  = JSON.parse(localStorage.getItem('todo')) || [];
+let todoData = JSON.parse(localStorage.getItem('todo')) || [];
 
 
 render()
 
-function render(){
+function render() {
   text.innerHTML = "";
-  for(let i = 0; i < todoData.length; i++){
+  for (let i = 0; i < todoData.length; i++) {
     text.innerHTML += `
     <li>
         ${todoData[i]} 
@@ -19,7 +19,7 @@ function render(){
 }
 
 function add() {
-  if (ui.value.trim() !== ""){
+  if (ui.value.trim() !== "") {
     // var li = document.createElement("li");
     // // li.innerHTML = `${ui.value} 
     // //       <div>
@@ -27,33 +27,33 @@ function add() {
     // //           <button onclick="del(this)">Del</button>
     // //       </div>
     // //   `;
-  
+
     // text.appendChild(li);
 
     todoData.push(ui.value)
     localStorage.setItem('todo', JSON.stringify(todoData))
     ui.value = "";
     render()
-  }else{
-   Swal.fire("Please Enter Todo!");
+  } else {
+    Swal.fire("Please Enter Todo!");
 
   }
 
- 
+
 }
 
 
-function deleteItem(button){
-  todoData.splice(button,1)
+function deleteItem(button) {
+  todoData.splice(button, 1)
   localStorage.setItem('todo', JSON.stringify(todoData));
   render()
 }
 
-function edit(button){
-  let updated = prompt("Edited your todo" , todoData[button])
-  if(updated !== "" && updated.trim() !== ""){
- todoData[button] = updated;
- localStorage.setItem('todo', JSON.stringify(todoData))
+function edit(button) {
+  let updated = prompt("Edited your todo", todoData[button])
+  if (updated !== "" && updated.trim() !== "") {
+    todoData[button] = updated;
+    localStorage.setItem('todo', JSON.stringify(todoData))
   }
   render()
 }
