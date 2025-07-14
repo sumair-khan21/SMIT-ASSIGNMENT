@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search & Filter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <div class="container">
+        <div class="header">
+            <h1>Product Store</h1>
+            <p>Discover amazing products with our smart search and filter system</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="filters">
+                <div class="search-wrapper">
+                    <input type="search" id="inputValue" placeholder="Search products...">
+                </div>
+                <select id="price">
+                    <option value="" selected>All Prices</option>
+                </select>
+                <select id="category">
+                    <option value="" selected>All Categories</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="main">
+            <!-- <div class="loading">Loading products...</div> -->
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
