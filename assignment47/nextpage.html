@@ -1,0 +1,54 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="detailData">
+       
+    </div>
+    
+    <script >
+        
+        let detailDaat = document.getElementById('detailData')
+        let getData = JSON.parse(localStorage.getItem('id'))
+        let url =  `https://fakestoreapi.com/products/${getData}`
+     
+
+
+    async function DetailData(){
+        try{
+            let data = await fetch(url)
+            let jsonData = await data.json()
+            console.log(jsonData)
+
+            renderData(jsonData)
+
+        }catch{
+
+        }
+     }
+
+
+     function renderData(data){
+    detailDaat.innerHTML  += `
+    <div class="card" >
+        <img width="200px" src="${data.image}" alt="${data.title}">
+        <div class="card-content">
+            <h1>${data.title.slice(0,5)}</h1>
+            <div class="price-tag">$${data.price}</div>
+            <div class="category-tag">${data.category}</div>
+            <p>${data.description.slice(0,30)}...</p>
+            
+        </div>
+    </div>
+    `
+}
+ 
+DetailData()
+
+    </script>
+</body>
+</html> -->

@@ -16,12 +16,14 @@ function checkWinner(){
         (arr[0] !== null && arr[0] == arr[4] && arr[4] == arr[8]) || 
         (arr[2] !== null && arr[2] == arr[4] && arr[4] == arr[6])   
     ){
-        document.write(`Winner is ${currentPlayer}`)
+        alert(`Winner is ${currentPlayer}`)
+        // document.write(`Winner is ${currentPlayer}`)
         return;
     }
     //  some((e) => e === null) check karta hai kya array me koi null bacha hai?
     if(!arr.some((e) => e === null)){
-        document.write(`Draw!`);
+        alert(`Draw!`)
+        // document.write(`Draw!`);
         return;
     }
 }
