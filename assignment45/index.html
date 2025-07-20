@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   </head>
   <body>
     <div class="container">
@@ -15,102 +14,314 @@
         <h1>📚 Student Attendance Management System</h1>
         <p>Efficient and Modern Attendance Tracking Solution</p>
       </div>
-      
-        <!-- Authentication Section -->
-        <div id="authSection" class="auth-container">
-             <div class="auth-card">
-                <h2>👨‍🎓 Student Portal</h2>
-                <form id="studentLoginForm">
-                    <div class="form-group">
-                        <label for="studentId">Student ID / Roll Number</label>
-                        <input type="text" id="studentId" placeholder="Enter your ID or Roll Number" required>
-                    </div>
-                    <button type="submit" class="btn">Login</button>
-                </form>
+
+      <!-- Authentication Section -->
+      <div id="authSection" class="auth-container">
+        <!-- Student Login -->
+        <div class="auth-card">
+          <h2>👨‍🎓 Student Portal</h2>
+          <form id="studentLoginForm">
+            <div class="form-group">
+              <label for="studentId">Student ID / Roll Number</label>
+              <input
+                type="text"
+                id="studentId"
+                placeholder="Enter your ID or Roll Number"
+                required
+              />
             </div>
+            <button type="submit" class="btn">Login</button>
+          </form>
         </div>
 
-        <!-- Student Dashboard -->
-        <div id="studentDashboard" class="dashboard">
-            <div class="dashboard-header">
-                <h2 class="dashboard-title">Student Dashboard</h2>
-                <div>
-                    <span id="studentWelcome" style="margin-right: 20px; color: #667eea; font-weight: 500;"></span>
-                    <button class="logout-btn" onclick="logout()">Logout</button>
-                </div>
+        <!-- Admin Login -->
+        <div class="auth-card">
+          <h2>👨‍💼 Admin Portal</h2>
+          <form id="adminLoginForm">
+            <div class="form-group">
+              <label for="adminUsername">Username</label>
+              <input
+                type="text"
+                id="adminUsername"
+                placeholder="Enter admin username"
+                required
+              />
             </div>
-
-            <div class="attendance-form">
-                <h3 style="margin-bottom: 20px; color: #333;">Mark Your Attendance</h3>
-                
-                <div class="attendance-options">
-                    <div class="option-card" onclick="selectAttendanceMethod('rollNumber')">
-                        <div style="font-size: 2em; margin-bottom: 10px;">🎫</div>
-                        <h4>Roll Number</h4>
-                        <p>Enter your roll number</p>
-                    </div>
-                    <div class="option-card" onclick="selectAttendanceMethod('qrCode')">
-                        <div style="font-size: 2em; margin-bottom: 10px;">📱</div>
-                        <h4>QR Code</h4>
-                        <p>Scan your QR code</p>
-                    </div>
-                    <div class="option-card" onclick="selectAttendanceMethod('camera')">
-                        <div style="font-size: 2em; margin-bottom: 10px;">📷</div>
-                        <h4>Camera</h4>
-                        <p>Take your picture</p>
-                    </div>
-                </div>
-
-                <div id="rollNumberForm" style="display: none;">
-                    <div class="form-group">
-                        <label for="rollNumberInput">Roll Number</label>
-                        <input type="text" id="rollNumberInput" placeholder="Enter your roll number">
-                    </div>
-                    <button onclick="markAttendanceByRoll()" class="btn">Mark Attendance</button>
-                </div>
-
-                <div id="qrCodeSection" style="display: none;">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <h4>Your QR Code</h4>
-                        <div id="qrCodeContainer" style="margin: 20px 0;"></div>
-                        <button onclick="markAttendanceByQR()" class="btn">Mark Attendance with QR</button>
-                    </div>
-                </div>
-
-                <div id="cameraSection" class="camera-container">
-  <h4>Take Your Picture</h4>
-  <div class="preview-area">
-    <video id="video" autoplay></video>
-    <canvas id="canvas" style="display: none;"></canvas>
-  </div>
-  <div>
-    <button onclick="startCamera()" class="btn">Start Camera</button>
-    <button onclick="capturePhoto()" class="btn">Capture & Mark Attendance</button>
-  </div>
-</div>
+            <div class="form-group">
+              <label for="adminPassword">Password</label>
+              <input
+                type="password"
+                id="adminPassword"
+                placeholder="Enter admin password"
+                required
+              />
             </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3 id="studentTotalDays">0</h3>
-                    <p>Total Days</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="studentPresentDays">0</h3>
-                    <p>Present Days</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="studentAttendanceRate">0%</h3>
-                    <p>Attendance Rate</p>
-                </div>
-            </div>
+            <button type="submit" class="btn">Login</button>
+          </form>
         </div>
+      </div>
+
+      <!-- Alert Messages -->
+      <div id="alertContainer"></div>
+
+      <!-- Student Dashboard -->
+      <div id="studentDashboard" class="dashboard">
+        <div class="dashboard-header">
+          <h2 class="dashboard-title">Student Dashboard</h2>
+          <div>
+            <span
+              id="studentWelcome"
+              style="margin-right: 20px; color: #667eea; font-weight: 500"
+            ></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+          </div>
+        </div>
+
+        <div class="attendance-form">
+          <h3 style="margin-bottom: 20px; color: #333">Mark Your Attendance</h3>
+
+          <div class="attendance-options">
+            <div
+              class="option-card"
+              onclick="selectAttendanceMethod('rollNumber')"
+            >
+              <div style="font-size: 2em; margin-bottom: 10px">🎫</div>
+              <h4>Roll Number</h4>
+              <p>Enter your roll number</p>
+            </div>
+            <div class="option-card" onclick="selectAttendanceMethod('qrCode')">
+              <div style="font-size: 2em; margin-bottom: 10px">📱</div>
+              <h4>QR Code</h4>
+              <p>Scan your QR code</p>
+            </div>
+            <div class="option-card" onclick="selectAttendanceMethod('camera')">
+              <div style="font-size: 2em; margin-bottom: 10px">📷</div>
+              <h4>Camera</h4>
+              <p>Take your picture</p>
+            </div>
+          </div>
+
+          <div id="rollNumberForm" style="display: none">
+            <div class="form-group">
+              <label for="rollNumberInput">Roll Number</label>
+              <input
+                type="text"
+                id="rollNumberInput"
+                placeholder="Enter your roll number"
+              />
+            </div>
+            <button onclick="markAttendanceByRoll()" class="btn">
+              Mark Attendance
+            </button>
+          </div>
+
+          <div id="qrCodeSection" style="display: none">
+            <div style="text-align: center; margin-bottom: 20px">
+              <h4>Your QR Code</h4>
+              <div id="qrCodeContainer" style="margin: 20px 0"></div>
+              <button onclick="markAttendanceByQR()" class="btn">
+                Mark Attendance with QR
+              </button>
+            </div>
+          </div>
+          <div id="cameraSection" class="camera-container">
+            <h4>Take Your Picture</h4>
+            <div class="preview-area">
+              <video id="video" autoplay></video>
+              <canvas id="canvas" style="display: none"></canvas>
+            </div>
+            <div>
+              <button onclick="startCamera()" class="btn">Start Camera</button>
+              <button onclick="capturePhoto()" class="btn">
+                Capture & Mark Attendance
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3 id="studentTotalDays">0</h3>
+            <p>Total Days</p>
+          </div>
+          <div class="stat-card">
+            <h3 id="studentPresentDays">0</h3>
+            <p>Present Days</p>
+          </div>
+          <div class="stat-card">
+            <h3 id="studentAttendanceRate">0%</h3>
+            <p>Attendance Rate</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- Admin Dashboard -->
+      <div id="adminDashboard" class="dashboard">
+        <div class="dashboard-header">
+          <h2 class="dashboard-title">Admin Dashboard</h2>
+          <div>
+            <span style="margin-right: 20px; color: #667eea; font-weight: 500"
+              >Welcome, Admin</span
+            >
+            <button class="logout-btn" onclick="logout()">Logout</button>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <!-- <button class="tab active" onclick="switchTab('overview')">📊 Overview</button>
+                <button class="tab" onclick="switchTab('attendance')">✅ Attendance</button>
+                <button class="tab" onclick="switchTab('students')">👥 Students</button>
+                <button class="tab" onclick="switchTab('teachers')">👨‍🏫 Teachers</button>
+                <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button> -->
+          <button class="tab" onclick="switchTab(event, 'overview')">
+            Overview
+          </button>
+          <button class="tab" onclick="switchTab(event, 'attendance')">
+            Attendance
+          </button>
+          <button class="tab" onclick="switchTab(event, 'students')">
+            Students
+          </button>
+          <button class="tab" onclick="switchTab(event, 'teachers')">
+            Teachers
+          </button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overviewTab" class="tab-content active">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3 id="totalStudents">0</h3>
+              <p>Total Students</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="todayPresent">0</h3>
+              <p>Present Today</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="todayAbsent">0</h3>
+              <p>Absent Today</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="attendanceRate">0%</h3>
+              <p>Today's Attendance Rate</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance Tab -->
+        <div id="attendanceTab" class="tab-content">
+          <div class="controls">
+            <!-- <button class="control-btn primary" onclick="exportAttendance()">📥 Export Data</button>
+                    <button class="control-btn danger" onclick="clearTodayAttendance()">🗑️ Clear Today</button> -->
+            <button
+              class="control-btn success"
+              onclick="toggleAttendanceSystem()"
+            >
+              ⏸️ Close Attendance
+            </button>
+          </div>
+
+          <!-- <div style="margin-bottom: 20px;">
+                    <label for="dateFilter" style="margin-right: 10px;">Filter by Date:</label>
+                    <input type="date" id="dateFilter" onchange="filterAttendanceByDate()" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                </div> -->
+
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Roll Number</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Method</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceTableBody">
+              <!-- Attendance records will be populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Students Tab -->
+        <div id="studentsTab" class="tab-content">
+          <!-- <div class="controls">
+                    <button class="control-btn primary" onclick="refreshStudents()">🔄 Refresh</button>
+                     <button class="control-btn success" onclick="generateQRCodes()">📱 Generate QR Codes</button>
+
+                </div> -->
+
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+              <!-- Students will be populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Teachers Tab -->
+        <div id="teachersTab" class="tab-content">
+          <div id="teachersContainer">
+            <!-- Teacher cards will be populated here -->
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settingsTab" class="tab-content">
+          <div class="attendance-form">
+            <h3>System Settings</h3>
+
+            <div class="form-group">
+              <label>Attendance System Status</label>
+              <div style="margin-top: 10px">
+                <span id="systemStatus" style="font-weight: 500; color: #28a745"
+                  >🟢 Active</span
+                >
+                <button
+                  id="toggleSystemBtn"
+                  class="control-btn danger"
+                  onclick="toggleAttendanceSystem()"
+                  style="margin-left: 20px"
+                >
+                  Close System
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="attendanceTime">Attendance Time Limit</label>
+              <input type="time" id="attendanceTime" value="09:00" />
+            </div>
+
+            <div class="form-group">
+              <label for="autoBackup">Auto Backup</label>
+              <select id="autoBackup">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+
+            <button class="btn" onclick="saveSettings()">Save Settings</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js" defer></script> -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script src="app.js" defer></script>
   </body>
