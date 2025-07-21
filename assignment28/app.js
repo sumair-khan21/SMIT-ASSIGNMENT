@@ -3,7 +3,7 @@ let Hours = document.getElementById('hours')
 let Minutes = document.getElementById('min')
 let Seconds = document.getElementById('sec')
 let Main = document.getElementById('main')
-let eidDay = new Date("March 31 2025 00:00:00").getTime();
+let eidDay = new Date("March 26 2026 00:00:00").getTime();
 
 function timer(){
     let current = new Date().getTime();
