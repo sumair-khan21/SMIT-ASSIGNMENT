@@ -1,4 +1,7 @@
+
+
 document.getElementById("signup").addEventListener("click", function (event) {
+    
     event.preventDefault();
 
     let username = document.getElementById("signupUsername").value.trim();

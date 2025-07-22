@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up & Sign in</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <input type="checkbox" id="toggle" class="toggle-checkbox">
+        <div class="panels-wrapper">
+            <!-- Sign In -->
+            <div class="form-panel sign-in">
+                <form>
+                    <h1>Sign In</h1>
+                    <div class="social-login">
+                        <button type="button" class="social-btn google" id="googleSignIn"><span>G</span> Google</button>
+                        <button type="button" class="social-btn facebook"><span>f</span> Facebook</button>
+                    </div>
+                    <div class="divider"><span>or use your account</span></div>
+                    <div class="form-group"><input type="email" placeholder="Email Address" required id="loginEmail"></div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" required id="loginPassword">
+                        <a href="#" class="forgot-password">Forgot your password?</a>
+                    </div>
+                    <button type="submit" class="btn" id="signIn">Sign In</button>
+                </form>
+                <div class="toggle-mobile">
+                    <span>Don't have an account? </span><label for="toggle">Sign Up</label>
+                </div>
+            </div>
+            <!-- Sign Up -->
+            <div class="form-panel sign-up">
+                <form>
+                    <h1>Create Account</h1>
+                    <!-- <div class="social-login">
+                        <button type="button" class="social-btn google" id="googleSignIn"><span>G</span> Google</button>
+                        <button type="button" class="social-btn facebook"><span>f</span> Facebook</button>
+                    </div> -->
+                    <!-- <div class="divider"><span>or use your email</span></div> -->
+                    <div class="form-row">
+                        <div class="form-group"><input type="text" placeholder="First Name" required id="firstName"></div>
+                        <div class="form-group"><input type="text" placeholder="Last Name" required id="lastName"></div>
+                    </div>
+                    <div class="form-group"><input type="email" placeholder="Email Address" required id="email"></div>
+                    <div class="form-group"><input type="tel" placeholder="Phone Number" id="phoneNumber"></div>
+                    <div class="form-group"><input type="password" placeholder="Password" required id="password"></div>
+                    <div class="form-group"><input type="password" placeholder="Confirm Password" required id="confirmPassword"></div>
+                    <button type="submit" class="btn" id="signUp">Sign Up</button>
+                    <div class="terms">By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></div>
+                </form>
+                <div class="toggle-mobile">
+                    <span>Already have an account? </span><label for="toggle">Sign In</label>
+                </div>
+            </div>
+            <!-- Overlay -->
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <label for="toggle" class="btn ghost">Sign In</label>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start your journey with us</p>
+                        <label for="toggle" class="btn ghost">Sign Up</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js" type="module"></script>
+</body>
+</html>
