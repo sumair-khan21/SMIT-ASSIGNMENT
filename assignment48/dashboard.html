@@ -3,15 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Brand</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+
 </head>
 <body>
     
-    <button id="logout">Logout</button>
+    <!-- <button id="logout">Logout</button> -->
+         <!-- NAVBAR START -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Brand</a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Shop</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a href="#" class="nav-link">Portfolio</a>
+                </li> -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                    <span class="search-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </span>
+                </div>
+
+                <button class="logout-btn" id="logout">
+                    <svg class="logout-icon" viewBox="0 0 24 24">
+                        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <!-- NAVBAR END -->
 
 
+    <!-- HERO SECTION START -->
+
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide active" data-bg="/images/slider1.png">
+                <div class="slide-content">
+                    <h2>New Arrivals</h2>
+                    <p>Check out our latest products</p>
+                    <button class="slide-btn">Explore Now</button>
+                </div>
+            </div>
+            
+            <div class="slide" data-bg="/images/slider2.png">
+                <div class="slide-content">
+                    <h2>Summer Essentials</h2>
+                    <p>Get ready for the summer season</p>
+                    <button class="slide-btn">Discover More</button>
+                </div>
+            </div>
+            
+            <div class="slide" data-bg="/images/slider3.png">
+                <div class="slide-content">
+                    <h2>Spring Collection 2025</h2>
+                    <p>Discover t he latest trend in fashion</p>
+                    <button class="slide-btn">Learn More</button>
+                </div>
+            </div>
+            
+            
+        <div class="nav-controls">
+            <button class="nav-btn prev" id="prevBtn">❮</button>
+            <button class="nav-btn next" id="nextBtn">❯</button>
+        </div>
+        
+        <div class="indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+    </div>
+
+<!-- ======================================================================================= -->
+<!-- product list -->
+<div class="container">
+    <h1>
+        <svg class="shopping-icon" viewBox="0 0 24 24">
+            <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v12z"/>
+        </svg>
+        Women's Dresses Collection
+    </h1>
+    <div id="products-list">
+        <!-- Products will be loaded here -->
+    </div>
+</div>
+
+
+<!-- ====================================================================================== -->
+
+<!-- banner -->
+   <div class="banner-container">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <div class="banner-text">
+                <h1 class="banner-title">
+                    <span class="highlight">Premium</span> Collection
+                </h1>
+                <h2 class="banner-subtitle">Women's Fashion Dresses</h2>
+                <p class="banner-description">
+                    Discover the latest trends in women's fashion. From elegant evening dresses to casual day wear, find your perfect style with our curated collection of premium quality clothing.
+                </p>
+                <div class="banner-buttons">
+                    <button class="btn-primary">
+                        <svg class="btn-icon" viewBox="0 0 24 24">
+                            <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v12z"/>
+                        </svg>
+                        Shop Now
+                    </button>
+                    <button class="btn-secondary">
+                        <svg class="btn-icon" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        View Collection
+                    </button>
+                </div>
+                <div class="banner-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Premium Dresses</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Top Brands</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50%</span>
+                        <span class="stat-label">Off Sale</span>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-visual">
+                <div class="feature-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>Hand-picked designs from top fashion brands worldwide</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ============================================================================= -->
+     <!-- footer -->
+
+
+
+
+    <!-- Footer Section - Yeh actual footer hai -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Company Info Section -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <h3>Your Company</h3>
+                </div>
+                <p class="company-desc">
+                    Aapki company ka short description yahan likhiye. 
+                    Humara mission hai quality services provide karna.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Shop</a></li>
+                    <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Services Section -->
+            <div class="footer-section">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#web-design">Web Design</a></li>
+                    <li><a href="#development">Development</a></li>
+                    <li><a href="#seo">SEO Services</a></li>
+                    <li><a href="#marketing">Digital Marketing</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info Section -->
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>123 Street Name, City, Country</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <span>+92 300 1234567</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <span>info@yourcompany.com</span>
+                    </div>
+                </div>
+                <div class="newsletter">
+                    <h5>Subscribe Newsletter</h5>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#cookies">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="app.js" type="module"></script>
+    <script src="dashboard.js" type="module"></script>
 </body>
 </html>

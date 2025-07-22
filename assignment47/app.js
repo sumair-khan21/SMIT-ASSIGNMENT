@@ -116,6 +116,8 @@ let url = `https://fakestoreapi.com/products`
         showData.innerHTML = `<div class="no-products">No Products Found</div>`;
     }
 })
+
+
 showData.addEventListener('click', (event) => {
     
     let card = event.target.closest('.card');
@@ -129,10 +131,10 @@ showData.addEventListener('click', (event) => {
     }
 })
 
-// function details(recipes){
-//     console.log(recipes);
-//     localStorage.setItem('id', recipes);
-//     // window.location.href = "nextpage.html";
+function details(recipes){
+    console.log(recipes);
+    localStorage.setItem('id', recipes);
+    // window.location.href = "nextpage.html";
 
-// }
+}
         fetchData()

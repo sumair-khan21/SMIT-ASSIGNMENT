@@ -103,44 +103,6 @@ if (signIn) {
 
 
 
-let logout = document.getElementById('logout')
-if(logout){
-logout.addEventListener('click', async ()=>{
-    const { error } = await client.auth.signOut()
-    try {
-      //   Swal.fire({
-      //   title: "Good job!",
-      //   text: "User logout",
-      //   icon: "success",
-      // });
-      window.location.href = 'index.html'
-    } catch {
-        Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `logout in error ${error.message}`,
-      });
-    }
-})
-}
-
-
-
-async function checkAuth() {
-    const { data: { session } } = await client.auth.getSession()
-    let currentPage = window.location.pathname;
-
-    if(session && currentPage == "/index.html"){
-        window.location.href = "/dashboard.html";
-    }else if(!session && currentPage == "/dashboard.html"){
-        window.location.href = "/index.html"
-    }
-}
-
-if(window.location.pathname == "/index.html" || window.location.pathname == "/dashboard.html"){
-    checkAuth()
-}
-
 
 
 
@@ -162,3 +124,9 @@ googleBtn.addEventListener("click", async () => {
       });
   }
 });
+
+
+
+
+
+// ==============================================================================================
