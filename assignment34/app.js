@@ -27,7 +27,7 @@ function updateCountdown() {
 
     
     let today = new Date()
-    let eid = new Date("June 08 2025")
+    let eid = new Date("May 26 2026")
     // console.log(eid);
     let time = eid.getTime() - today.getTime()
     // console.log(time);
