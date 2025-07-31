@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskMaster Pro</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Floating particles -->
+    <div
+      class="particle"
+      style="
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      "
+    ></div>
+    <div
+      class="particle"
+      style="
+        width: 1px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.4);
+        top: 60%;
+        left: 90%;
+        animation-delay: 2s;
+      "
+    ></div>
+    <div
+      class="particle"
+      style="
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        top: 80%;
+        left: 30%;
+        animation-delay: 4s;
+      "
+    ></div>
+    <div
+      class="particle"
+      style="
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        top: 30%;
+        left: 70%;
+        animation-delay: 1s;
+      "
+    ></div>
+
+    <div class="container">
+      <div class="header">
+        <h1>
+          <i class="fas fa-rocket"></i>
+          TaskMaster Pro
+        </h1>
+        <p>Supercharge your productivity with style</p>
+      </div>
+
+      <div class="input-section">
+        <div class="input-container">
+          <input
+            type="text"
+            id="data"
+            placeholder="What's your next mission?"
+          />
+          <button id="submit">
+            <i class="fas fa-plus-circle"></i>
+            Launch
+          </button>
+        </div>
+      </div>
+
+      <div class="todos-section">
+        <div class="section-title">
+          <i class="fas fa-list-check"></i>
+          Mission Control
+        </div>
+        <ul id="todo_list">
+          <!-- Todos will be inserted here -->
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
