@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postly | Share Your Thoughts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <div class="nav-brand">
+                <i class="fas fa-comment-dots"></i>
+                <span>Postly</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-hashtag"></i> Explore</a>
+                <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+                <a href="#"><i class="fas fa-envelope"></i> Messages</a>
+                <a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a>
+                <a href="#"><i class="fas fa-list"></i> Lists</a>
+                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                <a href="#"><i class="fas fa-ellipsis-h"></i> More</a>
+            </div>
+            <a href="signup.html" class="btn btn-primary btn-nav">Sign Up</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <header class="main-header">
+                <h1>Home</h1>
+            </header>
+            
+            <!-- Post Feed -->
+            <div class="post-feed" id="post-feed">
+                <!-- Posts will be dynamically inserted here -->
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="app-sidebar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search Postly">
+            </div>
+            
+            <div class="trending-box">
+                <h3>What's happening</h3>
+                <div class="trending-item">
+                    <span>Technology · Trending</span>
+                    <h4>#WebDevelopment</h4>
+                    <span>5,234 posts</span>
+                </div>
+                <div class="trending-item">
+                    <span>Business · Trending</span>
+                    <h4>#StartupLife</h4>
+                    <span>8,765 posts</span>
+                </div>
+                <a href="#" class="show-more">Show more</a>
+            </div>
+            
+            <div class="who-to-follow">
+                <h3>Who to follow</h3>
+                <div class="follow-item">
+                    <div class="follow-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="follow-info">
+                        <h4>Jane Smith</h4>
+                        <span>@janesmith</span>
+                    </div>
+                    <button class="btn btn-follow">Follow</button>
+                </div>
+                <div class="follow-item">
+                    <div class="follow-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="follow-info">
+                        <h4>Tech Updates</h4>
+                        <span>@techupdates</span>
+                    </div>
+                    <button class="btn btn-follow">Follow</button>
+                </div>
+                <a href="#" class="show-more">Show more</a>
+            </div>
+            
+            <footer class="sidebar-footer">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Cookies</a>
+                <span>© 2025 Postly, Inc.</span>
+            </footer>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>

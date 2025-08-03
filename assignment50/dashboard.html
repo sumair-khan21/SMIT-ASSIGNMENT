@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home / Postly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <div class="nav-brand">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-hashtag"></i> Explore</a>
+                <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+                <a href="#"><i class="fas fa-envelope"></i> Messages</a>
+                <a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a>
+                <a href="#"><i class="fas fa-list"></i> Lists</a>
+                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                <a href="#"><i class="fas fa-ellipsis-h"></i> More</a>
+            </div>
+            <button id="createPostBtn" class="btn btn-primary btn-nav">Post</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <header class="main-header">
+                <h1>Home</h1>
+                <div class="header-actions">
+                    <button id="logoutBtn" class="btn btn-text">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Create Post Form -->
+            <div id="postForm" class="create-post hidden">
+                <div class="post-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <form class="post-form">
+                    <textarea id="postContent" placeholder="What's happening?"></textarea>
+                    <div class="post-actions">
+                        <div class="post-tools">
+                            <button type="button"><i class="fas fa-image"></i></button>
+                            <button type="button"><i class="fas fa-poll"></i></button>
+                            <button type="button"><i class="far fa-smile"></i></button>
+                            <button type="button"><i class="fas fa-calendar-alt"></i></button>
+                            <button type="button"><i class="fas fa-map-marker-alt"></i></button>
+                        </div>
+                        <button id="submitPostBtn" type="submit" class="btn btn-primary" disabled>Post</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Post Feed -->
+            <div class="post-feed" id="postsContainer">
+                <!-- Posts will be dynamically inserted here -->
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="app-sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <h4 id="userName">User Name</h4>
+                    <span>@username</span>
+                </div>
+                <button class="btn btn-more">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            
+            <div class="trending-box">
+                <h3>What's happening</h3>
+                <div class="trending-item">
+                    <span>Technology · Trending</span>
+                    <h4>#WebDevelopment</h4>
+                    <span>5,234 posts</span>
+                </div>
+                <a href="#" class="show-more">Show more</a>
+            </div>
+            
+            <footer class="sidebar-footer">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Cookies</a>
+                <span>© 2023 Postly, Inc.</span>
+            </footer>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>

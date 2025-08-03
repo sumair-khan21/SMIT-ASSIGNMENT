@@ -39,7 +39,7 @@ submitBtn.addEventListener("click", async () => {
   text: "Todo updated successfully!",
   icon: "success"
 });
-
+// wapas insert mood mai chale jata hy
     editingId = null;
     submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Launch';
   } else {
