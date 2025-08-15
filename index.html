@@ -3,544 +3,1559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMIT - ASSIGNMENT</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SMIT Assignments - Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            color: white;
+            font-size: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-text p {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .header-right {
+            display: none;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.875rem;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .filters-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 28rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #c7d2fe;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(199, 210, 254, 0.5);
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .category-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        .results-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .results-info p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp 0.4s ease-out forwards;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #c7d2fe;
+        }
+
+        .card-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 180px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-overlay {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .card-category {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            z-index: 10;
+        }
+
+        .category-html {
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+        }
+        .category-css {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .category-javascript {
+            background: linear-gradient(135deg, #eab308 0%, #a16207 100%);
+        }
+        .category-framework {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+        }
+
+        .card-number {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            z-index: 10;
+        }
+
+        .card-actions {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .card:hover .card-actions {
+            opacity: 1;
+        }
+
+        .card-action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #1e293b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .card-action-btn:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-action-btn.primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .card-action-btn.primary:hover {
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .card-difficulty {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .difficulty-beginner {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .difficulty-intermediate {
+            background: #fef9c3;
+            color: #854d0e;
+            border-color: #fef08a;
+        }
+
+        .difficulty-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+        .card-description {
+            color: #64748b;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .load-more-btn {
+            padding: 0.875rem 2.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+            font-size: 0.95rem;
+        }
+
+        .load-more-btn:hover {
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .no-results-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        .no-results h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results p {
+            color: #94a3b8;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 1.25rem;
+            max-width: 48rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            position: relative;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 18rem;
+            object-fit: cover;
+            border-radius: 1.25rem 1.25rem 0 0;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .modal-close:hover {
+            background: white;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            transform: rotate(90deg);
+        }
+
+        .modal-category {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: white;
+            z-index: 10;
+        }
+
+        .modal-content {
+            padding: 2rem;
+        }
+
+        .modal-title-section {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-titles h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-titles h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .modal-difficulty {
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+
+        .modal-description {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .modal-section h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .modal-section h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 2px;
+        }
+
+        .modal-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .modal-tech-tag {
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.875rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+        }
+
+        .modal-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-features li {
+            display: flex;
+            align-items: flex-start;
+            color: #475569;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .modal-features li::before {
+            content: '•';
+            color: #6366f1;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .modal-btn {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .modal-btn.primary {
+            flex: 1;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-btn.primary:hover {
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-btn.secondary {
+            padding: 1rem 2rem;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .modal-btn.secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .header-right {
+                display: block;
+            }
+
+            .filters-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .modal-image {
+                height: 22rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .modal {
+                margin: 0.5rem;
+                max-height: 95vh;
+            }
+
+            .modal-title-section {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- <h1>SMIT Assignments</h1>
-    <div class="container">
-        <ul class="assignment-list">
-            <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment00/" target="_blank"><li>Assignment 00 (HTML Resume)</li></a>
-            <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment01/" target="_blank"><li>Assignment 01 (HTML Linking)</li></a>
-            <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment02/" target="_blank"><li>Assignment 02 (Periodic Table)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment03/" target="_blank"><li>Assignment 03 (HTML Form)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment04/" target="_blank"><li>Assignment 04 (Saylani Clone)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment05/" target="_blank"><li>Assignment 05 (CSS Grid)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment06/" target="_blank"><li>Assignment 06 (NetFlix Clone)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment07/" target="_blank"><li>Assignment 07 (CSS Amination)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment08/" target="_blank"><li>Assignment 08 (Bootstrap)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment09/" target="_blank"><li>Assignment 09 (Javascript Assignment)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment10/" target="_blank"><li>Assignment 10 (Javascript Assignment)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment11/" target="_blank"><li>Assignment 11 (Number Guessing Game)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment12/" target="_blank"><li>Assignment 12 (Password Generator)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment13/" target="_blank"><li>Assignment 13 (Javascript Assignment)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment14/" target="_blank"><li>Assignment 14 (Pizza App)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment15/" target="_blank"><li>Assignment 15 (Keyboard)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment16/" target="_blank"><li>Assignment 16 (Dice Game)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment17/" target="_blank"><li>Assignment 17 (Slider & Go To Top)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment18/" target="_blank"><li>Assignment 18 (Text Formatter)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment19/" target="_blank"><li>Assignment 19 (Todo App)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment20/" target="_blank"><li>Assignment 20 (Simple Calculator)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment21/" target="_blank"><li>Assignment 21 (See More & See Less)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment22/" target="_blank"><li>Assignment 22 (Shadow Controller)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment23/" target="_blank"><li>Assignment 23 (Password Generator)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment24/" target="_blank"><li>Assignment 24 (Tic Tac Toe)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment25/" target="_blank"><li>Assignment 25 (Login & Signup with local storage)</li></a>
-        <a href="#" target="_blank"><li>Assignment 26 (Filter Comming Soon)</li></a>
-        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment27/" target="_blank"><li>Assignment 27 (Stop Watch)</li></a>
-            
-        </ul>
-    </div> -->
-
-   
-    <h1>SMIT Assignments</h1>
-    <div class="container">
-        <div class="assignment-grid">
-            <div class="card">
-                <img src="images/00.jpeg" alt="Assignment 00">
-                <div class="card-content">
-                    <h3>Assignment 00</h3>
-                    <p>HTML Resume</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment00/" target="_blank" class="btn">View</a>
+    <!-- Professional Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>SMIT Assignments</h1>
+                        <p>Professional Web Development Portfolio</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-layer-group"></i>
+                            <span id="total-projects">51 Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>2024 Portfolio</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </header>
 
-            <div class="card">
-                <img src="images/01.jpeg" alt="Assignment 01">
-                <div class="card-content">
-                    <h3>Assignment 01</h3>
-                    <p>HTML Linking</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment01/" target="_blank" class="btn">View</a>
+    <!-- Filters and Search -->
+    <div class="filters-section">
+        <div class="container">
+            <div class="filters-content">
+                <!-- Search -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search projects..." class="search-input">
+                </div>
+
+                <!-- Category Filter -->
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="All">All</button>
+                    <button class="category-btn" data-category="HTML">HTML</button>
+                    <button class="category-btn" data-category="CSS">CSS</button>
+                    <button class="category-btn" data-category="JavaScript">JavaScript</button>
+                    <button class="category-btn" data-category="Framework">Framework</button>
                 </div>
             </div>
-
-            <div class="card">
-                <img src="images/02.png" alt="Assignment 02">
-                <div class="card-content">
-                    <h3>Assignment 02</h3>
-                    <p>Periodic Table</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment02/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/03.png" alt="Assignment 03">
-                <div class="card-content">
-                    <h3>Assignment 03</h3>
-                    <p>HTML Form</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment03/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/04.png" alt="Assignment 04">
-                <div class="card-content">
-                    <h3>Assignment 04</h3>
-                    <p>Saylani Clone</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment04/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/05.png" alt="Assignment 05">
-                <div class="card-content">
-                    <h3>Assignment 05</h3>
-                    <p>CSS Grid</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment05/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <img src="images/06.png" alt="Assignment 06">
-                <div class="card-content">
-                    <h3>Assignment 06</h3>
-                    <p>NetFlix Clone</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment06/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/07.png" alt="Assignment 07">
-                <div class="card-content">
-                    <h3>Assignment 07</h3>
-                    <p>CSS Amination</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment07/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/08.png" alt="Assignment 08">
-                <div class="card-content">
-                    <h3>Assignment 08</h3>
-                    <p>Bootstrap</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment08/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/09.jpg" alt="Assignment 09">
-                <div class="card-content">
-                    <h3>Assignment 09</h3>
-                    <p>Javascript Assignment</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment09/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/10.jpg" alt="Assignment 10">
-                <div class="card-content">
-                    <h3>Assignment 10</h3>
-                    <p>Javascript Assignment</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment10/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/11.jpg" alt="Assignment 11">
-                <div class="card-content">
-                    <h3>Assignment 11</h3>
-                    <p>Number Guessing Game</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment11/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/12.jpg" alt="Assignment 12">
-                <div class="card-content">
-                    <h3>Assignment 12</h3>
-                    <p>Password Generator</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment12/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/13.jpg" alt="Assignment 13">
-                <div class="card-content">
-                    <h3>Assignment 13</h3>
-                    <p>Javascript Assignment</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment13/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/13.jpg" alt="Assignment 14">
-                <div class="card-content">
-                    <h3>Assignment 14</h3>
-                    <p>Pizza App</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment14/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/15.png" alt="Assignment 14">
-                <div class="card-content">
-                    <h3>Assignment 15</h3>
-                    <p>Keyboard</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment15/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/16.png" alt="Assignment 16">
-                <div class="card-content">
-                    <h3>Assignment 16</h3>
-                    <p>Dice Game</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment16/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/17.png" alt="Assignment 17">
-                <div class="card-content">
-                    <h3>Assignment 17</h3>
-                    <p>Slider & Go To Top</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment17/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/18.png" alt="Assignment 18">
-                <div class="card-content">
-                    <h3>Assignment 18</h3>
-                    <p>Text Formatter</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment18/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/19.png" alt="Assignment 19">
-                <div class="card-content">
-                    <h3>Assignment 19</h3>
-                    <p>Todo App</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment19/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/20.png" alt="Assignment 20">
-                <div class="card-content">
-                    <h3>Assignment 20</h3>
-                    <p>Simple Calculator</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment20/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/21.png" alt="Assignment 21">
-                <div class="card-content">
-                    <h3>Assignment 21</h3>
-                    <p>Read More & Read Less</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment21/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/22.png" alt="Assignment 22">
-                <div class="card-content">
-                    <h3>Assignment 22</h3>
-                    <p>Shadow Controller                    </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment22/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/23.png" alt="Assignment 23">
-                <div class="card-content">
-                    <h3>Assignment 23</h3>
-                    <p>Password Generator</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment23/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/24.png" alt="Assignment 24">
-                <div class="card-content">
-                    <h3>Assignment 24</h3>
-                    <p>Tic Tac Toe</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment24/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/25.png" alt="Assignment 25">
-                <div class="card-content">
-                    <h3>Assignment 25</h3>
-                    <p>Login & Sign Up with Local Storage</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment25/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/26.png" alt="Assignment 26">
-                <div class="card-content">
-                    <h3>Assignment 26</h3>
-                    <p>Filter</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment26/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/27.png" alt="Assignment 27">
-                <div class="card-content">
-                    <h3>Assignment 27</h3>
-                    <p>Stop Watch</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment27/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/28.png" alt="Assignment 28">
-                <div class="card-content">
-                    <h3>Assignment 28</h3>
-                    <p>Eid ul Fitr Countdown</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment28/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/29.jpg" alt="Assignment 29">
-                <div class="card-content">
-                    <h3>Assignment 29</h3>
-                    <p>Simple Student Form</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment29/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/30.jpg" alt="Assignment 30">
-                <div class="card-content">
-                    <h3>Assignment 30</h3>
-                    <p>Password Generator with uni code</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment30/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="images/31.jpg" alt="Assignment 31">
-                <div class="card-content">
-                    <h3>Assignment 31</h3>
-                    <p>Word Shuffle Generator </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment31/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/32.jpg" alt="Assignment 32">
-                <div class="card-content">
-                    <h3>Assignment 32</h3>
-                    <p>Task Manager </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment32/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/33.png" alt="Assignment 33">
-                <div class="card-content">
-                    <h3>Assignment 33</h3>
-                    <p>Student Managnment System </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment33/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-            
-
-
-            <div class="card">
-                <img src="images/34.jpeg" alt="Assignment 34">
-                <div class="card-content">
-                    <h3>Assignment 34</h3>
-                    <p>Countdown to Eid ul Adha 2025
-                    </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment34/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            
-            <div class="card">
-                <img src="images/35.png" alt="Assignment 35">
-                <div class="card-content">
-                    <h3>Assignment 35</h3>
-                    <p>Birthday Countdown
-                    </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment35/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-            
-
-            <div class="card">
-                <img src="images/36.png" alt="Assignment 36">
-                <div class="card-content">
-                    <h3>Assignment 36</h3>
-                    <p>Weekend Checker
-                    </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment36/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-            
-
-            
-            <div class="card">
-                <img src="images/37.png" alt="Assignment 37">
-                <div class="card-content">
-                    <h3>Assignment 37</h3>
-                    <p>Greeting Based on Time
-
-                    </p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment37/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            
-            
-            <div class="card">
-                <img src="images/38.png" alt="Assignment 38">
-                <div class="card-content">
-                    <h3>Assignment 38</h3>
-                    <p>Age Calculator</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment38/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            
-            <div class="card">
-                <img src="images/39.png" alt="Assignment 39">
-                <div class="card-content">
-                    <h3>Assignment 39</h3>
-                    <p>Bulb Toggle Switch</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment39/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            
-            <div class="card">
-                <img src="images/40.png" alt="Assignment 40">
-                <div class="card-content">
-                    <h3>Assignment 40</h3>
-                    <p>Simple Slider</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment40/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            
-            <div class="card">
-                <img src="images/41.png" alt="Assignment 41">
-                <div class="card-content">
-                    <h3>Assignment 41</h3>
-                    <p>Text Toggle App</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment41/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/42.png" alt="Assignment 42">
-                <div class="card-content">
-                    <h3>Assignment 42</h3>
-                    <p>Search Bar & Data Fetch</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment42/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            
-            <div class="card">
-                <img src="images/43.png" alt="Assignment 43">
-                <div class="card-content">
-                    <h3>Assignment 43</h3>
-                    <p>DOM Form</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment43/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            
-            <div class="card">
-                <img src="images/44.png" alt="Assignment 44">
-                <div class="card-content">
-                    <h3>Assignment 44</h3>
-                    <p>Todo With Day Js</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment44/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            
-            <div class="card">
-                <img src="images/45.png" alt="Assignment 45">
-                <div class="card-content">
-                    <h3>Assignment 45</h3>
-                    <p>Attendance App</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment45/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-
-            <div class="card">
-                <img src="images/47.png" alt="Assignment 47">
-                <div class="card-content">
-                    <h3>Assignment 47</h3>
-                    <p>Search & Filter</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment47/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/48.png" alt="Assignment 48">
-                <div class="card-content">
-                    <h3>Assignment 48</h3>
-                    <p>Sign Up & Login with Supabase</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment48/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <img src="images/49.png" alt="Assignment 49">
-                <div class="card-content">
-                    <h3>Assignment 49</h3>
-                    <p>TaskMaster Pro</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment49/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-            
-
-             <div class="card">
-                <img src="images/50.png" alt="Assignment 50">
-                <div class="card-content">
-                    <h3>Assignment 50</h3>
-                    <p>Post App</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment50/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-            
-
-            <div class="card">
-                <img src="images/51.png" alt="Assignment 51">
-                <div class="card-content">
-                    <h3>Assignment 51</h3>
-                    <p>Registration Form</p>
-                    <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment51/" target="_blank" class="btn">View</a>
-                </div>
-            </div>
-
-            <!-- Add more cards as needed -->
         </div>
     </div>
-    
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Results Info -->
+            <div class="results-info">
+                <p id="results-text">Showing 12 of 51 projects</p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid" id="cards-grid">
+                <!-- Cards will be dynamically generated here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container" id="load-more-container">
+                <button class="load-more-btn" id="load-more-btn">
+                    Load More Projects (<span id="remaining-count">39</span> remaining)
+                </button>
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>No projects found</h3>
+                <p>Try adjusting your search terms or category filter</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <img id="modal-image" src="/placeholder.svg" alt="" class="modal-image">
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-category" id="modal-category"></div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-title-section">
+                    <div class="modal-titles">
+                        <h2 id="modal-assignment-title"></h2>
+                        <h3 id="modal-project-title"></h3>
+                    </div>
+                    <span class="modal-difficulty" id="modal-difficulty"></span>
+                </div>
+                <p id="modal-description" class="modal-description"></p>
+                
+                <div class="modal-section">
+                    <h4>Technologies Used</h4>
+                    <div class="modal-technologies" id="modal-technologies"></div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>Key Features</h4>
+                    <ul class="modal-features" id="modal-features"></ul>
+                </div>
+
+                <div class="modal-actions">
+                    <a id="modal-view-btn" href="" target="_blank" class="modal-btn primary">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Live Project
+                    </a>
+                    <button class="modal-btn secondary" id="modal-close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Assignment data
+        const assignments = [
+            {
+                id: "00",
+                title: "HTML Resume",
+                description: "Professional resume built with semantic HTML structure and modern styling techniques",
+                image: "images/00.jpeg",
+                category: "HTML",
+                difficulty: "Beginner",
+                technologies: ["HTML5", "CSS3", "Semantic Markup"],
+                features: ["Responsive Design", "Print Friendly", "SEO Optimized"],
+            },
+            {
+                id: "01",
+                title: "HTML Linking",
+                description: "Navigation and linking concepts demonstration with internal and external links",
+                image: "images/01.jpeg",
+                category: "HTML",
+                difficulty: "Beginner",
+                technologies: ["HTML5", "Navigation", "Anchor Tags"],
+                features: ["Multi-page Navigation", "Smooth Scrolling", "Link States"],
+            },
+            {
+                id: "02",
+                title: "Periodic Table",
+                description: "Interactive periodic table of elements with detailed information and styling",
+                image: "images/02.png",
+                category: "CSS",
+                difficulty: "Intermediate",
+                technologies: ["HTML5", "CSS3", "Grid Layout"],
+                features: ["Interactive Elements", "Hover Effects", "Responsive Grid"],
+            },
+            {
+                id: "03",
+                title: "HTML Form",
+                description: "Comprehensive form with validation and modern input elements",
+                image: "images/03.png",
+                category: "HTML",
+                difficulty: "Intermediate",
+                technologies: ["HTML5", "Form Validation", "CSS3"],
+                features: ["Client-side Validation", "Custom Styling", "Accessibility"],
+            },
+            {
+                id: "04",
+                title: "Saylani Clone",
+                description: "Educational website clone with modern design and responsive layout",
+                image: "images/04.png",
+                category: "CSS",
+                difficulty: "Advanced",
+                technologies: ["HTML5", "CSS3", "Responsive Design"],
+                features: ["Multi-section Layout", "Modern UI", "Mobile Optimized"],
+            },
+            {
+                id: "05",
+                title: "CSS Grid",
+                description: "Advanced CSS Grid layout techniques and responsive design patterns",
+                image: "images/05.png",
+                category: "CSS",
+                difficulty: "Advanced",
+                technologies: ["CSS Grid", "Flexbox", "Responsive Design"],
+                features: ["Complex Layouts", "Grid Areas", "Auto-fit Columns"],
+            },
+            {
+                id: "06",
+                title: "Netflix Clone",
+                description: "Streaming platform UI recreation with modern design principles",
+                image: "images/06.png",
+                category: "CSS",
+                difficulty: "Advanced",
+                technologies: ["HTML5", "CSS3", "JavaScript"],
+                features: ["Hero Section", "Content Rows", "Hover Animations"],
+            },
+            {
+                id: "07",
+                title: "CSS Animation",
+                description: "Creative animations and transitions showcasing CSS animation capabilities",
+                image: "images/07.png",
+                category: "CSS",
+                difficulty: "Intermediate",
+                technologies: ["CSS Animations", "Keyframes", "Transitions"],
+                features: ["Smooth Animations", "Interactive Effects", "Performance Optimized"],
+            },
+            {
+                id: "08",
+                title: "Bootstrap",
+                description: "Responsive design implementation using Bootstrap framework",
+                image: "images/08.png",
+                category: "Framework",
+                difficulty: "Intermediate",
+                technologies: ["Bootstrap", "HTML5", "Responsive Grid"],
+                features: ["Component Library", "Responsive Utilities", "Custom Themes"],
+            },
+            {
+                id: "09",
+                title: "JavaScript Basics",
+                description: "Fundamental JavaScript concepts and DOM manipulation techniques",
+                image: "images/09.jpg",
+                category: "JavaScript",
+                difficulty: "Beginner",
+                technologies: ["JavaScript", "DOM", "Event Handling"],
+                features: ["Interactive Elements", "Dynamic Content", "User Input"],
+            },
+            {
+                id: "10",
+                title: "JavaScript Advanced",
+                description: "Advanced JavaScript programming concepts and modern ES6+ features",
+                image: "images/10.jpg",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["ES6+", "Async/Await", "Modules"],
+                features: ["Modern Syntax", "API Integration", "Error Handling"],
+            },
+            {
+                id: "11",
+                title: "Number Guessing Game",
+                description: "Interactive guessing game with game logic and user feedback",
+                image: "images/11.jpg",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Game Logic", "Random Numbers"],
+                features: ["Score Tracking", "Difficulty Levels", "Responsive UI"],
+            },
+            {
+                id: "12",
+                title: "Password Generator",
+                description: "Secure password generation tool with customizable options",
+                image: "images/12.jpg",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Cryptography", "Security"],
+                features: ["Custom Length", "Character Sets", "Copy to Clipboard"],
+            },
+            {
+                id: "13",
+                title: "JavaScript Project",
+                description: "Complex JavaScript application demonstrating advanced concepts",
+                image: "images/13.jpg",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "OOP", "Design Patterns"],
+                features: ["Modular Code", "Error Handling", "Performance Optimization"],
+            },
+            {
+                id: "14",
+                title: "Pizza App",
+                description: "Food ordering application interface with interactive features",
+                image: "images/13.jpg",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Local Storage", "Cart System"],
+                features: ["Order Management", "Price Calculation", "User Preferences"],
+            },
+            {
+                id: "15",
+                title: "Virtual Keyboard",
+                description: "Interactive on-screen keyboard with full functionality",
+                image: "images/15.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Event Handling", "DOM"],
+                features: ["Key Press Events", "Shift Functionality", "Multiple Layouts"],
+            },
+            {
+                id: "16",
+                title: "Dice Game",
+                description: "Probability-based dice rolling game with scoring system",
+                image: "images/16.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Game Logic", "Animation"],
+                features: ["Multiplayer Support", "Score Tracking", "Animated Dice"],
+            },
+            {
+                id: "17",
+                title: "Slider & Go To Top",
+                description: "Image slider with navigation features and smooth scrolling",
+                image: "images/17.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "CSS Transitions", "Scroll Events"],
+                features: ["Auto-play", "Touch Support", "Smooth Navigation"],
+            },
+            {
+                id: "18",
+                title: "Text Formatter",
+                description: "Text manipulation and formatting tool with multiple options",
+                image: "images/18.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "String Methods", "RegEx"],
+                features: ["Case Conversion", "Word Count", "Text Analysis"],
+            },
+            {
+                id: "19",
+                title: "Todo App",
+                description: "Task management application with CRUD operations",
+                image: "images/19.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Local Storage", "CRUD"],
+                features: ["Add/Edit/Delete", "Priority Levels", "Filter Options"],
+            },
+            {
+                id: "20",
+                title: "Simple Calculator",
+                description: "Mathematical operations calculator with clean interface",
+                image: "images/20.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Math Operations", "UI Design"],
+                features: ["Basic Operations", "Memory Functions", "Keyboard Support"],
+            },
+            {
+                id: "21",
+                title: "Read More & Less",
+                description: "Content expansion functionality with smooth transitions",
+                image: "images/21.png",
+                category: "JavaScript",
+                difficulty: "Beginner",
+                technologies: ["JavaScript", "DOM Manipulation", "CSS"],
+                features: ["Smooth Transitions", "Dynamic Content", "Responsive Design"],
+            },
+            {
+                id: "22",
+                title: "Shadow Controller",
+                description: "CSS shadow manipulation tool with real-time preview",
+                image: "images/22.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "CSS Properties", "Real-time Updates"],
+                features: ["Live Preview", "Multiple Shadows", "Export Code"],
+            },
+            {
+                id: "23",
+                title: "Password Generator Pro",
+                description: "Advanced password generation with security options",
+                image: "images/23.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Security", "Validation"],
+                features: ["Strength Meter", "Custom Rules", "Bulk Generation"],
+            },
+            {
+                id: "24",
+                title: "Tic Tac Toe",
+                description: "Classic strategy game implementation with AI opponent",
+                image: "images/24.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Game AI", "Strategy"],
+                features: ["AI Opponent", "Score Tracking", "Game History"],
+            },
+            {
+                id: "25",
+                title: "Login & Signup",
+                description: "Authentication system with local storage and validation",
+                image: "images/25.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Local Storage", "Validation"],
+                features: ["Form Validation", "Session Management", "Security Features"],
+            },
+            {
+                id: "26",
+                title: "Filter System",
+                description: "Dynamic content filtering mechanism with multiple criteria",
+                image: "images/26.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Array Methods", "DOM"],
+                features: ["Multi-criteria Filter", "Search Integration", "Sort Options"],
+            },
+            {
+                id: "27",
+                title: "Stop Watch",
+                description: "Precision timing application with lap functionality",
+                image: "images/27.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Timing Functions", "UI"],
+                features: ["Lap Times", "Precision Timing", "Start/Stop/Reset"],
+            },
+            {
+                id: "28",
+                title: "Eid ul Fitr Countdown",
+                description: "Festival countdown timer with beautiful animations",
+                image: "images/28.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Date/Time", "Animations"],
+                features: ["Real-time Updates", "Animated Display", "Responsive Design"],
+            },
+            {
+                id: "29",
+                title: "Student Form",
+                description: "Educational data collection form with comprehensive validation",
+                image: "images/29.jpg",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Form Validation", "Data Storage"],
+                features: ["Multi-step Form", "Data Validation", "Progress Indicator"],
+            },
+            {
+                id: "30",
+                title: "Unicode Password Generator",
+                description: "Password generator with unicode character support",
+                image: "images/30.jpg",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Unicode", "Security"],
+                features: ["Unicode Support", "Custom Character Sets", "Export Options"],
+            },
+            {
+                id: "31",
+                title: "Word Shuffle Generator",
+                description: "Text scrambling and word games with interactive features",
+                image: "images/31.jpg",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "String Manipulation", "Algorithms"],
+                features: ["Random Shuffling", "Word Games", "Difficulty Levels"],
+            },
+            {
+                id: "32",
+                title: "Task Manager",
+                description: "Comprehensive task management system with advanced features",
+                image: "images/32.jpg",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Local Storage", "Task Management"],
+                features: ["Project Organization", "Due Dates", "Progress Tracking"],
+            },
+            {
+                id: "33",
+                title: "Student Management System",
+                description: "Complete student data management with CRUD operations",
+                image: "images/33.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Data Management", "CRUD Operations"],
+                features: ["Student Records", "Grade Management", "Report Generation"],
+            },
+            {
+                id: "34",
+                title: "Eid ul Adha Countdown",
+                description: "Festival countdown for Eid ul Adha 2025 with animations",
+                image: "images/34.jpeg",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Date Calculations", "Animations"],
+                features: ["Real-time Countdown", "Islamic Calendar", "Responsive Design"],
+            },
+            {
+                id: "35",
+                title: "Birthday Countdown",
+                description: "Personal birthday countdown timer with customization",
+                image: "images/35.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Date/Time", "Local Storage"],
+                features: ["Personal Dates", "Custom Messages", "Notification System"],
+            },
+            {
+                id: "36",
+                title: "Weekend Checker",
+                description: "Day of week identification tool with calendar features",
+                image: "images/36.png",
+                category: "JavaScript",
+                difficulty: "Beginner",
+                technologies: ["JavaScript", "Date Objects", "Calendar"],
+                features: ["Date Validation", "Weekend Detection", "Calendar Display"],
+            },
+            {
+                id: "37",
+                title: "Time-based Greeting",
+                description: "Dynamic greetings based on current time of day",
+                image: "images/37.png",
+                category: "JavaScript",
+                difficulty: "Beginner",
+                technologies: ["JavaScript", "Date/Time", "Dynamic Content"],
+                features: ["Time Detection", "Dynamic Messages", "Personalization"],
+            },
+            {
+                id: "38",
+                title: "Age Calculator",
+                description: "Precise age calculation tool with detailed breakdown",
+                image: "images/38.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "Date Calculations", "Math"],
+                features: ["Precise Calculations", "Multiple Formats", "Age Statistics"],
+            },
+            {
+                id: "39",
+                title: "Bulb Toggle Switch",
+                description: "Interactive light switch simulation with animations",
+                image: "images/39.png",
+                category: "JavaScript",
+                difficulty: "Beginner",
+                technologies: ["JavaScript", "CSS Animations", "Event Handling"],
+                features: ["Toggle Animation", "State Management", "Visual Feedback"],
+            },
+            {
+                id: "40",
+                title: "Simple Slider",
+                description: "Image carousel with smooth transitions and controls",
+                image: "images/40.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "CSS Transitions", "Image Handling"],
+                features: ["Smooth Transitions", "Navigation Controls", "Auto-play"],
+            },
+            {
+                id: "41",
+                title: "Text Toggle App",
+                description: "Text visibility toggle functionality with animations",
+                image: "images/41.png",
+                category: "JavaScript",
+                difficulty: "Beginner",
+                technologies: ["JavaScript", "DOM Manipulation", "Animations"],
+                features: ["Text Toggle", "Smooth Animations", "State Persistence"],
+            },
+            {
+                id: "42",
+                title: "Search & Data Fetch",
+                description: "Dynamic search with API integration and real-time results",
+                image: "images/42.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Fetch API", "Async/Await"],
+                features: ["API Integration", "Real-time Search", "Error Handling"],
+            },
+            {
+                id: "43",
+                title: "DOM Form",
+                description: "Dynamic form manipulation with DOM methods",
+                image: "images/43.png",
+                category: "JavaScript",
+                difficulty: "Intermediate",
+                technologies: ["JavaScript", "DOM Manipulation", "Form Handling"],
+                features: ["Dynamic Fields", "Form Validation", "Data Processing"],
+            },
+            {
+                id: "44",
+                title: "Todo with Day.js",
+                description: "Todo app with advanced date handling using Day.js library",
+                image: "images/44.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Day.js", "Date Management"],
+                features: ["Advanced Dates", "Due Date Tracking", "Date Formatting"],
+            },
+            {
+                id: "45",
+                title: "Attendance App",
+                description: "Student attendance tracking system with reports",
+                image: "images/45.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Data Management", "Local Storage"],
+                features: ["Attendance Tracking", "Report Generation", "Student Management"],
+            },
+            {
+                id: "47",
+                title: "Search & Filter",
+                description: "Advanced search and filtering system with multiple criteria",
+                image: "images/47.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Array Methods", "Search Algorithms"],
+                features: ["Multi-criteria Search", "Advanced Filters", "Sort Options"],
+            },
+            {
+                id: "48",
+                title: "Supabase Auth",
+                description: "Authentication system with Supabase backend integration",
+                image: "images/48.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Supabase", "Authentication"],
+                features: ["User Authentication", "Database Integration", "Session Management"],
+            },
+            {
+                id: "49",
+                title: "TaskMaster Pro",
+                description: "Professional task management solution with advanced features",
+                image: "images/49.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Task Management", "Data Persistence"],
+                features: ["Project Management", "Team Collaboration", "Progress Tracking"],
+            },
+            {
+                id: "50",
+                title: "Post App",
+                description: "Social media post management with CRUD operations",
+                image: "images/50.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "CRUD Operations", "Social Features"],
+                features: ["Post Management", "User Interactions", "Content Filtering"],
+            },
+            {
+                id: "51",
+                title: "Registration Form",
+                description: "Comprehensive user registration system with validation",
+                image: "images/51.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Form Validation", "User Management"],
+                features: ["Multi-step Registration", "Data Validation", "User Profiles"],
+            },
+        ];
+
+        // Global variables
+        let filteredAssignments = [...assignments];
+        let visibleCards = 12;
+        let selectedCategory = "All";
+        let searchTerm = "";
+
+        // DOM elements
+        const searchInput = document.getElementById("search-input");
+        const categoryButtons = document.querySelectorAll(".category-btn");
+        const cardsGrid = document.getElementById("cards-grid");
+        const loadMoreBtn = document.getElementById("load-more-btn");
+        const loadMoreContainer = document.getElementById("load-more-container");
+        const noResults = document.getElementById("no-results");
+        const resultsText = document.getElementById("results-text");
+        const remainingCount = document.getElementById("remaining-count");
+        const totalProjects = document.getElementById("total-projects");
+        const modalOverlay = document.getElementById("modal-overlay");
+        const modalClose = document.getElementById("modal-close");
+        const modalCloseBtn = document.getElementById("modal-close-btn");
+
+        // Utility functions
+        function getCategoryClass(category) {
+            return `category-${category.toLowerCase()}`;
+        }
+
+        function getDifficultyClass(difficulty) {
+            return `difficulty-${difficulty.toLowerCase()}`;
+        }
+
+        function createCard(assignment, index) {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.style.animationDelay = `${index * 0.05}s`;
+
+            card.innerHTML = `
+                <div class="card-image-container">
+                    <img src="${assignment.image}" alt="${assignment.title}" class="card-image">
+                    <div class="card-overlay"></div>
+                    <div class="card-category ${getCategoryClass(assignment.category)}">${assignment.category}</div>
+                    <div class="card-number">#${assignment.id}</div>
+                    <div class="card-actions">
+                        <button class="card-action-btn" onclick="openModal('${assignment.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/" 
+                           target="_blank" class="card-action-btn primary">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3 class="card-title">Assignment ${assignment.id}</h3>
+                        <span class="card-difficulty ${getDifficultyClass(assignment.difficulty)}">${assignment.difficulty}</span>
+                    </div>
+                    <p class="card-description">${assignment.description}</p>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function renderCards() {
+            cardsGrid.innerHTML = "";
+
+            if (filteredAssignments.length === 0) {
+                noResults.style.display = "block";
+                loadMoreContainer.style.display = "none";
+                return;
+            }
+
+            noResults.style.display = "none";
+
+            const cardsToShow = filteredAssignments.slice(0, visibleCards);
+            cardsToShow.forEach((assignment, index) => {
+                const card = createCard(assignment, index);
+                cardsGrid.appendChild(card);
+            });
+
+            // Update load more button
+            if (visibleCards >= filteredAssignments.length) {
+                loadMoreContainer.style.display = "none";
+            } else {
+                loadMoreContainer.style.display = "block";
+                remainingCount.textContent = filteredAssignments.length - visibleCards;
+            }
+
+            // Update results text
+            resultsText.textContent = `Showing ${Math.min(visibleCards, filteredAssignments.length)} of ${filteredAssignments.length} projects${selectedCategory !== "All" ? ` in ${selectedCategory}` : ""}`;
+        }
+
+        function filterAssignments() {
+            const filtered = assignments.filter((assignment) => {
+                const matchesSearch =
+                    assignment.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    assignment.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    assignment.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+                const matchesCategory = selectedCategory === "All" || assignment.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            filteredAssignments = filtered;
+            visibleCards = 12;
+            renderCards();
+        }
+
+        function openModal(assignmentId) {
+            const assignment = assignments.find((a) => a.id === assignmentId);
+            if (!assignment) return;
+
+            // Populate modal content
+            document.getElementById("modal-image").src = assignment.image;
+            document.getElementById("modal-image").alt = assignment.title;
+            document.getElementById("modal-category").textContent = assignment.category;
+            document.getElementById("modal-category").className = `modal-category ${getCategoryClass(assignment.category)}`;
+            document.getElementById("modal-assignment-title").textContent = `Assignment ${assignment.id}`;
+            document.getElementById("modal-project-title").textContent = assignment.title;
+            document.getElementById("modal-difficulty").textContent = assignment.difficulty;
+            document.getElementById("modal-difficulty").className =
+                `modal-difficulty ${getDifficultyClass(assignment.difficulty)}`;
+            document.getElementById("modal-description").textContent = assignment.description;
+
+            // Technologies
+            const technologiesContainer = document.getElementById("modal-technologies");
+            technologiesContainer.innerHTML = assignment.technologies
+                .map((tech) => `<span class="modal-tech-tag">${tech}</span>`)
+                .join("");
+
+            // Features
+            const featuresContainer = document.getElementById("modal-features");
+            featuresContainer.innerHTML = assignment.features.map((feature) => `<li>${feature}</li>`).join("");
+
+            // View button
+            document.getElementById("modal-view-btn").href =
+                `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
+
+            // Show modal
+            modalOverlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove("active");
+            document.body.style.overflow = "auto";
+        }
+
+        // Event listeners
+        searchInput.addEventListener("input", (e) => {
+            searchTerm = e.target.value;
+            filterAssignments();
+        });
+
+        categoryButtons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                categoryButtons.forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+                selectedCategory = btn.dataset.category;
+                filterAssignments();
+            });
+        });
+
+        loadMoreBtn.addEventListener("click", () => {
+            visibleCards = Math.min(visibleCards + 12, filteredAssignments.length);
+            renderCards();
+        });
+
+        modalClose.addEventListener("click", closeModal);
+        modalCloseBtn.addEventListener("click", closeModal);
+
+        modalOverlay.addEventListener("click", (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", () => {
+            totalProjects.textContent = `${assignments.length} Projects`;
+            renderCards();
+        });
+
+        // Make openModal globally available
+        window.openModal = openModal;
+    </script>
 </body>
 </html>
