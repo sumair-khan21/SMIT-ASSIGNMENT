@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMIT Assignments - Professional Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  pointer-events: none;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: white;
+  font-size: 2rem;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: rotate(0deg) scale(1.1);
+}
+
+.header-text h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.header-text p {
+  color: #a0aec0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.header-right {
+  display: none;
+}
+
+.header-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #a0aec0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.stat-item i {
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+/* Filters Section */
+.filters-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.filters-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.search-container {
+  position: relative;
+  max-width: 28rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #667eea;
+  font-size: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.category-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  color: #4a5568;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.category-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Main Content */
+.main-content {
+  padding: 3rem 0;
+}
+
+.results-info {
+  margin-bottom: 2rem;
+}
+
+.results-info p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.6s ease-out forwards;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
+.card-image-container {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .card-image {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+  opacity: 0;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+}
+
+.category-html {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+.category-css {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+}
+.category-javascript {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+}
+.category-framework {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+}
+
+.card-number {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #2d3748;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-action-btn {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  color: #2d3748;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  width: 60px;
+  height: 60px;
+}
+
+.card-action-btn:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.card-action-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card-action-btn.primary:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-title {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-difficulty {
+  padding: 0.3rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 2px solid;
+}
+
+.difficulty-beginner {
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.difficulty-intermediate {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.difficulty-advanced {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.card-subtitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+}
+
+.card-description {
+  color: #718096;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Load More Button */
+.load-more-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.load-more-btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.load-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 4rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.no-results h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 2rem;
+  max-width: 50rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-header {
+  position: relative;
+}
+
+.modal-image {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+  border-radius: 2rem 2rem 0 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+}
+
+.modal-close:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.modal-category {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  padding: 2rem;
+}
+
+.modal-title-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.modal-titles h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.modal-titles h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-difficulty {
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+.modal-description {
+  color: #4a5568;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.modal-section {
+  margin-bottom: 2rem;
+}
+
+.modal-section h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.modal-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.modal-tech-tag {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  color: #4a5568;
+  font-size: 0.95rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-features {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-features li {
+  display: flex;
+  align-items: center;
+  color: #4a5568;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.modal-features li::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.modal-btn {
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.modal-btn.primary {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.modal-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.modal-btn.secondary {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  color: #4a5568;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-btn.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .header-right {
+    display: block;
+  }
+
+  .filters-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-text h1 {
+    font-size: 2rem;
+  }
+
+  .modal {
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  .modal-title-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Professional Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>SMIT Assignments</h1>
+                        <p>Professional Web Development Portfolio</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-layer-group"></i>
+                            <span id="total-projects">51 Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>2024 Portfolio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters and Search -->
+    <div class="filters-section">
+        <div class="container">
+            <div class="filters-content">
+                <!-- Search -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search projects..." class="search-input">
+                </div>
+
+                <!-- Category Filter -->
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="All">All</button>
+                    <button class="category-btn" data-category="HTML">HTML</button>
+                    <button class="category-btn" data-category="CSS">CSS</button>
+                    <button class="category-btn" data-category="JavaScript">JavaScript</button>
+                    <button class="category-btn" data-category="Framework">Framework</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Results Info -->
+            <div class="results-info">
+                <p id="results-text">Showing 12 of 51 projects</p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid" id="cards-grid">
+                <!-- Cards will be dynamically generated here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container" id="load-more-container">
+                <button class="load-more-btn" id="load-more-btn">
+                    Load More Projects (<span id="remaining-count">39</span> remaining)
+                </button>
+            </div>
+
+            <!-- No Results -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>No projects found</h3>
+                <p>Try adjusting your search terms or category filter</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <img id="modal-image" src="/placeholder.svg" alt="" class="modal-image">
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-category" id="modal-category"></div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-title-section">
+                    <div class="modal-titles">
+                        <h2 id="modal-assignment-title"></h2>
+                        <h3 id="modal-project-title"></h3>
+                    </div>
+                    <span class="modal-difficulty" id="modal-difficulty"></span>
+                </div>
+                <p id="modal-description" class="modal-description"></p>
+                
+                <div class="modal-section">
+                    <h4>Technologies Used</h4>
+                    <div class="modal-technologies" id="modal-technologies"></div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>Key Features</h4>
+                    <ul class="modal-features" id="modal-features"></ul>
+                </div>
+
+                <div class="modal-actions">
+                    <a id="modal-view-btn" href="" target="_blank" class="modal-btn primary">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Live Project
+                    </a>
+                    <button class="modal-btn secondary" id="modal-close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Assignment data
+// Assignment data
+const assignments = [
+  {
+    id: "00",
+    title: "HTML Resume",
+    description: "Professional resume built with semantic HTML structure and modern styling techniques",
+    image: "images/00.jpeg",
+    category: "HTML",
+    difficulty: "Beginner",
+    technologies: ["HTML5", "CSS3", "Semantic Markup"],
+    features: ["Responsive Design", "Print Friendly", "SEO Optimized"],
+  },
+  {
+    id: "01",
+    title: "HTML Linking",
+    description: "Navigation and linking concepts demonstration with internal and external links",
+    image: "images/01.jpeg",
+    category: "HTML",
+    difficulty: "Beginner",
+    technologies: ["HTML5", "Navigation", "Anchor Tags"],
+    features: ["Multi-page Navigation", "Smooth Scrolling", "Link States"],
+  },
+  {
+    id: "02",
+    title: "Periodic Table",
+    description: "Interactive periodic table of elements with detailed information and styling",
+    image: "images/02.png",
+    category: "CSS",
+    difficulty: "Intermediate",
+    technologies: ["HTML5", "CSS3", "Grid Layout"],
+    features: ["Interactive Elements", "Hover Effects", "Responsive Grid"],
+  },
+  {
+    id: "03",
+    title: "HTML Form",
+    description: "Comprehensive form with validation and modern input elements",
+    image: "images/03.png",
+    category: "HTML",
+    difficulty: "Intermediate",
+    technologies: ["HTML5", "Form Validation", "CSS3"],
+    features: ["Client-side Validation", "Custom Styling", "Accessibility"],
+  },
+  {
+    id: "04",
+    title: "Saylani Clone",
+    description: "Educational website clone with modern design and responsive layout",
+    image: "images/04.png",
+    category: "CSS",
+    difficulty: "Advanced",
+    technologies: ["HTML5", "CSS3", "Responsive Design"],
+    features: ["Multi-section Layout", "Modern UI", "Mobile Optimized"],
+  },
+  {
+    id: "05",
+    title: "CSS Grid",
+    description: "Advanced CSS Grid layout techniques and responsive design patterns",
+    image: "images/05.png",
+    category: "CSS",
+    difficulty: "Advanced",
+    technologies: ["CSS Grid", "Flexbox", "Responsive Design"],
+    features: ["Complex Layouts", "Grid Areas", "Auto-fit Columns"],
+  },
+  {
+    id: "06",
+    title: "Netflix Clone",
+    description: "Streaming platform UI recreation with modern design principles",
+    image: "images/06.png",
+    category: "CSS",
+    difficulty: "Advanced",
+    technologies: ["HTML5", "CSS3", "JavaScript"],
+    features: ["Hero Section", "Content Rows", "Hover Animations"],
+  },
+  {
+    id: "07",
+    title: "CSS Animation",
+    description: "Creative animations and transitions showcasing CSS animation capabilities",
+    image: "images/07.png",
+    category: "CSS",
+    difficulty: "Intermediate",
+    technologies: ["CSS Animations", "Keyframes", "Transitions"],
+    features: ["Smooth Animations", "Interactive Effects", "Performance Optimized"],
+  },
+  {
+    id: "08",
+    title: "Bootstrap",
+    description: "Responsive design implementation using Bootstrap framework",
+    image: "images/08.png",
+    category: "Framework",
+    difficulty: "Intermediate",
+    technologies: ["Bootstrap", "HTML5", "Responsive Grid"],
+    features: ["Component Library", "Responsive Utilities", "Custom Themes"],
+  },
+  {
+    id: "09",
+    title: "JavaScript Basics",
+    description: "Fundamental JavaScript concepts and DOM manipulation techniques",
+    image: "images/09.jpg",
+    category: "JavaScript",
+    difficulty: "Beginner",
+    technologies: ["JavaScript", "DOM", "Event Handling"],
+    features: ["Interactive Elements", "Dynamic Content", "User Input"],
+  },
+  {
+    id: "10",
+    title: "JavaScript Advanced",
+    description: "Advanced JavaScript programming concepts and modern ES6+ features",
+    image: "images/10.jpg",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["ES6+", "Async/Await", "Modules"],
+    features: ["Modern Syntax", "API Integration", "Error Handling"],
+  },
+  {
+    id: "11",
+    title: "Number Guessing Game",
+    description: "Interactive guessing game with game logic and user feedback",
+    image: "images/11.jpg",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Game Logic", "Random Numbers"],
+    features: ["Score Tracking", "Difficulty Levels", "Responsive UI"],
+  },
+  {
+    id: "12",
+    title: "Password Generator",
+    description: "Secure password generation tool with customizable options",
+    image: "images/12.jpg",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Cryptography", "Security"],
+    features: ["Custom Length", "Character Sets", "Copy to Clipboard"],
+  },
+  {
+    id: "13",
+    title: "JavaScript Project",
+    description: "Complex JavaScript application demonstrating advanced concepts",
+    image: "images/13.jpg",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "OOP", "Design Patterns"],
+    features: ["Modular Code", "Error Handling", "Performance Optimization"],
+  },
+  {
+    id: "14",
+    title: "Pizza App",
+    description: "Food ordering application interface with interactive features",
+    image: "images/13.jpg",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Local Storage", "Cart System"],
+    features: ["Order Management", "Price Calculation", "User Preferences"],
+  },
+  {
+    id: "15",
+    title: "Virtual Keyboard",
+    description: "Interactive on-screen keyboard with full functionality",
+    image: "images/15.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Event Handling", "DOM"],
+    features: ["Key Press Events", "Shift Functionality", "Multiple Layouts"],
+  },
+  {
+    id: "16",
+    title: "Dice Game",
+    description: "Probability-based dice rolling game with scoring system",
+    image: "images/16.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Game Logic", "Animation"],
+    features: ["Multiplayer Support", "Score Tracking", "Animated Dice"],
+  },
+  {
+    id: "17",
+    title: "Slider & Go To Top",
+    description: "Image slider with navigation features and smooth scrolling",
+    image: "images/17.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "CSS Transitions", "Scroll Events"],
+    features: ["Auto-play", "Touch Support", "Smooth Navigation"],
+  },
+  {
+    id: "18",
+    title: "Text Formatter",
+    description: "Text manipulation and formatting tool with multiple options",
+    image: "images/18.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "String Methods", "RegEx"],
+    features: ["Case Conversion", "Word Count", "Text Analysis"],
+  },
+  {
+    id: "19",
+    title: "Todo App",
+    description: "Task management application with CRUD operations",
+    image: "images/19.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Local Storage", "CRUD"],
+    features: ["Add/Edit/Delete", "Priority Levels", "Filter Options"],
+  },
+  {
+    id: "20",
+    title: "Simple Calculator",
+    description: "Mathematical operations calculator with clean interface",
+    image: "images/20.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Math Operations", "UI Design"],
+    features: ["Basic Operations", "Memory Functions", "Keyboard Support"],
+  },
+  {
+    id: "21",
+    title: "Read More & Less",
+    description: "Content expansion functionality with smooth transitions",
+    image: "images/21.png",
+    category: "JavaScript",
+    difficulty: "Beginner",
+    technologies: ["JavaScript", "DOM Manipulation", "CSS"],
+    features: ["Smooth Transitions", "Dynamic Content", "Responsive Design"],
+  },
+  {
+    id: "22",
+    title: "Shadow Controller",
+    description: "CSS shadow manipulation tool with real-time preview",
+    image: "images/22.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "CSS Properties", "Real-time Updates"],
+    features: ["Live Preview", "Multiple Shadows", "Export Code"],
+  },
+  {
+    id: "23",
+    title: "Password Generator Pro",
+    description: "Advanced password generation with security options",
+    image: "images/23.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Security", "Validation"],
+    features: ["Strength Meter", "Custom Rules", "Bulk Generation"],
+  },
+  {
+    id: "24",
+    title: "Tic Tac Toe",
+    description: "Classic strategy game implementation with AI opponent",
+    image: "images/24.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Game AI", "Strategy"],
+    features: ["AI Opponent", "Score Tracking", "Game History"],
+  },
+  {
+    id: "25",
+    title: "Login & Signup",
+    description: "Authentication system with local storage and validation",
+    image: "images/25.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Local Storage", "Validation"],
+    features: ["Form Validation", "Session Management", "Security Features"],
+  },
+  {
+    id: "26",
+    title: "Filter System",
+    description: "Dynamic content filtering mechanism with multiple criteria",
+    image: "images/26.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Array Methods", "DOM"],
+    features: ["Multi-criteria Filter", "Search Integration", "Sort Options"],
+  },
+  {
+    id: "27",
+    title: "Stop Watch",
+    description: "Precision timing application with lap functionality",
+    image: "images/27.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Timing Functions", "UI"],
+    features: ["Lap Times", "Precision Timing", "Start/Stop/Reset"],
+  },
+  {
+    id: "28",
+    title: "Eid ul Fitr Countdown",
+    description: "Festival countdown timer with beautiful animations",
+    image: "images/28.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Date/Time", "Animations"],
+    features: ["Real-time Updates", "Animated Display", "Responsive Design"],
+  },
+  {
+    id: "29",
+    title: "Student Form",
+    description: "Educational data collection form with comprehensive validation",
+    image: "images/29.jpg",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Form Validation", "Data Storage"],
+    features: ["Multi-step Form", "Data Validation", "Progress Indicator"],
+  },
+  {
+    id: "30",
+    title: "Unicode Password Generator",
+    description: "Password generator with unicode character support",
+    image: "images/30.jpg",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Unicode", "Security"],
+    features: ["Unicode Support", "Custom Character Sets", "Export Options"],
+  },
+  {
+    id: "31",
+    title: "Word Shuffle Generator",
+    description: "Text scrambling and word games with interactive features",
+    image: "images/31.jpg",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "String Manipulation", "Algorithms"],
+    features: ["Random Shuffling", "Word Games", "Difficulty Levels"],
+  },
+  {
+    id: "32",
+    title: "Task Manager",
+    description: "Comprehensive task management system with advanced features",
+    image: "images/32.jpg",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Local Storage", "Task Management"],
+    features: ["Project Organization", "Due Dates", "Progress Tracking"],
+  },
+  {
+    id: "33",
+    title: "Student Management System",
+    description: "Complete student data management with CRUD operations",
+    image: "images/33.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Data Management", "CRUD Operations"],
+    features: ["Student Records", "Grade Management", "Report Generation"],
+  },
+  {
+    id: "34",
+    title: "Eid ul Adha Countdown",
+    description: "Festival countdown for Eid ul Adha 2025 with animations",
+    image: "images/34.jpeg",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Date Calculations", "Animations"],
+    features: ["Real-time Countdown", "Islamic Calendar", "Responsive Design"],
+  },
+  {
+    id: "35",
+    title: "Birthday Countdown",
+    description: "Personal birthday countdown timer with customization",
+    image: "images/35.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Date/Time", "Local Storage"],
+    features: ["Personal Dates", "Custom Messages", "Notification System"],
+  },
+  {
+    id: "36",
+    title: "Weekend Checker",
+    description: "Day of week identification tool with calendar features",
+    image: "images/36.png",
+    category: "JavaScript",
+    difficulty: "Beginner",
+    technologies: ["JavaScript", "Date Objects", "Calendar"],
+    features: ["Date Validation", "Weekend Detection", "Calendar Display"],
+  },
+  {
+    id: "37",
+    title: "Time-based Greeting",
+    description: "Dynamic greetings based on current time of day",
+    image: "images/37.png",
+    category: "JavaScript",
+    difficulty: "Beginner",
+    technologies: ["JavaScript", "Date/Time", "Dynamic Content"],
+    features: ["Time Detection", "Dynamic Messages", "Personalization"],
+  },
+  {
+    id: "38",
+    title: "Age Calculator",
+    description: "Precise age calculation tool with detailed breakdown",
+    image: "images/38.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "Date Calculations", "Math"],
+    features: ["Precise Calculations", "Multiple Formats", "Age Statistics"],
+  },
+  {
+    id: "39",
+    title: "Bulb Toggle Switch",
+    description: "Interactive light switch simulation with animations",
+    image: "images/39.png",
+    category: "JavaScript",
+    difficulty: "Beginner",
+    technologies: ["JavaScript", "CSS Animations", "Event Handling"],
+    features: ["Toggle Animation", "State Management", "Visual Feedback"],
+  },
+  {
+    id: "40",
+    title: "Simple Slider",
+    description: "Image carousel with smooth transitions and controls",
+    image: "images/40.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "CSS Transitions", "Image Handling"],
+    features: ["Smooth Transitions", "Navigation Controls", "Auto-play"],
+  },
+  {
+    id: "41",
+    title: "Text Toggle App",
+    description: "Text visibility toggle functionality with animations",
+    image: "images/41.png",
+    category: "JavaScript",
+    difficulty: "Beginner",
+    technologies: ["JavaScript", "DOM Manipulation", "Animations"],
+    features: ["Text Toggle", "Smooth Animations", "State Persistence"],
+  },
+  {
+    id: "42",
+    title: "Search & Data Fetch",
+    description: "Dynamic search with API integration and real-time results",
+    image: "images/42.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Fetch API", "Async/Await"],
+    features: ["API Integration", "Real-time Search", "Error Handling"],
+  },
+  {
+    id: "43",
+    title: "DOM Form",
+    description: "Dynamic form manipulation with DOM methods",
+    image: "images/43.png",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    technologies: ["JavaScript", "DOM Manipulation", "Form Handling"],
+    features: ["Dynamic Fields", "Form Validation", "Data Processing"],
+  },
+  {
+    id: "44",
+    title: "Todo with Day.js",
+    description: "Todo app with advanced date handling using Day.js library",
+    image: "images/44.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Day.js", "Date Management"],
+    features: ["Advanced Dates", "Due Date Tracking", "Date Formatting"],
+  },
+  {
+    id: "45",
+    title: "Attendance App",
+    description: "Student attendance tracking system with reports",
+    image: "images/45.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Data Management", "Local Storage"],
+    features: ["Attendance Tracking", "Report Generation", "Student Management"],
+  },
+  {
+    id: "47",
+    title: "Search & Filter",
+    description: "Advanced search and filtering system with multiple criteria",
+    image: "images/47.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Array Methods", "Search Algorithms"],
+    features: ["Multi-criteria Search", "Advanced Filters", "Sort Options"],
+  },
+  {
+    id: "48",
+    title: "Supabase Auth",
+    description: "Authentication system with Supabase backend integration",
+    image: "images/48.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Supabase", "Authentication"],
+    features: ["User Authentication", "Database Integration", "Session Management"],
+  },
+  {
+    id: "49",
+    title: "TaskMaster Pro",
+    description: "Professional task management solution with advanced features",
+    image: "images/49.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Task Management", "Data Persistence"],
+    features: ["Project Management", "Team Collaboration", "Progress Tracking"],
+  },
+  {
+    id: "50",
+    title: "Post App",
+    description: "Social media post management with CRUD operations",
+    image: "images/50.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "CRUD Operations", "Social Features"],
+    features: ["Post Management", "User Interactions", "Content Filtering"],
+  },
+  {
+    id: "51",
+    title: "Registration Form",
+    description: "Comprehensive user registration system with validation",
+    image: "images/51.png",
+    category: "JavaScript",
+    difficulty: "Advanced",
+    technologies: ["JavaScript", "Form Validation", "User Management"],
+    features: ["Multi-step Registration", "Data Validation", "User Profiles"],
+  },
+]
+
+// Global variables
+let filteredAssignments = [...assignments]
+let visibleCards = 12
+let selectedCategory = "All"
+let searchTerm = ""
+
+// DOM elements
+const searchInput = document.getElementById("search-input")
+const categoryButtons = document.querySelectorAll(".category-btn")
+const cardsGrid = document.getElementById("cards-grid")
+const loadMoreBtn = document.getElementById("load-more-btn")
+const loadMoreContainer = document.getElementById("load-more-container")
+const noResults = document.getElementById("no-results")
+const resultsText = document.getElementById("results-text")
+const remainingCount = document.getElementById("remaining-count")
+const totalProjects = document.getElementById("total-projects")
+const modalOverlay = document.getElementById("modal-overlay")
+const modalClose = document.getElementById("modal-close")
+const modalCloseBtn = document.getElementById("modal-close-btn")
+
+// Utility functions
+function getCategoryClass(category) {
+  return `category-${category.toLowerCase()}`
+}
+
+function getDifficultyClass(difficulty) {
+  return `difficulty-${difficulty.toLowerCase()}`
+}
+
+function createCard(assignment, index) {
+  const card = document.createElement("div")
+  card.className = "card"
+  card.style.animationDelay = `${index * 0.05}s`
+
+  card.innerHTML = `
+        <div class="card-image-container">
+            <img src="${assignment.image}" alt="${assignment.title}" class="card-image">
+            <div class="card-overlay">
+                <button class="card-action-btn" onclick="openModal('${assignment.id}')">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/" 
+                   target="_blank" class="card-action-btn primary">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            <div class="card-category ${getCategoryClass(assignment.category)}">${assignment.category}</div>
+            <div class="card-number">#${assignment.id}</div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <h3 class="card-title">Assignment ${assignment.id}</h3>
+                <span class="card-difficulty ${getDifficultyClass(assignment.difficulty)}">${assignment.difficulty}</span>
+            </div>
+            <h4 class="card-subtitle">${assignment.title}</h4>
+            <p class="card-description">${assignment.description}</p>
+        </div>
+    `
+
+  return card
+}
+
+function renderCards() {
+  cardsGrid.innerHTML = ""
+
+  if (filteredAssignments.length === 0) {
+    noResults.style.display = "block"
+    loadMoreContainer.style.display = "none"
+    return
+  }
+
+  noResults.style.display = "none"
+
+  const cardsToShow = filteredAssignments.slice(0, visibleCards)
+  cardsToShow.forEach((assignment, index) => {
+    const card = createCard(assignment, index)
+    cardsGrid.appendChild(card)
+  })
+
+  // Update load more button
+  if (visibleCards >= filteredAssignments.length) {
+    loadMoreContainer.style.display = "none"
+  } else {
+    loadMoreContainer.style.display = "block"
+    remainingCount.textContent = filteredAssignments.length - visibleCards
+  }
+
+  // Update results text
+  resultsText.textContent = `Showing ${Math.min(visibleCards, filteredAssignments.length)} of ${filteredAssignments.length} projects${selectedCategory !== "All" ? ` in ${selectedCategory}` : ""}`
+}
+
+function filterAssignments() {
+  const filtered = assignments.filter((assignment) => {
+    const matchesSearch =
+      assignment.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      assignment.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      assignment.category.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const matchesCategory = selectedCategory === "All" || assignment.category === selectedCategory
+
+    return matchesSearch && matchesCategory
+  })
+
+  filteredAssignments = filtered
+  visibleCards = 12
+  renderCards()
+}
+
+function openModal(assignmentId) {
+  const assignment = assignments.find((a) => a.id === assignmentId)
+  if (!assignment) return
+
+  // Populate modal content
+  document.getElementById("modal-image").src = assignment.image
+  document.getElementById("modal-image").alt = assignment.title
+  document.getElementById("modal-category").textContent = assignment.category
+  document.getElementById("modal-category").className = `modal-category ${getCategoryClass(assignment.category)}`
+  document.getElementById("modal-assignment-title").textContent = `Assignment ${assignment.id}`
+  document.getElementById("modal-project-title").textContent = assignment.title
+  document.getElementById("modal-difficulty").textContent = assignment.difficulty
+  document.getElementById("modal-difficulty").className =
+    `modal-difficulty ${getDifficultyClass(assignment.difficulty)}`
+  document.getElementById("modal-description").textContent = assignment.description
+
+  // Technologies
+  const technologiesContainer = document.getElementById("modal-technologies")
+  technologiesContainer.innerHTML = assignment.technologies
+    .map((tech) => `<span class="modal-tech-tag">${tech}</span>`)
+    .join("")
+
+  // Features
+  const featuresContainer = document.getElementById("modal-features")
+  featuresContainer.innerHTML = assignment.features.map((feature) => `<li>${feature}</li>`).join("")
+
+  // View button
+  document.getElementById("modal-view-btn").href =
+    `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`
+
+  // Show modal
+  modalOverlay.classList.add("active")
+  document.body.style.overflow = "hidden"
+}
+
+function closeModal() {
+  modalOverlay.classList.remove("active")
+  document.body.style.overflow = "auto"
+}
+
+// Event listeners
+searchInput.addEventListener("input", (e) => {
+  searchTerm = e.target.value
+  filterAssignments()
+})
+
+categoryButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    categoryButtons.forEach((b) => b.classList.remove("active"))
+    btn.classList.add("active")
+    selectedCategory = btn.dataset.category
+    filterAssignments()
+  })
+})
+
+loadMoreBtn.addEventListener("click", () => {
+  visibleCards = Math.min(visibleCards + 12, filteredAssignments.length)
+  renderCards()
+})
+
+modalClose.addEventListener("click", closeModal)
+modalCloseBtn.addEventListener("click", closeModal)
+
+modalOverlay.addEventListener("click", (e) => {
+  if (e.target === modalOverlay) {
+    closeModal()
+  }
+})
+
+// Keyboard navigation
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
+    closeModal()
+  }
+})
+
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+  totalProjects.textContent = `${assignments.length} Projects`
+  renderCards()
+})
+
+// Make openModal globally available
+window.openModal = openModal
+
+    </script>
+</body>
+</html>

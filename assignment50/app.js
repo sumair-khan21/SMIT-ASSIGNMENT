@@ -171,3 +171,50 @@ if(feed){
 
 
 
+
+ async function uploadAvatar() {
+        const inputFile = document.getElementById("fileInput");
+        const avatarFile = inputFile.files[0];
+        const fileName = inputFile.files[0].name;
+
+        console.log(fileName);
+        if (!avatarFile) {
+          console.log("Koi file select nahi hui");
+          return;
+        }
+
+        const { data, error } = await client.storage
+          .from("postapp")
+          .upload(`public/${fileName}`, avatarFile, {
+            cacheControl: "3600",
+            upsert: true,
+          });
+
+        if (error) {
+          console.error("Upload mein error aaya:", error.message);
+          alert("Upload mein error aaya:");
+        } else {
+          console.log("Upload successful:", data);
+          alert("Upload successful:");
+        }
+        fetchImage(fileName);
+      }
+
+      function fetchImage(fileName) {
+        const { data, error } = client.storage
+          .from("postapp")
+          .getPublicUrl(`public/${fileName}`);
+        if (error) {
+          console.error("Error fetching image:", error.message);
+          return;
+        }
+        console.log("Image fetched successfully:", data);
+        console.log("Image URL:", data.publicUrl);
+        let url = data.publicUrl;
+        renderImage(url);
+      }
+
+      function renderImage(url) {
+        let divImage = document.getElementById("imageContainer");
+        divImage.innerHTML = `<img src="${url}" alt="Uploaded Image" style="width: 200px; height: auto;" />`;
+      }

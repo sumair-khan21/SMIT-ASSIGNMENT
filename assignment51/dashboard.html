@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Registration Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f2994a 0%, #eb2f06 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f2994a, #eb2f06);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            background: linear-gradient(135deg, #f2994a, #eb2f06);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(242, 153, 74, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: block;
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f2994a, #eb2f06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Status Check */
+        .status-check {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .status-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .status-input:focus {
+            outline: none;
+            border-color: #f2994a;
+            box-shadow: 0 0 0 3px rgba(242, 153, 74, 0.1), 0 8px 20px rgba(242, 153, 74, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .status-btn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #f2994a 0%, #eb2f06 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(242, 153, 74, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-check {
+                flex-direction: column;
+            }
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: backgroundMove 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Registration System</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link">Register</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="admin_login.html" class="nav-link">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard -->
+        <div class="page-section">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        <div class="card-icon">📊</div>
+                        Registration Analytics
+                    </div>
+                    <p>View detailed analytics and insights about user registrations, growth trends, and demographics.</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        <div class="card-icon">👥</div>
+                        User Management
+                    </div>
+                    <p>Manage user accounts, update information, and handle user verification processes.</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        <div class="card-icon">⚙️</div>
+                        System Settings
+                    </div>
+                    <p>Configure system settings, database connections, and integration parameters.</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        <div class="card-icon">📁</div>
+                        File Management
+                    </div>
+                    <p>Manage uploaded files, profile images, and document storage with Supabase integration.</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        <div class="card-icon">📈</div>
+                        Reports
+                    </div>
+                    <p>Generate comprehensive reports and export data for analysis and record keeping.</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        <div class="card-icon">🔒</div>
+                        Security
+                    </div>
+                    <p>Monitor security events, manage authentication, and review access logs.</p>
+                    <div class="status-check">
+                        <input type="text" class="status-input" placeholder="Enter status query">
+                        <button class="status-btn">Check Status</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>
