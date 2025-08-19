@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlexiForms — Form Builder (Supabase)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --bg: #0b0f19;
+      --panel: #121827;
+      --muted: #a3adc2;
+      --text: #e6e9f2;
+      --accent: #6ee7ff; /* change in UI */
+      --danger: #ff6b6b;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --card: #0f1422;
+      --border: #1f2937;
+      --input: #0b1220;
+    }
+    *{ box-sizing: border-box }
+    body{
+      margin:0; background: radial-gradient(1200px 800px at 20% -10%, rgba(110,231,255,.12), transparent 60%),
+      radial-gradient(800px 600px at 110% 20%, rgba(168,85,247,.10), transparent 50%), var(--bg);
+      color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      min-height:100dvh; display:flex; flex-direction:column;
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(11,15,25,.9), rgba(11,15,25,.6));
+      border-bottom:1px solid var(--border);
+    }
+    .bar{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:14px; }
+    .logo{ font-weight:800; letter-spacing:.4px; }
+    .badge{ font-size:12px; color:#0b1220; background:var(--accent); padding:2px 8px; border-radius:999px; font-weight:700 }
+    .grow{ flex:1 }
+    .row{ display:flex; gap:12px; align-items:center }
+    .btn{ background:linear-gradient(180deg, #1a2437, #121a2b); color:var(--text); border:1px solid var(--border); padding:10px 14px; border-radius:12px; font-weight:600; cursor:pointer; transition:.15s transform ease, .15s background ease; }
+    .btn:hover{ transform:translateY(-1px); }
+    .btn.primary{ background: linear-gradient(180deg, #1f3a4d, #112b3a); border-color:#264b63; box-shadow: 0 0 0 1px rgba(110,231,255,.15) inset; }
+    .btn.ok{ background: linear-gradient(180deg, rgba(34,197,94,.15), rgba(34,197,94,.05)); border-color: rgba(34,197,94,.35);}    
+    .btn.danger{ background: linear-gradient(180deg, rgba(255,107,107,.15), rgba(255,107,107,.05)); border-color: rgba(255,107,107,.35);}    
+    .btn.small{ padding:6px 10px; border-radius:10px; font-size:12px }
+    .btn.flat{ background:transparent; border-color:transparent; }
+    .pill{ padding:8px 12px; border-radius:999px; background:#0b1220; border:1px solid var(--border); font-size:12px; color:var(--muted) }
+
+    main{ max-width:1200px; margin:18px auto; padding:0 20px 40px; width:100% }
+    .panel{ background: linear-gradient(180deg, rgba(17,24,39,.8), rgba(12,18,30,.8)); border:1px solid var(--border); border-radius:18px; padding:16px; }
+    .grid{ display:grid; grid-template-columns: 280px 1fr; gap:16px }
+
+    .field-types{ background:var(--panel); border:1px dashed #233146; border-radius:16px; padding:10px; }
+    .field-types h4{ margin:6px 8px 12px; font-size:13px; color:var(--muted); font-weight:700; letter-spacing:.3px }
+    .type-btn{ display:block; width:100%; text-align:left; background:var(--card); border:1px solid var(--border); color:var(--text); padding:10px 12px; border-radius:12px; margin:6px 0; cursor:pointer }
+
+    .canvas{ background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px; }
+    .meta{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px }
+    .meta .col{ background:var(--card); border:1px solid var(--border); padding:12px; border-radius:14px }
+    label{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+    input[type="text"], input[type="number"], input[type="email"], textarea, select{
+      width:100%; background:var(--input); border:1px solid var(--border); padding:10px 12px; border-radius:12px; color:var(--text); outline:none; font-size:14px;
+    }
+    textarea{ min-height:80px; }
+    .switch{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted) }
+
+    .field-card{ background:var(--card); border:1px solid var(--border); border-radius:16px; padding:12px; margin:10px 0; position:relative }
+    .field-title{ display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px }
+    .field-actions{ display:flex; gap:6px }
+    .chip{ font-size:11px; padding:4px 8px; border:1px solid var(--border); border-radius:999px; background:#0b1220; color:var(--muted) }
+
+    .preview{ border-top:1px dashed #2b3954; margin-top:14px; padding-top:14px }
+
+    .hl{ color:var(--accent) }
+    .muted{ color:var(--muted) }
+    .center{ text-align:center }
+    .mt8{ margin-top:8px }
+    .mt12{ margin-top:12px }
+    .mt16{ margin-top:16px }
+    .mt20{ margin-top:20px }
+
+    .toast{ position:fixed; right:18px; bottom:18px; background:#0b1220; border:1px solid var(--border); padding:12px 14px; border-radius:14px; box-shadow:0 6px 30px rgba(0,0,0,.35); display:none }
+
+    .notice{ background: rgba(110,231,255,.08); border:1px solid rgba(110,231,255,.25); padding:10px 12px; border-radius:12px; font-size:13px; color:#cbefff }
+
+    .divider{ height:1px; background: var(--border); margin:10px 0 }
+
+    .accent-swatch{ width:24px; height:24px; border-radius:8px; border:1px solid var(--border) }
+
+    /* Fill mode */
+    .form-shell{ max-width:760px; margin: 18px auto; background:linear-gradient(180deg,#121a2b,#0c1422); border:1px solid var(--border); border-radius:18px; overflow:hidden }
+    .form-head{ padding:20px; border-bottom:1px solid var(--border); background:linear-gradient(90deg, rgba(110,231,255,.18), transparent); }
+    .form-body{ padding:18px }
+    .req{ color: var(--warn); margin-left:4px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="bar">
+      <div class="logo">⚡ Flexi<span class="hl">Forms</span></div>
+      <span class="badge">HTML + JS + Supabase</span>
+      <div class="grow"></div>
+      <div id="headerActions" class="row"></div>
+    </div>
+  </header>
+
+  <main>
+    <div id="modeBuild" style="display:none">
+      <div class="panel">
+        <div class="row" style="justify-content:space-between; align-items:flex-start">
+          <div>
+            <div style="font-size:20px; font-weight:800">Form Builder <span class="hl">(MVP)</span></div>
+            <div class="muted">Create, preview and share publish links.</div>
+          </div>
+          <div class="row">
+            <button class="btn" id="btnPreviewToggle">Preview</button>
+            <button class="btn primary" id="btnPublish">Publish</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid mt16">
+        <aside class="field-types">
+          <h4>Field Types</h4>
+          <button class="type-btn" data-type="short_text">Short Text</button>
+          <button class="type-btn" data-type="long_text">Long Text</button>
+          <button class="type-btn" data-type="email">Email</button>
+          <button class="type-btn" data-type="number">Number</button>
+          <button class="type-btn" data-type="radio">Multiple Choice</button>
+          <button class="type-btn" data-type="select">Dropdown</button>
+        </aside>
+
+        <section class="canvas">
+          <div class="meta">
+            <div class="col">
+              <label>Form Title</label>
+              <input type="text" id="formTitle" placeholder="e.g., Event Registration" />
+              <div class="mt8">
+                <label>Description</label>
+                <textarea id="formDesc" placeholder="Tell respondents what this form is about..."></textarea>
+              </div>
+            </div>
+            <div class="col">
+              <label class="row" style="justify-content:space-between; align-items:center">Theme Accent <span class="accent-swatch" id="accentSwatch"></span></label>
+              <input type="text" id="accentColor" value="#6ee7ff" />
+              <div class="mt8 notice">Unique touch: you can set your accent color — different visual identity from Google Forms.</div>
+            </div>
+          </div>
+
+          <div id="fieldsRoot"></div>
+
+          <div class="row mt12">
+            <button class="btn" id="btnClear">Clear All</button>
+            <div class="grow"></div>
+            <button class="btn" id="btnSaveDraft">Save Draft (Local)</button>
+          </div>
+
+          <div class="preview" id="builderPreview" style="display:none"></div>
+        </section>
+      </div>
+    </div>
+
+    <div id="modeFill" style="display:none">
+      <div class="form-shell">
+        <div class="form-head">
+          <div style="font-size:22px; font-weight:800" id="fillTitle"></div>
+          <div class="muted" id="fillDesc"></div>
+        </div>
+        <form class="form-body" id="fillForm"></form>
+      </div>
+    </div>
+
+    <div id="modeThanks" style="display:none" class="center">
+      <div class="panel" style="max-width:560px; margin:40px auto;">
+        <div style="font-size:22px; font-weight:800">Thank You! 🎉</div>
+        <div class="muted mt8">Your response has been recorded.</div>
+        <div class="row mt16 center" style="justify-content:center">
+          <a class="btn" id="btnAnother" href="#">Submit another response</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
+
+
+
