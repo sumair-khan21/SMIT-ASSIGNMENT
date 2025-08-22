@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - RMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style2.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-wrap">
+      <div class="brand">Registration System</div>
+      <div class="nav-links">
+        <a class="nav-link active" href="index2.html">Register</a>
+        <a class="nav-link" href="login2.html">Login</a>
+        <a class="nav-link" href="checkstatus2.html">Check Status</a>
+        <a class="nav-link active" href="admin_login2.html">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container section">
+    <div class="grid mt-16">
+      <div class="tile">
+        <div class="icon">📈</div>
+        <div class="muted">Total Registrations</div>
+        <h3 id="statTotal" style="font-size:1.8rem;margin-top:6px">—</h3>
+      </div>
+      <div class="tile">
+        <div class="icon">🕒</div>
+        <div class="muted">This Week</div>
+        <h3 id="statWeek" style="font-size:1.8rem;margin-top:6px">—</h3>
+      </div>
+      <div class="tile">
+        <div class="icon">✅</div>
+        <div class="muted">Approved Rate</div>
+        <h3 id="statRate" style="font-size:1.8rem;margin-top:6px">—</h3>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+        <h2 class="card-title" style="margin:0">Users</h2>
+        <div style="display:flex;gap:10px;">
+          <button id="downloadBtn" style="padding:10px 18px;background:linear-gradient(135deg, rgba(255,107,107,0.8), rgba(77,159,239,0.8));color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:0.3s;box-shadow:0 4px 15px rgba(77,159,239,0.3);width:auto;margin:0;min-width:120px;" onmouseover="this.style.background='linear-gradient(135deg, rgba(255,107,107,0.9), rgba(77,159,239,0.9))';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(77,159,239,0.4)'" onmouseout="this.style.background='linear-gradient(135deg, rgba(255,107,107,0.8), rgba(77,159,239,0.8))';this.style.transform='translateY(0px)';this.style.boxShadow='0 4px 15px rgba(77,159,239,0.3)'">📊 Export Excel</button>
+          <button onclick="exportTable()" style="padding:10px 18px;background:linear-gradient(135deg, rgba(34,197,94,0.8), rgba(16,185,129,0.8));color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:0.3s;box-shadow:0 4px 15px rgba(34,197,94,0.3);width:auto;margin:0;min-width:120px;" onmouseover="this.style.background='linear-gradient(135deg, rgba(34,197,94,0.9), rgba(16,185,129,0.9))';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(34,197,94,0.4)'" onmouseout="this.style.background='linear-gradient(135deg, rgba(34,197,94,0.8), rgba(16,185,129,0.8))';this.style.transform='translateY(0px)';this.style.boxShadow='0 4px 15px rgba(34,197,94,0.3)'">📄 Export CSV</button>
+        </div>
+      </div>
+
+      <div style="overflow:auto;border-radius:16px">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>First</th>
+              <th>Last</th>
+              <th>Email</th>
+              <th>Image</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="show"></tbody>
+        </table>
+      </div>
+      <p class="notice">Change status using the dropdown and it will update in database.</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Modified render function to return data
+    async function renderAndGetData() {
+      try {
+        const { data, error } = await client
+          .from("registrationForm")
+          .select("*")
+          .order("id", { ascending: true });
+
+        if (error) {
+          console.log("Fetch Error:", error.message);
+          return [];
+        }
+
+        return data || [];
+      } catch (error) {
+        console.error("Render error:", error);
+        return [];
+      }
+    }
+
+    // Excel export function
+    async function download() {
+      // Show loading state
+      const downloadBtn = document.getElementById("downloadBtn");
+      const originalHTML = downloadBtn.innerHTML;
+      downloadBtn.disabled = true;
+      downloadBtn.style.opacity = '0.7';
+      downloadBtn.innerHTML = '<span style="display:inline-block;width:12px;height:12px;border:2px solid #fff;border-top:2px solid transparent;border-radius:50%;animation:spin 1s linear infinite;margin-right:6px;"></span>Exporting...';
+      
+      try {
+        // Get data using the modified function
+        const data = await renderAndGetData();
+        
+        if (!data || data.length === 0) {
+          alert("No data to export");
+          return;
+        }
+
+        // Prepare data for Excel
+        const excelData = data.map(item => ({
+          'ID': item.id || '',
+          'First Name': item.firstName || '',
+          'Last Name': item.lastName || '',
+          'Email': item.email || '',
+          'Phone': item.phone || '',
+          'Status': item.status || 'Pending',
+          'Profile Image': item.profileImage || '',
+          'Created At': item.created_at ? new Date(item.created_at).toLocaleDateString() : '',
+        }));
+
+        // Create Excel file
+        const ws = XLSX.utils.json_to_sheet(excelData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Students");
+        
+        // Set column widths
+        const colWidths = [
+          { wch: 8 },  // ID
+          { wch: 15 }, // First Name
+          { wch: 15 }, // Last Name  
+          { wch: 25 }, // Email
+          { wch: 15 }, // Phone
+          { wch: 12 }, // Status
+          { wch: 30 }, // Profile Image
+          { wch: 15 }, // Created At
+        ];
+        ws['!cols'] = colWidths;
+
+        // Trigger download
+        const fileName = `students_data_${new Date().toISOString().split('T')[0]}.xlsx`;
+        XLSX.writeFile(wb, fileName);
+        
+      } catch (error) {
+        console.error("Export error:", error);
+        alert("Export failed. Please try again.");
+      } finally {
+        // Restore button state
+        downloadBtn.disabled = false;
+        downloadBtn.style.opacity = '1';
+        downloadBtn.innerHTML = originalHTML;
+      }
+    }
+
+    // CSV export function
+    function exportTable(){
+      const csvBtn = event.target;
+      const originalHTML = csvBtn.innerHTML;
+      csvBtn.disabled = true;
+      csvBtn.style.opacity = '0.7';
+      csvBtn.innerHTML = '<span style="display:inline-block;width:12px;height:12px;border:2px solid #fff;border-top:2px solid transparent;border-radius:50%;animation:spin 1s linear infinite;margin-right:6px;"></span>Exporting...';
+      
+      setTimeout(() => {
+        try {
+          const rows = Array.from(document.querySelectorAll('#show tr')).map(tr =>
+            Array.from(tr.children).slice(0,4).map(td => `"${td.innerText.replace(/"/g,'""')}"`).join(',')
+          );
+          
+          if (rows.length === 0) {
+            alert("No data to export");
+            return;
+          }
+          
+          const header = 'First Name,Last Name,Email,Profile Image';
+          const csv = [header, ...rows].join('\n');
+          const blob = new Blob([csv], {type:'text/csv'});
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = `students_data_${new Date().toISOString().split('T')[0]}.csv`;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        } catch (error) {
+          console.error("CSV Export error:", error);
+          alert("Export failed. Please try again.");
+        } finally {
+          csvBtn.disabled = false;
+          csvBtn.style.opacity = '1';
+          csvBtn.innerHTML = originalHTML;
+        }
+      }, 500);
+    }
+
+    // Add event listener for Excel download
+    document.getElementById("downloadBtn").addEventListener("click", download);
+
+    // Add spinner animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

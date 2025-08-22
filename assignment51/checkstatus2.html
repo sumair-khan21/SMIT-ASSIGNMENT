@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Check Status - RMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style2.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-wrap">
+      <div class="brand">Registration System</div>
+      <div class="nav-links">
+        <a class="nav-link active" href="index2.html">Register</a>
+        <a class="nav-link" href="login2.html">Login</a>
+        <a class="nav-link" href="checkstatus2.html">Check Status</a>
+        <a class="nav-link" href="admin_login2.html">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <main class="container section">
+    <div class="card" style="max-width:720px;margin:auto">
+      <div class="card-header">
+        <h2 class="card-title">Check your application status</h2>
+        <p class="card-sub">Enter your email to view status</p>
+      </div>
+
+      <div class="form" style="grid-template-columns:1fr auto">
+        <div class="field" style="grid-column:1 / -1">
+          <input id="checkStatus" type="email" class="input" placeholder=" " required/>
+          <label class="label" for="checkStatus">Email Address</label>
+        </div>
+        <button class="btn" onclick="check()" style="grid-column:1 / -1">Check</button>
+      </div>
+
+      <div class="mt-24" style="overflow:auto;border-radius:16px">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>First</th><th>Last</th><th>Email</th><th>Image</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="statusContainer"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
