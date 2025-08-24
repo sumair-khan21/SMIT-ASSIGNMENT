@@ -1,49 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Post App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · Post App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #f5f7fb; color: #222; }
+
+    header {
+      background: linear-gradient(135deg, #11998e, #11998e);
+      padding: 14px 20px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo { font-weight: 700; font-size: 20px; }
+
+    .logout-btn {
+      background: #053f2ee0;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    main { max-width: 1000px; margin: 30px auto; padding: 0 16px; display: grid; grid-template-columns: 280px 1fr; gap: 24px; }
+    @media (max-width: 768px) { main { grid-template-columns: 1fr; } }
+
+    .sidebar { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
+    .sidebar .stat { background: #f0f2f7; padding: 10px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; display: flex; justify-content: space-between; }
+
+    .content { background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,.08); overflow: hidden; }
+    .content h2 { margin: 0; font-size: 18px; padding: 16px 18px; border-bottom: 1px solid #eee; }
+
+    .post-form { padding: 18px; border-bottom: 1px solid #eee; display: grid; gap: 12px; }
+    .input-field { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    textarea.input-field { resize: vertical; min-height: 100px; }
+    .submit-post-btn { 
+      background: linear-gradient(135deg, #11998e, #11998e);
+      color: #fff; 
+      border: none; 
+      padding: 12px; 
+      border-radius: 8px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .submit-post-btn:disabled {
+      background: #6b7280;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .posts { padding: 18px; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .post-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; }
+    .post-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+
+    .post-img { width: 100%; height: 180px; object-fit: cover; }
+    .post-body { padding: 14px; }
+    .post-title { font-size: 16px; font-weight: 600; margin: 0 0 6px; color: #222; }
+    .post-content { font-size: 14px; color: #555; margin: 0; line-height: 1.4; }
+    .post-header { display: flex; justify-content: space-between; align-items: center; padding: 12px; }
+    .user-info { display: flex; align-items: center; gap: 8px; }
+    .user-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+    .user-name { font-size: 14px; font-weight: 600; color: #333; }
+    .edit-btn, .delete-btn, .like-btn { background: transparent; border: none; cursor: pointer; font-size: 16px; transition: transform 0.2s; }
+    .edit-btn:hover, .delete-btn:hover, .like-btn:hover { transform: scale(1.2); }
+    .like-btn.liked { color: #e02424; }
+    .like-count { font-size: 12px; color: #555; margin-left: 4px; }
+    .empty { text-align: center; color: #888; padding: 40px; font-size: 14px; }
+
+    .loader { border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; width: 16px; height: 16px; animation: spin 0.6s linear infinite; }
+    .hidden { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .upload-wrapper { margin: 10px 0; }
+    .upload-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      background: linear-gradient(135deg, #11998e, #11998e);
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .upload-label:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+    .image-preview { display: block; max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 8px; border: 1px solid #ddd; }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <header>
-        <nav>
-            <div class="logo">Post App</div>
-            <div class="user-info">
-                <span id="userName">John Doe</span>
-                <button id="logoutBtn" class="logout-btn">Logout</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Dashboard -->
-    <main>
-        <div class="dashboard-container">
-            <button id="createPostBtn" class="create-post-btn">Create Post</button>
-
-            <!-- Form to create post -->
-            <div id="postForm" class="post-form hidden">
-                <input type="text" id="postTitle" placeholder="Enter post title" class="input-field">
-                <textarea id="postContent" placeholder="Enter post content" class="input-field"></textarea>
-                <button id="submitPostBtn" class="submit-post-btn">Submit Post</button>
-            </div>
-
-            <!-- Post Section -->
-            <section id="postSection" class="post-section">
-                <h3>Your Posts</h3>
-                <div id="postsContainer" class="posts-container">
-                    <!-- Dynamically created posts will appear here -->
-                </div>
-                <div id="fileInput">
-
-                </div>
-            </section>
+  <header>
+    <div class="logo">Post App</div>
+    <div class="user-info">
+      <span id="userName">John Doe</span>
+      <button id="logoutBtn" class="logout-btn">
+        <span class="btn-text">Logout</span>
+        <span class="loader hidden"></span>
+      </button>
+    </div>
+  </header>
+  <main>
+    <aside class="sidebar">
+      <h3>Quick Actions</h3>
+      <button id="createPostBtn" class="submit-post-btn" style="width:100%;">
+        <span class="btn-text">Create Post</span>
+        <span class="loader hidden"></span>
+      </button>
+      <h3 style="margin-top:20px">Your Stats</h3>
+      <div class="stat"><span>Total Posts</span><strong>0</strong></div>
+      <div class="stat"><span>Drafts</span><strong>0</strong></div>
+      <div class="stat"><span>Last Login</span><strong>—</strong></div>
+    </aside>
+    <section class="content">
+      <h2>Your Posts</h2>
+      <div id="postForm" class="post-form hidden">
+        <input type="text" id="postTitle" placeholder="Enter post title" class="input-field">
+        <textarea id="postContent" placeholder="Enter post content" class="input-field"></textarea>
+        <div class="upload-wrapper">
+          <label for="postImage" class="upload-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </label>
+          <input type="file" id="postImage" accept="image/*" class="input-field" style="display:none;">
         </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
+        <button id="submitPostBtn" type="submit" class="submit-post-btn">
+          <span class="btn-text">Publish Post</span>
+          <span class="loader hidden"></span>
+        </button>
+      </div>
+      <div id="postsContainer" class="posts"></div>
+      <div id="emptyState" class="empty">No posts yet. Create your first post!</div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
 </body>
 </html>

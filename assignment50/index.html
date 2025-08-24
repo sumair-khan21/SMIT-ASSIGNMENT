@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post App - Home</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post App - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Navbar -->
-    <header>
-        <nav>
-            <div class="logo">Post App</div>
-            <a href="login.html" id="loginBtn" class="login-btn">Login</a>
-        </nav>
-    </header>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo"><i class="fa-solid fa-feather-pointed"></i> PostApp</div>
+      <div class="nav-actions">
+        <a href="login.html" class="btn login-btn"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        <a href="signup.html" class="btn signup-btn"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Post Feed -->
-    <main id="mainContent">
-        <section class="post-feed" id="post-feed">
-            <!-- Dynamic posts will appear here -->
-        </section>
-        <section id="fileInput">
+  <main id="mainContent">
+      <section id="homePostsContainer" class="post-feed"></section>
+  </main>
 
-        </section>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
 </body>
 </html>
