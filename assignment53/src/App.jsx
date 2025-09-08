@@ -10,6 +10,7 @@ const App = () => {
   const toggleSidebar = () =>{
     setIsSidebarOpen(!isSidebarOpen)
   }
+  // console.log(isSidebarOpen)
   return (
     <>
     <Navbar toggleSidebar={toggleSidebar}/>
