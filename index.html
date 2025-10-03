@@ -1381,6 +1381,17 @@
     technologies: ["React", "JSX", "CSS"],
     features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"]
 },
+{
+    id: "54",
+    title: "React Todo App",
+    description: "A simple yet effective Todo application built with React, featuring task management, filtering, and local storage integration",
+    image: "images/54.png",
+    category: "React",
+    difficulty: "Basic",
+    technologies: ["React", "JSX", "CSS"],
+    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+    liveUrl: "https://todo-react-drab-three.vercel.app/" 
+},
         ];
 
         // Global variables
@@ -1412,38 +1423,74 @@
             return `difficulty-${difficulty.toLowerCase()}`;
         }
 
+        // function createCard(assignment, index) {
+        //     const card = document.createElement("div");
+        //     card.className = "card";
+        //     card.style.animationDelay = `${index * 0.05}s`;
+
+        //     card.innerHTML = `
+        //         <div class="card-image-container">
+        //             <img src="${assignment.image}" alt="${assignment.title}" class="card-image">
+        //             <div class="card-overlay"></div>
+        //             <div class="card-category ${getCategoryClass(assignment.category)}">${assignment.category}</div>
+        //             <div class="card-number">#${assignment.id}</div>
+        //             <div class="card-actions">
+        //                 <button class="card-action-btn" onclick="openModal('${assignment.id}')">
+        //                     <i class="fas fa-eye"></i>
+        //                 </button>
+        //                 <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/" 
+        //                    target="_blank" class="card-action-btn primary">
+        //                     <i class="fas fa-external-link-alt"></i>
+        //                 </a>
+        //             </div>
+        //         </div>
+        //         <div class="card-content">
+        //             <div class="card-header">
+        //                 <h3 class="card-title">Assignment ${assignment.id}</h3>
+        //                 <span class="card-difficulty ${getDifficultyClass(assignment.difficulty)}">${assignment.difficulty}</span>
+        //             </div>
+        //             <p class="card-description">${assignment.description}</p>
+        //         </div>
+        //     `;
+
+        //     return card;
+        // }
+
+
         function createCard(assignment, index) {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.style.animationDelay = `${index * 0.05}s`;
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style.animationDelay = `${index * 0.05}s`;
 
-            card.innerHTML = `
-                <div class="card-image-container">
-                    <img src="${assignment.image}" alt="${assignment.title}" class="card-image">
-                    <div class="card-overlay"></div>
-                    <div class="card-category ${getCategoryClass(assignment.category)}">${assignment.category}</div>
-                    <div class="card-number">#${assignment.id}</div>
-                    <div class="card-actions">
-                        <button class="card-action-btn" onclick="openModal('${assignment.id}')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <a href="https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/" 
-                           target="_blank" class="card-action-btn primary">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div class="card-header">
-                        <h3 class="card-title">Assignment ${assignment.id}</h3>
-                        <span class="card-difficulty ${getDifficultyClass(assignment.difficulty)}">${assignment.difficulty}</span>
-                    </div>
-                    <p class="card-description">${assignment.description}</p>
-                </div>
-            `;
+  const href = assignment.liveUrl || `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
 
-            return card;
-        }
+  card.innerHTML = `
+    <div class="card-image-container">
+      <img src="${assignment.image}" alt="${assignment.title}" class="card-image">
+      <div class="card-overlay"></div>
+      <div class="card-category ${getCategoryClass(assignment.category)}">${assignment.category}</div>
+      <div class="card-number">#${assignment.id}</div>
+      <div class="card-actions">
+        <button class="card-action-btn" onclick="openModal('${assignment.id}')">
+          <i class="fas fa-eye"></i>
+        </button>
+        <a href="${href}" target="_blank" rel="noopener noreferrer" class="card-action-btn primary">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="card-header">
+        <h3 class="card-title">Assignment ${assignment.id}</h3>
+        <span class="card-difficulty ${getDifficultyClass(assignment.difficulty)}">${assignment.difficulty}</span>
+      </div>
+      <p class="card-description">${assignment.description}</p>
+    </div>
+  `;
+
+  return card;
+}
+
 
         function renderCards() {
             cardsGrid.innerHTML = "";
@@ -1491,40 +1538,41 @@
             renderCards();
         }
 
-        function openModal(assignmentId) {
-            const assignment = assignments.find((a) => a.id === assignmentId);
-            if (!assignment) return;
+      function openModal(assignmentId) {
+    const assignment = assignments.find((a) => a.id === assignmentId);
+    if (!assignment) return;
 
-            // Populate modal content
-            document.getElementById("modal-image").src = assignment.image;
-            document.getElementById("modal-image").alt = assignment.title;
-            document.getElementById("modal-category").textContent = assignment.category;
-            document.getElementById("modal-category").className = `modal-category ${getCategoryClass(assignment.category)}`;
-            document.getElementById("modal-assignment-title").textContent = `Assignment ${assignment.id}`;
-            document.getElementById("modal-project-title").textContent = assignment.title;
-            document.getElementById("modal-difficulty").textContent = assignment.difficulty;
-            document.getElementById("modal-difficulty").className =
-                `modal-difficulty ${getDifficultyClass(assignment.difficulty)}`;
-            document.getElementById("modal-description").textContent = assignment.description;
+    // Populate modal content
+    document.getElementById("modal-image").src = assignment.image;
+    document.getElementById("modal-image").alt = assignment.title;
+    document.getElementById("modal-category").textContent = assignment.category;
+    document.getElementById("modal-category").className = `modal-category ${getCategoryClass(assignment.category)}`;
+    document.getElementById("modal-assignment-title").textContent = `Assignment ${assignment.id}`;
+    document.getElementById("modal-project-title").textContent = assignment.title;
+    document.getElementById("modal-difficulty").textContent = assignment.difficulty;
+    document.getElementById("modal-difficulty").className =
+        `modal-difficulty ${getDifficultyClass(assignment.difficulty)}`;
+    document.getElementById("modal-description").textContent = assignment.description;
 
-            // Technologies
-            const technologiesContainer = document.getElementById("modal-technologies");
-            technologiesContainer.innerHTML = assignment.technologies
-                .map((tech) => `<span class="modal-tech-tag">${tech}</span>`)
-                .join("");
+    // Technologies
+    const technologiesContainer = document.getElementById("modal-technologies");
+    technologiesContainer.innerHTML = assignment.technologies
+        .map((tech) => `<span class="modal-tech-tag">${tech}</span>`)
+        .join("");
 
-            // Features
-            const featuresContainer = document.getElementById("modal-features");
-            featuresContainer.innerHTML = assignment.features.map((feature) => `<li>${feature}</li>`).join("");
+    // Features
+    const featuresContainer = document.getElementById("modal-features");
+    featuresContainer.innerHTML = assignment.features.map((feature) => `<li>${feature}</li>`).join("");
 
-            // View button
-            document.getElementById("modal-view-btn").href =
-                `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
+    // View button (with fallback)
+    const viewBtn = document.getElementById("modal-view-btn");
+    viewBtn.href = assignment.liveUrl || `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
+    viewBtn.rel = "noopener noreferrer";
 
-            // Show modal
-            modalOverlay.classList.add("active");
-            document.body.style.overflow = "hidden";
-        }
+    // Show modal
+    modalOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
 
         function closeModal() {
             modalOverlay.classList.remove("active");

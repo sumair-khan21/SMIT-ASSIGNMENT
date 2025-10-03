@@ -13,7 +13,7 @@ const App = () => {
   const [inputs, setInputs] = useState("");
   const [editId, setEditId] = useState(null);
 
-  let fetchTodos = async () => {
+  let fetchTodos = async () => { 
     const { data, error } = await supabase
       .from("reactPractice")
       .select()
