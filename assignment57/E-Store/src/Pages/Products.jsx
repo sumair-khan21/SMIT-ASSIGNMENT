@@ -1,11 +1,8 @@
-import React from 'react'
+import React from 'react';
+import ProductList from '../Components/ProductList';
 
-const Products = () => {
-  return (
-    <div>
-      <h1>contact</h1>
-    </div>
-  )
+function Products() {
+  return <ProductList />;
 }
 
-export default Products
+export default Products;
