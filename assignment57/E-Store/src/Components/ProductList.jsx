@@ -206,7 +206,7 @@ if (selectedCategory) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br ">
       <div className="container mx-auto p-4">
         {/* Header Section */}
         <div className="text-center mb-8 pt-8">
@@ -241,7 +241,7 @@ if (selectedCategory) {
             {/* Category Filter */}
             <div className="relative">
               <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400 w-5 h-5" />
-              {/* <select
+              <select
                 className="pl-10 pr-8 py-3 border-2 border-indigo-200 rounded-xl focus:border-purple-500 focus:outline-none transition-all appearance-none bg-white cursor-pointer"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -252,16 +252,7 @@ if (selectedCategory) {
                     {cat.name}
                   </option>
                 ))}
-              </select> */}
-              <select
-  className="pl-10 pr-8 py-3 border-2 border-indigo-200 rounded-xl focus:border-purple-500 focus:outline-none transition-all appearance-none bg-white cursor-pointer"
-  value={selectedCategory}
-  onChange={(e) => setSelectedCategory(e.target.value)}
->
-  <option value="">All Categories</option>
-  <option value="men's clothing">Men's Clothing</option>
-  <option value="women's clothing">Women's Clothing</option>
-</select>
+              </select>
             </div>
 
             {/* Price Range Filter */}

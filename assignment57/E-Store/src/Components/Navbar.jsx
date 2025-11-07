@@ -17,8 +17,12 @@ import {
   Gem
 } from 'lucide-react';
 import { useCart } from '../Context/CartContext';
+import { useAuth } from '../Context/AuthContext';
+import {   useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { cartItems, toggleSidebar } = useCart();
   const wishlistItems = [1, 2, 3];
   const toggleWishlistSidebar = () => console.log('Wishlist sidebar opened');
@@ -27,8 +31,9 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   
-  const isLoggedIn = true;
-  const username = "John Doe";
+  const { user, signOut } = useAuth();
+const isLoggedIn = !!user;
+const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] || "User";
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -44,15 +49,15 @@ const Navbar = () => {
   }, []);
 
   const userMenuItems = isLoggedIn ? [
-    { icon: UserCircle, label: 'My Account', link: '/account' },
-    { icon: Package, label: 'My Orders', link: '/orders' },
-    { icon: Heart, label: 'My Wishlist', link: '/wishlist' },
-    { icon: Settings, label: 'Settings', link: '/settings' },
-    { icon: LogOut, label: 'Logout', link: '/logout' },
-  ] : [
-    { icon: LogIn, label: 'Login', link: '/login' },
-    { icon: UserPlus, label: 'Register', link: '/register' },
-  ];
+  { icon: UserCircle, label: 'My Account', link: '/account' },
+  { icon: Package, label: 'My Orders', link: '/orders' },
+  { icon: Heart, label: 'My Wishlist', link: '/wishlist' },
+  { icon: Settings, label: 'Settings', link: '/settings' },
+  { icon: LogOut, label: 'Logout', link: '/logout', isLogout: true }, // ADD isLogout flag
+] : [
+  { icon: LogIn, label: 'Login', link: '/login' },
+  { icon: UserPlus, label: 'Register', link: '/signup' },
+];
 
   return (
     <>
@@ -171,30 +176,50 @@ const Navbar = () => {
                     
                     <div className="py-2">
                       {userMenuItems.map((item, index) => {
-                        const Icon = item.icon;
-                        const isLogout = item.label === 'Logout';
-                        return (
-                          <Link
-                            key={index}
-                            to={item.link}
-                            className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 ${
-                              isLogout 
-                                ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
-                                : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:text-indigo-700'
-                            }`}
-                            onClick={() => setDropdownOpen(false)}
-                            style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
-                          >
-                            <Icon className="w-4 h-4" />
-                            <span>{item.label}</span>
-                            {item.label === 'My Wishlist' && wishlistItems.length > 0 && (
-                              <span className="ml-auto bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs px-2 py-0.5 rounded-full">
-                                {wishlistItems.length}
-                              </span>
-                            )}
-                          </Link>
-                        );
-                      })}
+  const Icon = item.icon;
+  const isLogout = item.label === 'Logout';
+  return (
+    item.isLogout ? (
+      <button
+        key={index}
+        onClick={() => {
+          setDropdownOpen(false);
+          signOut();
+          navigate('/login');
+        }}
+        className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 w-full text-left ${
+          isLogout 
+            ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
+            : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:text-indigo-700'
+        }`}
+        style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
+      >
+        <Icon className="w-4 h-4" />
+        <span>{item.label}</span>
+      </button>
+    ) : (
+      <Link
+        key={index}
+        to={item.link}
+        className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 ${
+          isLogout 
+            ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
+            : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:text-indigo-700'
+        }`}
+        onClick={() => setDropdownOpen(false)}
+        style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
+      >
+        <Icon className="w-4 h-4" />
+        <span>{item.label}</span>
+        {item.label === 'My Wishlist' && wishlistItems.length > 0 && (
+          <span className="ml-auto bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs px-2 py-0.5 rounded-full">
+            {wishlistItems.length}
+          </span>
+        )}
+      </Link>
+    )
+  );
+})}
                     </div>
                   </div>
                 )}
@@ -316,26 +341,49 @@ const Navbar = () => {
               </button>
 
               {/* Mobile User Menu */}
-              {userMenuItems.map((item, index) => {
-                const Icon = item.icon;
-                const isLogout = item.label === 'Logout';
-                return (
-                  <Link
-                    key={index}
-                    to={item.link}
-                    onClick={() => setMenuOpen(false)}
-                    className={`w-full text-left px-4 py-3 flex items-center space-x-3 ${
-                      isLogout 
-                        ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
-                        : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50'
-                    }`}
-                    style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
+{userMenuItems.map((item, index) => {
+  const Icon = item.icon;
+  const isLogout = item.label === 'Logout';
+  
+  if (item.isLogout) {
+    return (
+      <button
+        key={index}
+        onClick={() => {
+          setMenuOpen(false);
+          signOut();
+          navigate('/login');
+        }}
+        className={`w-full text-left px-4 py-3 flex items-center space-x-3 ${
+          isLogout 
+            ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
+            : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50'
+        }`}
+        style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
+      >
+        <Icon className="w-5 h-5" />
+        <span>{item.label}</span>
+      </button>
+    );
+  }
+  
+  return (
+    <Link
+      key={index}
+      to={item.link}
+      onClick={() => setMenuOpen(false)}
+      className={`w-full text-left px-4 py-3 flex items-center space-x-3 ${
+        isLogout 
+          ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
+          : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50'
+      }`}
+      style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
+    >
+      <Icon className="w-5 h-5" />
+      <span>{item.label}</span>
+    </Link>
+  );
+})}
             </div>
           </div>
         )}
