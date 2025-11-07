@@ -9,6 +9,7 @@ import Home from './Pages/Home';
 import Products from './Pages/Products';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
+// import MigrationTool from './Components/MigrationTool'; 
 
 function App() {
   return (
@@ -19,11 +20,11 @@ function App() {
         <div className="">
           <Routes>
             <Route path='/' element={<Home />}/>
-            {/* <Route path="/" element={<ProductList />} /> */}
             <Route path='/products' element={<Products />}/>
             <Route path='/about' element={<About />} />
             <Route path='/contact' element={<Contact />}/>
             <Route path="/product/:id" element={<ProductDetail />} />
+            {/* <Route path="/migrate" element={<MigrationTool />} />  */}
           </Routes>
         </div>
       </div>
