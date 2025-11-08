@@ -43,48 +43,55 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Sign up with email and password
-  const signUp = async (email, password, fullName) => {
-    try {
-      setError(null);
-      setLoading(true);
-      
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-            role: 'customer' // Default role
-          }
-        }
-      });
-
-      if (error) throw error;
-
-      // Check if email confirmation is required
-      if (data?.user?.identities?.length === 0) {
-        return { 
-          success: false, 
-          message: 'Please check your email to confirm your account.' 
-        };
+ // Sign up with email and password
+const signUp = async (email, password, fullName) => {
+  try {
+    setError(null);
+    setLoading(true);
+    
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+          role: 'customer' // Default role
+        },
+        emailRedirectTo: window.location.origin
       }
+    });
 
-      return { 
-        success: true, 
-        message: 'Account created successfully!',
-        user: data.user 
-      };
-    } catch (error) {
-      setError(error.message);
+    if (error) throw error;
+
+    // Check if email confirmation is required
+    if (data?.user?.identities?.length === 0) {
       return { 
         success: false, 
-        message: error.message 
+        message: 'This email is already registered. Please login instead.' 
       };
-    } finally {
-      setLoading(false);
     }
-  };
+
+    await supabase.auth.signOut();
+    setUser(null); 
+
+    console.log('✅ User signed up successfully');
+
+    return { 
+      success: true, 
+      message: 'Account created successfully!',
+      user: data.user 
+    };
+  } catch (error) {
+    console.error('❌ Signup error:', error);
+    setError(error.message);
+    return { 
+      success: false, 
+      message: error.message 
+    };
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Sign in with email and password
   const signIn = async (email, password) => {
@@ -140,22 +147,29 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Sign out
-  const signOut = async () => {
-    try {
-      setError(null);
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      
-      setUser(null);
-      return { success: true };
-    } catch (error) {
-      setError(error.message);
-      return { 
-        success: false, 
-        message: error.message 
-      };
-    }
-  };
+const signOut = async () => {
+  try {
+    setError(null);
+    
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    
+    setUser(null);
+    
+    localStorage.removeItem('supabase.auth.token');
+    
+    console.log('✅ User signed out successfully');
+    
+    return { success: true, message: 'Logged out successfully' };
+  } catch (error) {
+    console.error('❌ Logout error:', error);
+    setError(error.message);
+    return { 
+      success: false, 
+      message: error.message 
+    };
+  }
+};
 
   // Reset password
   const resetPassword = async (email) => {

@@ -224,11 +224,11 @@ const Hero = () => {
         </motion.button>
 
         {/* Scroll Down Indicator */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.5 }}
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20"
+          className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-20"
         >
           <button
             onClick={scrollToNext}
@@ -249,7 +249,7 @@ const Hero = () => {
               <ChevronDown size={24} />
             </motion.div>
           </button>
-        </motion.div>
+        </motion.div> */}
 
         {/* Loading overlay - shows while video loads */}
         <AnimatePresence>

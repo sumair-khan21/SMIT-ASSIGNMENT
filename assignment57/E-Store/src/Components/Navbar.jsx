@@ -19,13 +19,17 @@ import {
 import { useCart } from '../Context/CartContext';
 import { useAuth } from '../Context/AuthContext';
 import {   useNavigate } from 'react-router-dom';
-
+import { useWishlist } from '../hooks/useWishlist';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { cartItems, toggleSidebar } = useCart();
   const wishlistItems = [1, 2, 3];
-  const toggleWishlistSidebar = () => console.log('Wishlist sidebar opened');
+  // const toggleWishlistSidebar = () => console.log('Wishlist sidebar opened');
+  const toggleWishlistSidebar = () => {
+  navigate('/wishlist'); 
+};
+  const { wishlistCount } = useWishlist(); 
   
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,11 +53,11 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
   }, []);
 
   const userMenuItems = isLoggedIn ? [
-  { icon: UserCircle, label: 'My Account', link: '/account' },
+  { icon: UserCircle, label: 'My Account', link: '/profile' }, 
   { icon: Package, label: 'My Orders', link: '/orders' },
   { icon: Heart, label: 'My Wishlist', link: '/wishlist' },
   { icon: Settings, label: 'Settings', link: '/settings' },
-  { icon: LogOut, label: 'Logout', link: '/logout', isLogout: true }, // ADD isLogout flag
+  { icon: LogOut, label: 'Logout', link: '/logout', isLogout: true },
 ] : [
   { icon: LogIn, label: 'Login', link: '/login' },
   { icon: UserPlus, label: 'Register', link: '/signup' },
@@ -178,46 +182,41 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
                       {userMenuItems.map((item, index) => {
   const Icon = item.icon;
   const isLogout = item.label === 'Logout';
-  return (
-    item.isLogout ? (
+  
+  if (item.isLogout) {
+    return (
       <button
         key={index}
-        onClick={() => {
+        onClick={async () => {
           setDropdownOpen(false);
-          signOut();
-          navigate('/login');
+          await signOut();
+          navigate('/login', { replace: true });
         }}
-        className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 w-full text-left ${
-          isLogout 
-            ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
-            : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:text-indigo-700'
-        }`}
+        className="flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 w-full text-left text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2"
         style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
       >
         <Icon className="w-4 h-4" />
         <span>{item.label}</span>
       </button>
-    ) : (
-      <Link
-        key={index}
-        to={item.link}
-        className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 ${
-          isLogout 
-            ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
-            : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:text-indigo-700'
-        }`}
-        onClick={() => setDropdownOpen(false)}
-        style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
-      >
-        <Icon className="w-4 h-4" />
-        <span>{item.label}</span>
-        {item.label === 'My Wishlist' && wishlistItems.length > 0 && (
-          <span className="ml-auto bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs px-2 py-0.5 rounded-full">
-            {wishlistItems.length}
-          </span>
-        )}
-      </Link>
-    )
+    );
+  }
+  
+  return (
+    <Link
+      key={index}
+      to={item.link}
+      className="flex items-center space-x-3 px-4 py-2.5 text-sm transition-all duration-150 text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:text-indigo-700"
+      onClick={() => setDropdownOpen(false)}
+      style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
+    >
+      <Icon className="w-4 h-4" />
+      <span>{item.label}</span>
+      {item.label === 'My Wishlist' && wishlistItems.length > 0 && (
+        <span className="ml-auto bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs px-2 py-0.5 rounded-full">
+          {wishlistItems.length}
+        </span>
+      )}
+    </Link>
   );
 })}
                     </div>
@@ -226,24 +225,23 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
               </div>
 
               {/* Wishlist Icon */}
-              <button
-                onClick={toggleWishlistSidebar}
-                className="relative p-2 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-all duration-200 border border-purple-200 group"
-              >
-                <Heart 
-                  className={`w-5 h-5 transition-all duration-200 ${
-                    wishlistItems.length > 0 
-                      ? 'text-purple-500 fill-purple-500' 
-                      : 'text-purple-600 group-hover:text-purple-700'
-                  }`}
-                />
-                {wishlistItems.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold shadow-lg"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                    {wishlistItems.length}
-                  </span>
-                )}
-              </button>
+<button
+  onClick={toggleWishlistSidebar}
+  className="relative p-2 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-all duration-200 border border-purple-200 group"
+>
+  <Heart 
+    className={`w-5 h-5 transition-all duration-200 ${
+      wishlistCount > 0 
+        ? 'text-purple-500 fill-purple-500' 
+        : 'text-purple-600 group-hover:text-purple-700'
+    }`}
+  />
+  {wishlistCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold shadow-lg">
+      {wishlistCount}
+    </span>
+  )}
+</button>
 
               {/* Shopping Cart Icon */}
               <button
@@ -340,7 +338,7 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
                 )}
               </button>
 
-              {/* Mobile User Menu */}
+{/* Mobile User Menu */}
 {userMenuItems.map((item, index) => {
   const Icon = item.icon;
   const isLogout = item.label === 'Logout';
@@ -349,16 +347,12 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
     return (
       <button
         key={index}
-        onClick={() => {
+        onClick={async () => {
           setMenuOpen(false);
-          signOut();
-          navigate('/login');
+          await signOut();
+          navigate('/login', { replace: true });
         }}
-        className={`w-full text-left px-4 py-3 flex items-center space-x-3 ${
-          isLogout 
-            ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
-            : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50'
-        }`}
+        className="w-full text-left px-4 py-3 flex items-center space-x-3 text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2"
         style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
       >
         <Icon className="w-5 h-5" />
@@ -372,11 +366,7 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
       key={index}
       to={item.link}
       onClick={() => setMenuOpen(false)}
-      className={`w-full text-left px-4 py-3 flex items-center space-x-3 ${
-        isLogout 
-          ? 'text-rose-600 hover:bg-rose-50 border-t border-gray-100 mt-2'
-          : 'text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50'
-      }`}
+      className="w-full text-left px-4 py-3 flex items-center space-x-3 text-gray-700 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50"
       style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}
     >
       <Icon className="w-5 h-5" />

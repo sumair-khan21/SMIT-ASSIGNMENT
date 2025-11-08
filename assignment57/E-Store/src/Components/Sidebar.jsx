@@ -215,99 +215,74 @@ const Sidebar = () => {
             {/* Items List */}
             <div className="flex-1 overflow-y-auto px-6 py-4 max-h-[calc(100vh-380px)]">
               <div className="space-y-4">
-                {cartItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100 hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
-                    style={{
-                      animation: isAnimating ? `slideIn ${0.3 + index * 0.1}s ease-out` : 'none'
-                    }}
-                  >
-                    <div className="flex items-start space-x-4">
-                      {/* Product Image */}
-                      <div className="relative">
-                        <img
-                          src={item.image_url || item.image}
-                          alt={item.title}
-                          className="w-20 h-20 object-contain rounded-lg bg-white p-2 shadow-sm"
-                          onError={(e) => {
-                            e.target.src = 'https://via.placeholder.com/80';
-                          }}
-                        />
-                        {item.featured && (
-                          <span className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-pink-400 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg">
-                            HOT
-                          </span>
-                        )}
-                      </div>
+                {cartItems.map((item) => (
+  <div
+    key={item.id}
+    className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100 hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
+  >
+    <div className="flex items-start space-x-4">
+      {/* Product Image */}
+      <div className="relative">
+        <img
+          src={item.image_url || item.image}
+          alt={item.title}
+          className="w-20 h-20 object-contain rounded-lg bg-white p-2 shadow-sm"
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/80';
+          }}
+        />
+      </div>
 
-                      {/* Product Details */}
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-gray-800 line-clamp-2 mb-1">
-                          {item.title}
-                        </h4>
-                        
-                        {/* Size and Color */}
-                        <div className="flex items-center space-x-3 text-xs text-gray-500 mb-2">
-                          {item.selectedSize && (
-                            <span className="flex items-center space-x-1">
-                              <Tag className="w-3 h-3" />
-                              <span>Size: {item.selectedSize}</span>
-                            </span>
-                          )}
-                          {item.selectedColor && (
-                            <span className="flex items-center space-x-1">
-                              <div 
-                                className="w-3 h-3 rounded-full border border-gray-300"
-                                style={{ backgroundColor: item.selectedColor.toLowerCase() }}
-                              />
-                              <span>{item.selectedColor}</span>
-                            </span>
-                          )}
-                        </div>
+      {/* Product Details */}
+      <div className="flex-1">
+        <h4 className="font-semibold text-gray-800 line-clamp-2 mb-1">
+          {item.title}
+        </h4>
+        
+        {/* Price and Quantity */}
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              ${((item.price || 0) * (item.quantity || 1)).toFixed(2)}
+            </span>
+            <span className="text-xs text-gray-500 ml-1">
+              (${(item.price || 0).toFixed(2)} each)
+            </span>
+          </div>
+        </div>
 
-                        {/* Price and Quantity */}
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <span className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                              ${(item.price * (item.quantity || 1)).toFixed(2)}
-                            </span>
-                            <span className="text-xs text-gray-500 ml-1">
-                              (${item.price.toFixed(2)} each)
-                            </span>
-                          </div>
+        {/* Quantity Controls */}
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)}
+              className="p-1 hover:bg-white rounded-lg transition-colors"
+            >
+              <Minus className="w-4 h-4 text-gray-600" />
+            </button>
+            <span className="w-8 text-center font-semibold">
+              {item.quantity || 1}
+            </span>
+            <button
+              onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
+              className="p-1 hover:bg-white rounded-lg transition-colors"
+            >
+              <Plus className="w-4 h-4 text-gray-600" />
+            </button>
+          </div>
 
-                          {/* Quantity Controls */}
-                          <div className="flex items-center space-x-2">
-                            <button
-                              onClick={() => handleUpdateQuantity(item.id, (item.quantity || 1) - 1)}
-                              className="p-1 hover:bg-white rounded-lg transition-colors"
-                            >
-                              <Minus className="w-4 h-4 text-gray-600" />
-                            </button>
-                            <span className="w-8 text-center font-semibold">
-                              {item.quantity || 1}
-                            </span>
-                            <button
-                              onClick={() => handleUpdateQuantity(item.id, (item.quantity || 1) + 1)}
-                              className="p-1 hover:bg-white rounded-lg transition-colors"
-                            >
-                              <Plus className="w-4 h-4 text-gray-600" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Remove Button */}
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
-                      >
-                        <Trash2 className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+          {/* Remove Button */}
+          <button
+            onClick={() => removeFromCart(item.id)}
+            className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
+          >
+            <Trash2 className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+))}
               </div>
             </div>
 

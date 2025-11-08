@@ -47,21 +47,63 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BuyButton from './BuyButton';
 import CartButton from './CartButton';
-import { Star, Tag, TrendingUp } from 'lucide-react';
+import { Star, Tag, TrendingUp,Heart, Loader  } from 'lucide-react';
+import { useWishlist } from '../hooks/useWishlist';
+import { useState } from 'react';
+
+
 
 const ProductCard = ({ product }) => {
-  // Ensure image_url exists, fallback to placeholder
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+  
+  const inWishlist = isInWishlist(product.id);
+  
+  // Handle wishlist toggle
+  const handleWishlistToggle = async (e) => {
+    e.preventDefault(); // Prevent navigation
+    e.stopPropagation();
+    
+    setWishlistLoading(true);
+    
+    if (inWishlist) {
+      await removeFromWishlist(product.id);
+    } else {
+      await addToWishlist(product);
+    }
+    
+    setWishlistLoading(false);
+  };
+
+  // Ensure image_url exists
   const imageUrl = product.image_url || product.image || 'https://via.placeholder.com/300';
   
   return (
     <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-indigo-100 hover:border-purple-300">
       {/* Featured Badge */}
-      {product.featured && (
-        <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center space-x-1">
-          <TrendingUp className="w-3 h-3" />
-          <span>Featured</span>
-        </div>
-      )}
+{product.featured && (
+  <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center space-x-1">
+    <TrendingUp className="w-3 h-3" />
+    <span>Featured</span>
+  </div>
+)}
+
+{/* ADD THIS - Wishlist Button */}
+<button
+  onClick={handleWishlistToggle}
+  disabled={wishlistLoading}
+  className={`absolute top-3 right-3 z-10 p-2 rounded-full shadow-lg transition-all duration-300 ${
+    inWishlist 
+      ? 'bg-gradient-to-r from-pink-500 to-red-500 text-white scale-110' 
+      : 'bg-white/90 backdrop-blur text-gray-600 hover:bg-pink-50 hover:text-pink-600'
+  }`}
+>
+  {wishlistLoading ? (
+    <Loader className="w-5 h-5 animate-spin" />
+  ) : (
+    <Heart className={`w-5 h-5 ${inWishlist ? 'fill-current' : ''}`} />
+  )}
+</button>
 
       {/* Stock Badge */}
       {product.stock && product.stock < 20 && (
