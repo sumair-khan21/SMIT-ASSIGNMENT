@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAdminOrder, adminOrderOperations } from '../../hooks/useAdminOrders';
 import { X, Package, DollarSign, MapPin, Calendar, Truck } from 'lucide-react';
+import { sendOrderShippedEmail } from '../../services/emailServiceResend';
 
 const OrderDetailsModal = ({ isOpen, onClose, order, onUpdate }) => {
   const { order: fullOrder, orderItems, loading } = useAdminOrder(order?.id);
@@ -28,27 +29,39 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onUpdate }) => {
   }, [fullOrder]);
 
   const handleUpdate = async (field, value) => {
-    setUpdating(true);
-    let result;
+  setUpdating(true);
+  let result;
 
-    if (field === 'status') {
-      result = await adminOrderOperations.updateStatus(order.id, value);
-    } else if (field === 'payment_status') {
-      result = await adminOrderOperations.updatePaymentStatus(order.id, value);
-    } else if (field === 'tracking_number') {
-      result = await adminOrderOperations.updateTracking(order.id, value);
+  if (field === 'status') {
+    result = await adminOrderOperations.updateStatus(order.id, value);
+    
+    // ✨ Send email when order is shipped
+    if (result.success && value === 'shipped') {
+      const emailResult = await sendOrderShippedEmail({
+        ...fullOrder,
+        status: value
+      });
+      
+      if (emailResult.success) {
+        alert('✅ Order updated and shipping notification sent!');
+      } else {
+        alert('✅ Order updated successfully!');
+      }
     }
+  } else if (field === 'payment_status') {
+    result = await adminOrderOperations.updatePaymentStatus(order.id, value);
+  } else if (field === 'tracking_number') {
+    result = await adminOrderOperations.updateTracking(order.id, value);
+  }
 
-    if (result.success) {
-      alert('✅ Order updated successfully!');
-      setEditMode({ status: false, payment: false, tracking: false });
-      onUpdate && onUpdate();
-    } else {
-      alert('❌ Failed to update: ' + result.error);
-    }
+  if (result.success && field !== 'status') {
+    alert('✅ Order updated successfully!');
+    setEditMode({ status: false, payment: false, tracking: false });
+    onUpdate && onUpdate();
+  }
 
-    setUpdating(false);
-  };
+  setUpdating(false);
+};
 
   if (!isOpen || !order) return null;
 

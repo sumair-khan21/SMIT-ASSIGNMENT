@@ -56,7 +56,7 @@ const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] ||
   { icon: UserCircle, label: 'My Account', link: '/profile' }, 
   { icon: Package, label: 'My Orders', link: '/orders' },
   { icon: Heart, label: 'My Wishlist', link: '/wishlist' },
-  { icon: Settings, label: 'Settings', link: '/settings' },
+  // { icon: Settings, label: 'Settings', link: '/settings' },
   { icon: LogOut, label: 'Logout', link: '/logout', isLogout: true },
 ] : [
   { icon: LogIn, label: 'Login', link: '/login' },

@@ -129,7 +129,7 @@ const EditProductModal = ({ isOpen, onClose, onSuccess, product }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8">
+  <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 p-6 rounded-t-2xl">
           <div className="flex items-center justify-between">
@@ -153,7 +153,7 @@ const EditProductModal = ({ isOpen, onClose, onSuccess, product }) => {
 
         {/* Modal Body */}
         <form onSubmit={handleSubmit} className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {/* Title */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -369,7 +369,7 @@ const EditProductModal = ({ isOpen, onClose, onSuccess, product }) => {
           </div>
 
           {/* Form Actions */}
-          <div className="flex space-x-4 mt-8 pt-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
             <button
               type="button"
               onClick={handleClose}

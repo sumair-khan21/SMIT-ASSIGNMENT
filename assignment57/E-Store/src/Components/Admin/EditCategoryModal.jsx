@@ -81,8 +81,8 @@ const EditCategoryModal = ({ isOpen, onClose, onSuccess, category }) => {
   if (!isOpen || !category) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+  <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-pink-600 p-6 rounded-t-2xl">
           <div className="flex items-center justify-between">
@@ -150,8 +150,8 @@ const EditCategoryModal = ({ isOpen, onClose, onSuccess, category }) => {
           </div>
 
           {/* Form Actions */}
-          <div className="flex space-x-4 pt-4 border-t border-gray-200">
-            <button
+<div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <button
               type="button"
               onClick={handleClose}
               disabled={loading}

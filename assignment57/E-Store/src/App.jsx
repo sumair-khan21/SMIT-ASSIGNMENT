@@ -49,7 +49,6 @@
 
 
 
-
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ProductDetail from './Pages/ProductDetail';
@@ -59,6 +58,7 @@ import Footer from './Components/Footer';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { CartProvider } from './Context/CartContext';
 import { AuthProvider } from './Context/AuthContext';
+import { DarkModeProvider } from './Context/DarkModeContext'; // ✨ ADD
 import Home from './Pages/Home';
 import Products from './Pages/Products';
 import About from './Pages/About';
@@ -73,14 +73,10 @@ import Checkout from './Pages/Checkout';
 import OrderDetail from './Pages/OrderDetail';
 import Wishlist from './Pages/Wishlist';
 import AdminRoute from './Components/AdminRoute';
-import DebugUser from './Components/DebugUser';
 import AdminDashboard from './Pages/AdminDashboard';
-
 
 function AppContent() {
   const location = useLocation();
-  
-  // Hide navbar and footer on auth pages
   const isAuthPage = ['/login', '/signup', '/forgot-password', '/reset-password'].includes(location.pathname);
 
   return (
@@ -90,81 +86,72 @@ function AppContent() {
       
       <div className="flex-grow">
         <Routes>
-          {/* Public Routes - Auth Pages */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           
-          {/* Protected Routes - Require Authentication */}
           <Route path='/' element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }/>
           <Route path="/profile" element={
-  <ProtectedRoute>
-    <UserProfile />
-  </ProtectedRoute>
-} />
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } />
           <Route path='/products' element={
             <ProtectedRoute>
               <Products />
             </ProtectedRoute>
           }/>
-          
           <Route path='/about' element={
             <ProtectedRoute>
               <About />
             </ProtectedRoute>
           } />
-          
           <Route path='/contact' element={
             <ProtectedRoute>
               <Contact />
             </ProtectedRoute>
           }/>
-          
           <Route path="/product/:id" element={
             <ProtectedRoute>
               <ProductDetail />
             </ProtectedRoute>
           } />
           <Route path="/orders" element={
-  <ProtectedRoute>
-    <Orders />
-  </ProtectedRoute>
-} />
-
-<Route path="/orders/:id" element={
-  <ProtectedRoute>
-    <OrderDetail />
-  </ProtectedRoute>
-} />
-
-<Route path="/checkout" element={
-  <ProtectedRoute>
-    <Checkout />
-  </ProtectedRoute>
-} />
-
-<Route path="/wishlist" element={
-  <ProtectedRoute>
-    <Wishlist />
-  </ProtectedRoute>
-} />
-
-<Route path="/admin" element={
-  <AdminRoute>
-    <AdminDashboard />
-  </AdminRoute>
-} />
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          } />
+          <Route path="/orders/:id" element={
+            <ProtectedRoute>
+              <OrderDetail />
+            </ProtectedRoute>
+          } />
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          } />
+          <Route path="/wishlist" element={
+            <ProtectedRoute>
+              <Wishlist />
+            </ProtectedRoute>
+          } />
+          
+          {/* ✨ Admin Route */}
+          <Route path="/admin" element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          } />
         </Routes>
-        {/* <DebugUser /> */}
       </div>
       
       {!isAuthPage && <Footer />}
-
     </div>
   );
 }
@@ -172,10 +159,11 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        
-        <AppContent />
-      </CartProvider>
+      <DarkModeProvider> {/* ✨ ADD */}
+        <CartProvider>
+          <AppContent />
+        </CartProvider>
+      </DarkModeProvider>
     </AuthProvider>
   );
 }
