@@ -30,19 +30,26 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    if (user && !authLoading) {
+useEffect(() => {
+  if (user && !authLoading) {
+    const userRole = user?.user_metadata?.role;
+    
+    if (userRole === 'admin') {
+      // console.log('🎨 Admin already logged in. Redirecting to dashboard...');
+      navigate('/admin', { replace: true });
+    } else {
       const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     }
-  }, [user, authLoading, navigate, location]);
-
-useEffect(() => {
-  if (location.state?.message) {
-    setMessage({ type: 'success', text: location.state.message });
-    window.history.replaceState({}, document.title);
   }
-}, [location]);
+}, [user, authLoading, navigate, location]);
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setMessage({ type: 'success', text: location.state.message });
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,30 +73,39 @@ useEffect(() => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+  e.preventDefault();
+  const newErrors = validateForm();
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+  
+  setIsLoading(true);
+  setMessage('');
+  
+  const result = await signIn(formData.email, formData.password);
+  
+  if (result.success) {
+    setMessage({ type: 'success', text: result.message });
     
-    setIsLoading(true);
-    setMessage('');
+    const userRole = result.user?.user_metadata?.role;
     
-    const result = await signIn(formData.email, formData.password);
-    
-    if (result.success) {
-      setMessage({ type: 'success', text: result.message });
-      setTimeout(() => {
+    setTimeout(() => {
+      if (userRole === 'admin') {
+        console.log('🎨 Admin detected! Redirecting to dashboard...');
+        navigate('/admin', { replace: true });
+      } else {
+        console.log('👤 Regular user. Redirecting to home...');
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
-      }, 1000);
-    } else {
-      setMessage({ type: 'error', text: result.message });
-    }
-    
-    setIsLoading(false);
-  };
+      }
+    }, 1000);
+  } else {
+    setMessage({ type: 'error', text: result.message });
+  }
+  
+  setIsLoading(false);
+};
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);

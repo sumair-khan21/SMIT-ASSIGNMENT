@@ -72,6 +72,9 @@ import Orders from './Pages/Orders';
 import Checkout from './Pages/Checkout';
 import OrderDetail from './Pages/OrderDetail';
 import Wishlist from './Pages/Wishlist';
+import AdminRoute from './Components/AdminRoute';
+import DebugUser from './Components/DebugUser';
+import AdminDashboard from './Pages/AdminDashboard';
 
 
 function AppContent() {
@@ -150,11 +153,18 @@ function AppContent() {
     <Wishlist />
   </ProtectedRoute>
 } />
+
+<Route path="/admin" element={
+  <AdminRoute>
+    <AdminDashboard />
+  </AdminRoute>
+} />
         </Routes>
-        
+        {/* <DebugUser /> */}
       </div>
       
       {!isAuthPage && <Footer />}
+
     </div>
   );
 }
@@ -163,6 +173,7 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
+        
         <AppContent />
       </CartProvider>
     </AuthProvider>
