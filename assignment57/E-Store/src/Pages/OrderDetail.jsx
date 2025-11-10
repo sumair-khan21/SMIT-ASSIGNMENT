@@ -195,9 +195,13 @@ const OrderDetail = () => {
                         <p className="text-sm text-gray-600 mb-1">Tracking Number</p>
                         <p className="font-mono font-bold text-gray-800">{order.tracking_number}</p>
                       </div>
-                      <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all text-sm font-medium">
-                        Track Package
-                      </button>
+                     <button 
+  onClick={() => window.open(`/track/${order.tracking_number}`, '_blank')}
+  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all text-sm font-medium flex items-center space-x-2"
+>
+  <Package className="w-4 h-4" />
+  <span>Track Package</span>
+</button>
                     </div>
                   </div>
                 )}

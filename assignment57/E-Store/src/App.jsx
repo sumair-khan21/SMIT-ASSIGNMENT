@@ -74,6 +74,7 @@ import OrderDetail from './Pages/OrderDetail';
 import Wishlist from './Pages/Wishlist';
 import AdminRoute from './Components/AdminRoute';
 import AdminDashboard from './Pages/AdminDashboard';
+import TrackOrder from './Pages/TrackOrder';
 
 function AppContent() {
   const location = useLocation();
@@ -90,6 +91,8 @@ function AppContent() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/track/:trackingNumber?" element={<TrackOrder />} />
+          <Route path="/track" element={<TrackOrder />} />
           
           <Route path='/' element={
             <ProtectedRoute>
@@ -142,7 +145,6 @@ function AppContent() {
             </ProtectedRoute>
           } />
           
-          {/* ✨ Admin Route */}
           <Route path="/admin" element={
             <AdminRoute>
               <AdminDashboard />

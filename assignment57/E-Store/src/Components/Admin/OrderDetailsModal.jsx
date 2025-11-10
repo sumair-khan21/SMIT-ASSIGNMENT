@@ -268,6 +268,73 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onUpdate }) => {
                 </div>
               </div>
 
+
+              {/* ✨ ADD: Carrier and Tracking URL */}
+<div className="md:col-span-2">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {/* Carrier */}
+    <div>
+      <label className="block text-sm font-semibold text-gray-700 mb-2">
+        Carrier
+      </label>
+      <input
+        type="text"
+        value={fullOrder?.carrier || ''}
+        onChange={(e) => {
+          // Update carrier in real-time
+          adminOrderOperations.update(order.id, { carrier: e.target.value });
+        }}
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+        placeholder="e.g., FedEx, UPS, USPS"
+      />
+    </div>
+
+    {/* Tracking URL */}
+    <div>
+      <label className="block text-sm font-semibold text-gray-700 mb-2">
+        Carrier Tracking URL
+      </label>
+      <input
+        type="url"
+        value={fullOrder?.tracking_url || ''}
+        onChange={(e) => {
+          adminOrderOperations.update(order.id, { tracking_url: e.target.value });
+        }}
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+        placeholder="https://..."
+      />
+    </div>
+  </div>
+</div>
+
+{/* ✨ ADD: Public Tracking Link */}
+{fullOrder?.tracking_number && (
+  <div className="md:col-span-2">
+    <div className="bg-indigo-50 border-2 border-indigo-200 rounded-lg p-4">
+      <p className="text-sm font-semibold text-indigo-900 mb-2">
+        📦 Public Tracking Link:
+      </p>
+      <div className="flex items-center space-x-2">
+        <input
+          type="text"
+          value={`${window.location.origin}/track/${fullOrder.tracking_number}`}
+          readOnly
+          className="flex-1 px-3 py-2 bg-white border border-indigo-300 rounded-lg text-sm"
+        />
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(`${window.location.origin}/track/${fullOrder.tracking_number}`);
+            alert('✅ Tracking link copied!');
+          }}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-semibold"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
               {/* Order Items - ✅ FIXED */}
               <div className="bg-white border-2 border-gray-200 rounded-xl p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Order Items</h3>

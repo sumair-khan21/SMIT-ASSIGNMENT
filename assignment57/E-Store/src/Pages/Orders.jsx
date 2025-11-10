@@ -263,54 +263,70 @@ const Orders = () => {
                       </div>
                     </div>
 
-                    {/* Tracking Info */}
-                    {order.tracking_number && (
-                      <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <Truck className="w-5 h-5 text-blue-600" />
-                            <div>
-                              <div className="text-sm text-blue-800 font-semibold">Tracking Number</div>
-                              <div className="text-blue-600 font-mono">{order.tracking_number}</div>
-                            </div>
-                          </div>
-                          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm font-medium">
-                            Track Package
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                   {/* Tracking Info */}
+{order.tracking_number && (
+  <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-3">
+        <Truck className="w-5 h-5 text-blue-600" />
+        <div>
+          <div className="text-sm text-blue-800 font-semibold">Tracking Number</div>
+          <div className="text-blue-600 font-mono">{order.tracking_number}</div>
+        </div>
+      </div>
+      {/* ✅ NOW IT WORKS! */}
+      <button 
+        onClick={() => window.open(`/track/${order.tracking_number}`, '_blank')}
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm font-medium flex items-center space-x-2"
+      >
+        <Package className="w-4 h-4" />
+        <span>Track Package</span>
+      </button>
+    </div>
+  </div>
+)}
 
                     {/* Action Buttons */}
-                    <div className="flex flex-wrap gap-3">
-                      <button
-                        onClick={() => navigate(`/orders/${order.id}`)}
-                        className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all"
-                      >
-                        <Eye className="w-4 h-4" />
-                        <span>View Details</span>
-                      </button>
+<div className="flex flex-wrap gap-3">
+  <button
+    onClick={() => navigate(`/orders/${order.id}`)}
+    className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all"
+  >
+    <Eye className="w-4 h-4" />
+    <span>View Details</span>
+  </button>
 
-                      {order.status === 'pending' && (
-                        <button
-                          onClick={() => setShowCancelConfirm(order.id)}
-                          className="flex items-center space-x-2 px-6 py-3 bg-red-50 text-red-600 font-semibold rounded-xl hover:bg-red-100 transition-all border border-red-200"
-                        >
-                          <XCircle className="w-4 h-4" />
-                          <span>Cancel Order</span>
-                        </button>
-                      )}
+  {/* ✨ NEW: Track Order Button */}
+  {order.tracking_number && (
+    <button
+      onClick={() => window.open(`/track/${order.tracking_number}`, '_blank')}
+      className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-cyan-600 transition-all"
+    >
+      <Package className="w-4 h-4" />
+      <span>Track Order</span>
+    </button>
+  )}
 
-                      {order.status === 'delivered' && (
-                        <button
-                          onClick={() => navigate('/products')}
-                          className="flex items-center space-x-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-all"
-                        >
-                          <ShoppingBag className="w-4 h-4" />
-                          <span>Buy Again</span>
-                        </button>
-                      )}
-                    </div>
+  {order.status === 'pending' && (
+    <button
+      onClick={() => setShowCancelConfirm(order.id)}
+      className="flex items-center space-x-2 px-6 py-3 bg-red-50 text-red-600 font-semibold rounded-xl hover:bg-red-100 transition-all border border-red-200"
+    >
+      <XCircle className="w-4 h-4" />
+      <span>Cancel Order</span>
+    </button>
+  )}
+
+  {order.status === 'delivered' && (
+    <button
+      onClick={() => navigate('/products')}
+      className="flex items-center space-x-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-all"
+    >
+      <ShoppingBag className="w-4 h-4" />
+      <span>Buy Again</span>
+    </button>
+  )}
+</div>
                   </div>
                 </div>
               );
