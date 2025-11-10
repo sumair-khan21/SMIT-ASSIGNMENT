@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
- // Sign up with email and password
 const signUp = async (email, password, fullName) => {
   try {
     setError(null);
@@ -55,15 +54,16 @@ const signUp = async (email, password, fullName) => {
       options: {
         data: {
           full_name: fullName,
-          role: 'customer' // Default role
+          role: 'customer'
         },
-        emailRedirectTo: window.location.origin
+        // ✨ ADD THIS: Email confirmation redirect
+        emailRedirectTo: `${window.location.origin}/auth/confirm`
       }
     });
 
     if (error) throw error;
 
-    // Check if email confirmation is required
+    // Check if email is already registered
     if (data?.user?.identities?.length === 0) {
       return { 
         success: false, 
@@ -71,14 +71,15 @@ const signUp = async (email, password, fullName) => {
       };
     }
 
+    // ✨ IMPORTANT: Sign out immediately to prevent auto-login
     await supabase.auth.signOut();
     setUser(null); 
 
-    console.log('✅ User signed up successfully');
+    console.log('✅ User signed up successfully - Email confirmation required');
 
     return { 
       success: true, 
-      message: 'Account created successfully!',
+      message: '📧 Please check your email to confirm your account!',
       user: data.user 
     };
   } catch (error) {

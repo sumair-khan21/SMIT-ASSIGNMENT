@@ -58,7 +58,7 @@ import Footer from './Components/Footer';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { CartProvider } from './Context/CartContext';
 import { AuthProvider } from './Context/AuthContext';
-import { DarkModeProvider } from './Context/DarkModeContext'; // ✨ ADD
+import { DarkModeProvider } from './Context/DarkModeContext';
 import Home from './Pages/Home';
 import Products from './Pages/Products';
 import About from './Pages/About';
@@ -75,6 +75,7 @@ import Wishlist from './Pages/Wishlist';
 import AdminRoute from './Components/AdminRoute';
 import AdminDashboard from './Pages/AdminDashboard';
 import TrackOrder from './Pages/TrackOrder';
+import AuthConfirm from './Pages/AuthConfirm';
 
 function AppContent() {
   const location = useLocation();
@@ -93,6 +94,8 @@ function AppContent() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/track/:trackingNumber?" element={<TrackOrder />} />
           <Route path="/track" element={<TrackOrder />} />
+          <Route path="/auth/confirm" element={<AuthConfirm />} />
+
           
           <Route path='/' element={
             <ProtectedRoute>

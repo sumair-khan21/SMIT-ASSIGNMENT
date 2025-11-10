@@ -85,40 +85,33 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  const newErrors = validateForm();
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+  
+  setIsLoading(true);
+  setMessage('');
+  
+  const result = await signUp(formData.email, formData.password, formData.fullName);
+  
+  if (result.success) {
+    setMessage({ 
+      type: 'success', 
+      text: '📧 Success! Please check your email to confirm your account. Check spam folder if you don\'t see it.'
+    });
+    setFormData({ fullName: '', email: '', password: '', confirmPassword: '' });
+    setAgreedToTerms(false);
     
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    
-    setIsLoading(true);
-    setMessage('');
-    
-    const result = await signUp(formData.email, formData.password, formData.fullName);
-    
-    if (result.success) {
-      setMessage({ 
-        type: 'success', 
-        text: 'Account created successfully! Redirecting to login...'
-      });
-      setFormData({ fullName: '', email: '', password: '', confirmPassword: '' });
-      setAgreedToTerms(false);
-      
-      setTimeout(() => {
-        navigate('/login', { 
-          state: { 
-            message: 'Account created! Please sign in with your credentials.' 
-          }
-        });
-      }, 2000);
-    } else {
-      setMessage({ type: 'error', text: result.message });
-    }
-    
-    setIsLoading(false);
-  };
+  } else {
+    setMessage({ type: 'error', text: result.message });
+  }
+  
+  setIsLoading(false);
+};
 
   const handleGoogleSignUp = async () => {
     setIsLoading(true);
