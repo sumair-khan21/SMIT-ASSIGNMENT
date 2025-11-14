@@ -1,9 +1,12 @@
-// Navbar.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
 const Navbar = () => {
+  const [openLogin, setOpenLogin] = useState(false)
   const [scrollY, setScrollY] = useState(0);
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,12 +59,17 @@ const Navbar = () => {
         </ul>
  
         {/* Login Button */}
-        <Link 
+        {/* <Link 
           to="/login" 
           className="bg-[#3ef0c9] text-black px-6 py-1.5 rounded-md font-medium hover:bg-[#2ed4af] transition duration-300"
         >
           Login
-        </Link>
+        </Link> */}
+
+        <button onClick={()=> setOpenLogin(true)} className="bg-[#3ef0c9] text-black px-6 py-1.5 rounded-md font-medium hover:bg-[#2ed4af] transition duration-300">
+              Login
+        </button>
+        <Login setOpen={setOpenLogin} open={openLogin}/>
       </div>
       <style>{`
         @keyframes move-horizontal {

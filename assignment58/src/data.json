@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Keyboard",
+    "price": 1200,
+    "category": "Electronics"
+  },
+  {
+    "id": 2,
+    "name": "Mouse",
+    "price": 600,
+    "category": "Electronics"
+  },
+  {
+    "id": 3,
+    "name": "Notebook",
+    "price": 200,
+    "category": "Stationery"
+  },
+  {
+    "id": 4,
+    "name": "Water Bottle",
+    "price": 350,
+    "category": "Daily Use"
+  },
+  {
+    "id": 1763112247879,
+    "name": "Laptop",
+    "price": 90000,
+    "category": "Electronics"
+  }
+]
