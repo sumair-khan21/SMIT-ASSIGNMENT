@@ -1,732 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMIT Assignments - Professional Portfolio</title>
+    <title>Sumair | Professional Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #f8fafc;
-            color: #0f172a;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Header Styles */
-        .header {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.5rem 0;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.75rem;
-            border-radius: 0.75rem;
-            color: white;
-            font-size: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .header-text h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 0.25rem;
-        }
-
-        .header-text p {
-            color: #94a3b8;
-            font-size: 0.875rem;
-        }
-
-        .header-right {
-            display: none;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #cbd5e1;
-            font-size: 0.875rem;
-        }
-
-        /* Filters Section */
-        .filters-section {
-            background: white;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 40;
-        }
-
-        .filters-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            padding: 1rem 0;
-        }
-
-        .search-container {
-            position: relative;
-            max-width: 28rem;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 1rem;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 3rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.75rem;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            background: #f8fafc;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #c7d2fe;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(199, 210, 254, 0.5);
-        }
-
-        .category-filters {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .category-btn {
-            padding: 0.5rem 1.25rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #f1f5f9;
-            color: #334155;
-        }
-
-        .category-btn:hover {
-            background: #e2e8f0;
-        }
-
-        .category-btn.active {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 2rem 0;
-        }
-
-        .results-info {
-            margin-bottom: 1.5rem;
-        }
-
-        .results-info p {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideInUp 0.4s ease-out forwards;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border-color: #c7d2fe;
-        }
-
-        .card-image-container {
-            position: relative;
-            overflow: hidden;
-            height: 180px;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .card:hover .card-image {
-            transform: scale(1.05);
-        }
-
-        .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0);
-            transition: all 0.3s;
-        }
-
-        .card:hover .card-overlay {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .card-category {
-            position: absolute;
-            top: 0.75rem;
-            left: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: white;
-            z-index: 10;
-        }
-
-        .category-html {
-            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
-        }
-        .category-css {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        }
-        .category-javascript {
-            background: linear-gradient(135deg, #eab308 0%, #a16207 100%);
-        }
-        .category-React {
-            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
-        }
-
-        .card-number {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(4px);
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #1e293b;
-            z-index: 10;
-        }
-
-        .card-actions {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s;
-            gap: 1rem;
-            z-index: 10;
-        }
-
-        .card:hover .card-actions {
-            opacity: 1;
-        }
-
-        .card-action-btn {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(4px);
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            color: #1e293b;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
-
-        .card-action-btn:hover {
-            background: white;
-            transform: scale(1.1);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-action-btn.primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-        }
-
-        .card-action-btn.primary:hover {
-            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-        }
-
-        .card-content {
-            padding: 1.25rem;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-title {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: #1e293b;
-        }
-
-        .card-difficulty {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid;
-        }
-
-        .difficulty-beginner {
-            background: #dcfce7;
-            color: #166534;
-            border-color: #bbf7d0;
-        }
-
-        .difficulty-intermediate {
-            background: #fef9c3;
-            color: #854d0e;
-            border-color: #fef08a;
-        }
-
-        .difficulty-advanced {
-            background: #fee2e2;
-            color: #991b1b;
-            border-color: #fecaca;
-        }
-
-        .card-description {
-            color: #64748b;
-            font-size: 0.875rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Load More Button */
-        .load-more-container {
-            text-align: center;
-            margin-top: 3rem;
-        }
-
-        .load-more-btn {
-            padding: 0.875rem 2.5rem;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
-            font-size: 0.95rem;
-        }
-
-        .load-more-btn:hover {
-            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* No Results */
-        .no-results {
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        .no-results-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: #cbd5e1;
-        }
-
-        .no-results h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 0.5rem;
-        }
-
-        .no-results p {
-            color: #94a3b8;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            z-index: 50;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal {
-            background: white;
-            border-radius: 1.25rem;
-            max-width: 48rem;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            position: relative;
-        }
-
-        .modal-image {
-            width: 100%;
-            height: 18rem;
-            object-fit: cover;
-            border-radius: 1.25rem 1.25rem 0 0;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(4px);
-            border: none;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
-
-        .modal-close:hover {
-            background: white;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-            transform: rotate(90deg);
-        }
-
-        .modal-category {
-            position: absolute;
-            top: 1.25rem;
-            left: 1.25rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: white;
-            z-index: 10;
-        }
-
-        .modal-content {
-            padding: 2rem;
-        }
-
-        .modal-title-section {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-titles h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-titles h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #475569;
-        }
-
-        .modal-difficulty {
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border: 1px solid;
-            white-space: nowrap;
-        }
-
-        .modal-description {
-            color: #64748b;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
-
-        .modal-section {
-            margin-bottom: 1.75rem;
-        }
-
-        .modal-section h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            position: relative;
-            padding-left: 1rem;
-        }
-
-        .modal-section h4::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 16px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            border-radius: 2px;
-        }
-
-        .modal-technologies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .modal-tech-tag {
-            padding: 0.5rem 1rem;
-            background: #f1f5f9;
-            color: #475569;
-            font-size: 0.875rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-        }
-
-        .modal-features {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-features li {
-            display: flex;
-            align-items: flex-start;
-            color: #475569;
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
-        }
-
-        .modal-features li::before {
-            content: '•';
-            color: #6366f1;
-            font-weight: bold;
-            margin-right: 0.75rem;
-            flex-shrink: 0;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2.5rem;
-        }
-
-        .modal-btn {
-            padding: 1rem 1.5rem;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .modal-btn.primary {
-            flex: 1;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
-        }
-
-        .modal-btn.primary:hover {
-            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3);
-        }
-
-        .modal-btn.secondary {
-            padding: 1rem 2rem;
-            background: #f1f5f9;
-            color: #475569;
-        }
-
-        .modal-btn.secondary:hover {
-            background: #e2e8f0;
-        }
-
-        /* Animations */
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .header-right {
-                display: block;
-            }
-
-            .filters-content {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
-
-            .modal-image {
-                height: 22rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .modal {
-                margin: 0.5rem;
-                max-height: 95vh;
-            }
-
-            .modal-title-section {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .modal-actions {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Professional Header -->
     <header class="header">
@@ -768,15 +50,15 @@
                 </div>
 
                 <!-- Category Filter -->
-<div class="category-filters">
-    <button class="category-btn active" data-category="All">All</button>
-    <button class="category-btn" data-category="HTML">HTML</button>
-    <button class="category-btn" data-category="CSS">CSS</button>
-    <button class="category-btn" data-category="JavaScript">JavaScript</button>
-    <button class="category-btn" data-category="React">React</button>
-    <button class="category-btn" data-category="Redux Toolkit">Redux Toolkit</button>
-    <button class="category-btn" data-category="Backend">Backend</button>
-</div>
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="All">All</button>
+                    <button class="category-btn" data-category="HTML">HTML</button>
+                    <button class="category-btn" data-category="CSS">CSS</button>
+                    <button class="category-btn" data-category="JavaScript">JavaScript</button>
+                    <button class="category-btn" data-category="React">React</button>
+                    <button class="category-btn" data-category="Redux Toolkit">Redux Toolkit</button>
+                    <button class="category-btn" data-category="Backend">Backend</button>
+                </div>
             </div>
         </div>
     </div>
@@ -829,7 +111,7 @@
                     <span class="modal-difficulty" id="modal-difficulty"></span>
                 </div>
                 <p id="modal-description" class="modal-description"></p>
-                
+
                 <div class="modal-section">
                     <h4>Technologies Used</h4>
                     <div class="modal-technologies" id="modal-technologies"></div>
@@ -1365,113 +647,113 @@
                 features: ["Multi-step Registration", "Data Validation", "User Profiles"],
             },
             {
-    id: "52",
-    title: "Dynamic Form",
-    description: "A flexible form builder that allows users to dynamically add, remove, and customize fields with real-time validation",
-    image: "images/52.png",
-    category: "JavaScript",
-    difficulty: "Advanced",
-    technologies: ["JavaScript", "Dynamic DOM Manipulation", "Real-time Validation"],
-    features: ["Add/Remove Fields", "Custom Field Types", "Client-side Validation"]
-},          {
-    id: "53",
-    title: "React Static Website",
-    description: "A static website built using React, showcasing modern design principles and responsive layouts",
-    image: "images/53.jpg",
-    category: "React",
-    difficulty: "Basic",
-    technologies: ["React", "JSX", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://static-react-app-ten.vercel.app/"
-},
-{
-    id: "54",
-    title: "React Registration Form",
-    description: " A user registration form built with React, featuring form validation, state management, and responsive design",
-    image: "images/54.png",
-    category: "React",
-    difficulty: "intermediate",
-    technologies: ["React", "JSX", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://all-inputs-with-react-form.vercel.app/" 
-},
-{
-    id: "55",
-    title: "React Todo App",
-    description: "A simple yet effective Todo application built with React, featuring task management, filtering, and local storage integration",
-    image: "images/55.png",
-    category: "React",
-    difficulty: "Basic",
-    technologies: ["React", "JSX", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://todo-react-drab-three.vercel.app/" 
-},
-{
-    id: "56",
-    title: "Suamir Coding School",
-    description: "",
-    image: "images/56.png",
-    category: "React",
-    difficulty: "Advanced",
-    technologies: ["React", "JSX", "Tailwind"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "" 
-},
-{
-    id: "57",
-    title: "Price Panda",
-    description: "A simple React-based e-commerce app for browsing products, managing the cart, and checking out. Features responsive design and local storage for cart persistence.",
-    image: "images/57.png",
-    category: "React",
-    difficulty: "Advanced",
-    technologies: ["React", "Supabase", "Tailwind"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://price-panda.vercel.app/" 
-},
-{
-    id: "58",
-    title: "API's",
-    description: "A RESTful API that provides product data for e-commerce applications, supporting features like product listing, filtering, and search functionality.",
-    image: "images/58.png",
-    category: "Backend",
-    difficulty: "Advanced",
-    technologies: ["NodeJS", "ExpressJS", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://all-methods-product-api.vercel.app/" 
-},
-{
-    id: "59",
-    title: "React Todo App Redux",
-    description: "A simple and efficient todo application built with React and Redux Toolkit, offering smooth state management, task filtering, and persistent storage for a seamless user experience.",
-    image: "images/59.png",
-    category: "Redux Toolkit",
-    difficulty: "Advanced",
-    technologies: ["React", "JSX", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://my-todo-with-redux.vercel.app/" 
-},
-{
-    id: "60",
-    title: "React E-Commerce App Redux & RTK Query",
-    description: "A simple and efficient  E-Commerce App application built with React and Redux Toolkit Query, offering smooth state management, task filtering, and persistent storage for a seamless user experience.",
-    image: "images/60.png",
-    category: "Redux Toolkit",
-    difficulty: "Advanced",
-    technologies: ["React", "JSX", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://my-shop-hub.netlify.app/" 
-},
-{
-    id: "61",
-    title: "Redux & RTK Query & Mongoose",
-    description: "A simple and efficient Todo App built with React, Redux Toolkit, and Mongoose, offering smooth state management, task filtering, and persistent storage for a seamless user experience.",
-    image: "images/61.png",
-    category: "Backend",
-    difficulty: "Advanced",
-    technologies: ["React", "JSX", "CSS"],
-    features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
-    liveUrl: "https://todo-master-mongoose.netlify.app/" 
-},
+                id: "52",
+                title: "Dynamic Form",
+                description: "A flexible form builder that allows users to dynamically add, remove, and customize fields with real-time validation",
+                image: "images/52.png",
+                category: "JavaScript",
+                difficulty: "Advanced",
+                technologies: ["JavaScript", "Dynamic DOM Manipulation", "Real-time Validation"],
+                features: ["Add/Remove Fields", "Custom Field Types", "Client-side Validation"]
+            }, {
+                id: "53",
+                title: "React Static Website",
+                description: "A static website built using React, showcasing modern design principles and responsive layouts",
+                image: "images/53.jpg",
+                category: "React",
+                difficulty: "Basic",
+                technologies: ["React", "JSX", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://static-react-app-ten.vercel.app/"
+            },
+            {
+                id: "54",
+                title: "React Registration Form",
+                description: " A user registration form built with React, featuring form validation, state management, and responsive design",
+                image: "images/54.png",
+                category: "React",
+                difficulty: "intermediate",
+                technologies: ["React", "JSX", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://all-inputs-with-react-form.vercel.app/"
+            },
+            {
+                id: "55",
+                title: "React Todo App",
+                description: "A simple yet effective Todo application built with React, featuring task management, filtering, and local storage integration",
+                image: "images/55.png",
+                category: "React",
+                difficulty: "Basic",
+                technologies: ["React", "JSX", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://todo-react-drab-three.vercel.app/"
+            },
+            {
+                id: "56",
+                title: "Suamir Coding School",
+                description: "",
+                image: "images/56.png",
+                category: "React",
+                difficulty: "Advanced",
+                technologies: ["React", "JSX", "Tailwind"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: ""
+            },
+            {
+                id: "57",
+                title: "Price Panda",
+                description: "A simple React-based e-commerce app for browsing products, managing the cart, and checking out. Features responsive design and local storage for cart persistence.",
+                image: "images/57.png",
+                category: "React",
+                difficulty: "Advanced",
+                technologies: ["React", "Supabase", "Tailwind"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://price-panda.vercel.app/"
+            },
+            {
+                id: "58",
+                title: "API's",
+                description: "A RESTful API that provides product data for e-commerce applications, supporting features like product listing, filtering, and search functionality.",
+                image: "images/58.png",
+                category: "Backend",
+                difficulty: "Advanced",
+                technologies: ["NodeJS", "ExpressJS", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://all-methods-product-api.vercel.app/"
+            },
+            {
+                id: "59",
+                title: "React Todo App Redux",
+                description: "A simple and efficient todo application built with React and Redux Toolkit, offering smooth state management, task filtering, and persistent storage for a seamless user experience.",
+                image: "images/59.png",
+                category: "Redux Toolkit",
+                difficulty: "Advanced",
+                technologies: ["React", "JSX", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://my-todo-with-redux.vercel.app/"
+            },
+            {
+                id: "60",
+                title: "React E-Commerce App Redux & RTK Query",
+                description: "A simple and efficient  E-Commerce App application built with React and Redux Toolkit Query, offering smooth state management, task filtering, and persistent storage for a seamless user experience.",
+                image: "images/60.png",
+                category: "Redux Toolkit",
+                difficulty: "Advanced",
+                technologies: ["React", "JSX", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://my-shop-hub.netlify.app/"
+            },
+            {
+                id: "61",
+                title: "Redux & RTK Query & Mongoose",
+                description: "A simple and efficient Todo App built with React, Redux Toolkit, and Mongoose, offering smooth state management, task filtering, and persistent storage for a seamless user experience.",
+                image: "images/61.png",
+                category: "Backend",
+                difficulty: "Advanced",
+                technologies: ["React", "JSX", "CSS"],
+                features: ["Responsive Design", "Component-based Architecture", "SEO Friendly"],
+                liveUrl: "https://todo-master-mongoose.netlify.app/"
+            },
         ];
 
         // Global variables
@@ -1538,13 +820,13 @@
 
 
         function createCard(assignment, index) {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.style.animationDelay = `${index * 0.05}s`;
+            const card = document.createElement("div");
+            card.className = "card";
+            card.style.animationDelay = `${index * 0.05}s`;
 
-  const href = assignment.liveUrl || `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
+            const href = assignment.liveUrl || `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
 
-  card.innerHTML = `
+            card.innerHTML = `
     <div class="card-image-container">
       <img src="${assignment.image}" alt="${assignment.title}" class="card-image">
       <div class="card-overlay"></div>
@@ -1568,8 +850,8 @@
     </div>
   `;
 
-  return card;
-}
+            return card;
+        }
 
 
         function renderCards() {
@@ -1618,42 +900,42 @@
             renderCards();
         }
 
-      function openModal(assignmentId) {
-    const assignment = assignments.find((a) => a.id === assignmentId);
-    if (!assignment) return;
+        function openModal(assignmentId) {
+            const assignment = assignments.find((a) => a.id === assignmentId);
+            if (!assignment) return;
 
-    // Populate modal content
-    document.getElementById("modal-image").src = assignment.image;
-    document.getElementById("modal-image").alt = assignment.title;
-    document.getElementById("modal-category").textContent = assignment.category;
-    document.getElementById("modal-category").className = `modal-category ${getCategoryClass(assignment.category)}`;
-    document.getElementById("modal-assignment-title").textContent = `Assignment ${assignment.id}`;
-    document.getElementById("modal-project-title").textContent = assignment.title;
-    document.getElementById("modal-difficulty").textContent = assignment.difficulty;
-    document.getElementById("modal-difficulty").className =
-        `modal-difficulty ${getDifficultyClass(assignment.difficulty)}`;
-    document.getElementById("modal-description").textContent = assignment.description;
+            // Populate modal content
+            document.getElementById("modal-image").src = assignment.image;
+            document.getElementById("modal-image").alt = assignment.title;
+            document.getElementById("modal-category").textContent = assignment.category;
+            document.getElementById("modal-category").className = `modal-category ${getCategoryClass(assignment.category)}`;
+            document.getElementById("modal-assignment-title").textContent = `Assignment ${assignment.id}`;
+            document.getElementById("modal-project-title").textContent = assignment.title;
+            document.getElementById("modal-difficulty").textContent = assignment.difficulty;
+            document.getElementById("modal-difficulty").className =
+                `modal-difficulty ${getDifficultyClass(assignment.difficulty)}`;
+            document.getElementById("modal-description").textContent = assignment.description;
 
-    // Technologies
-    const technologiesContainer = document.getElementById("modal-technologies");
-    technologiesContainer.innerHTML = assignment.technologies
-        .map((tech) => `<span class="modal-tech-tag">${tech}</span>`)
-        .join("");
+            // Technologies
+            const technologiesContainer = document.getElementById("modal-technologies");
+            technologiesContainer.innerHTML = assignment.technologies
+                .map((tech) => `<span class="modal-tech-tag">${tech}</span>`)
+                .join("");
 
-    // Features
-    const featuresContainer = document.getElementById("modal-features");
-    featuresContainer.innerHTML = assignment.features.map((feature) => `<li>${feature}</li>`).join("");
+            // Features
+            const featuresContainer = document.getElementById("modal-features");
+            featuresContainer.innerHTML = assignment.features.map((feature) => `<li>${feature}</li>`).join("");
 
-    // View button (with fallback)
-    const viewBtn = document.getElementById("modal-view-btn");
-    viewBtn.href = assignment.liveUrl || `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
-    viewBtn.rel = "noopener noreferrer";
+            // View button (with fallback)
+            const viewBtn = document.getElementById("modal-view-btn");
+            viewBtn.href = assignment.liveUrl || `https://sumair-khan21.github.io/SMIT-ASSIGNMENT/assignment${assignment.id}/`;
+            viewBtn.rel = "noopener noreferrer";
 
-    // Show modal
-    modalOverlay.classList.add("active");
-    document.body.style.overflow = "hidden";
-}
-  
+            // Show modal
+            modalOverlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
         function closeModal() {
             modalOverlay.classList.remove("active");
             document.body.style.overflow = "auto";
@@ -1699,10 +981,21 @@
         document.addEventListener("DOMContentLoaded", () => {
             totalProjects.textContent = `${assignments.length} Projects`;
             renderCards();
+
+            // Header Scroll Effect
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
         });
 
         // Make openModal globally available
         window.openModal = openModal;
     </script>
 </body>
+
 </html>
