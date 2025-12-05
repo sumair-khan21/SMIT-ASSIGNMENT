@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <canvas id="particle-canvas"></canvas>
     <!-- Professional Header -->
     <header class="header">
         <div class="container">
@@ -129,6 +130,24 @@
                     </a>
                     <button class="modal-btn secondary" id="modal-close-btn">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Command Palette -->
+    <div class="cmd-palette-overlay" id="cmd-palette-overlay">
+        <div class="cmd-palette">
+            <div class="cmd-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" class="cmd-input" placeholder="Type a command or search..." id="cmd-input">
+                <span class="cmd-key">ESC</span>
+            </div>
+            <div class="cmd-list" id="cmd-list">
+                <!-- Items injected via JS -->
+            </div>
+            <div class="cmd-footer">
+                <div><span class="cmd-key">↑</span> <span class="cmd-key">↓</span> to navigate</div>
+                <div><span class="cmd-key">↵</span> to select</div>
             </div>
         </div>
     </div>
@@ -995,6 +1014,211 @@
 
         // Make openModal globally available
         window.openModal = openModal;
+
+        /* --- Particle Background --- */
+        const canvas = document.getElementById('particle-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 1;
+                    this.color = `rgba(139, 92, 246, ${Math.random() * 0.5 + 0.1})`; // Matched with primary color
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < 100; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                drawConnections();
+                requestAnimationFrame(animateParticles);
+            }
+
+            let mouse = { x: null, y: null };
+            window.addEventListener('mousemove', e => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+
+            function drawConnections() {
+                particles.forEach(a => {
+                    const distMouse = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+                    if (distMouse < 150) {
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${1 - distMouse / 150})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                initParticles();
+            });
+
+            resizeCanvas();
+            initParticles();
+            animateParticles();
+        }
+
+        /* --- Command Palette --- */
+        const cmdOverlay = document.getElementById('cmd-palette-overlay');
+        const cmdInput = document.getElementById('cmd-input');
+        const cmdList = document.getElementById('cmd-list');
+
+        const commands = [
+            { icon: 'fas fa-home', title: 'Go Home', action: () => window.scrollTo(0, 0), shortcut: 'Home' },
+            {
+                icon: 'fas fa-search', title: 'Search Projects', action: () => {
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) {
+                        searchInput.focus();
+                        window.scrollTo({ top: searchInput.offsetTop - 150, behavior: 'smooth' });
+                    }
+                }, shortcut: 'S'
+            },
+            { icon: 'fas fa-envelope', title: 'Contact', action: () => window.location.href = 'mailto:sumair@example.com' },
+        ];
+
+        let allCmdItems = [];
+
+        function renderCmdItems(items) {
+            if (!cmdList) return;
+            cmdList.innerHTML = '';
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'cmd-item';
+                if (index === 0) div.classList.add('selected');
+                div.innerHTML = `
+                    <div class="cmd-item-left">
+                        <div class="cmd-item-icon"><i class="${item.icon}"></i></div>
+                        <span>${item.title}</span>
+                        ${item.desc ? `<span style="opacity: 0.5; font-size: 12px; margin-left: 10px">${item.desc}</span>` : ''}
+                    </div>
+                    ${item.shortcut ? `<span class="cmd-shortcut">${item.shortcut}</span>` : ''}
+                `;
+                div.onclick = () => {
+                    if (typeof item.action === 'function') item.action();
+                    closeCmd();
+                };
+                cmdList.appendChild(div);
+            });
+        }
+
+        function openCmd() {
+            if (!cmdOverlay) return;
+            cmdOverlay.classList.add('active');
+            if (cmdInput) {
+                cmdInput.value = '';
+                cmdInput.focus();
+            }
+
+            allCmdItems = [
+                ...commands.map(c => ({ ...c, type: 'command' })),
+                ...assignments.slice(0, 50).map(a => ({
+                    icon: 'fas fa-code',
+                    title: a.title,
+                    action: () => openModal(a.id),
+                    desc: a.category,
+                    type: 'project'
+                }))
+            ];
+
+            renderCmdItems(allCmdItems.slice(0, 10));
+        }
+
+        function closeCmd() {
+            if (cmdOverlay) cmdOverlay.classList.remove('active');
+        }
+
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openCmd();
+            }
+            if (e.key === 'Escape' && cmdOverlay && cmdOverlay.classList.contains('active')) {
+                closeCmd();
+            }
+        });
+
+        if (cmdOverlay) {
+            cmdOverlay.addEventListener('click', e => {
+                if (e.target === cmdOverlay) closeCmd();
+            });
+        }
+
+        if (cmdInput) {
+            cmdInput.addEventListener('input', e => {
+                const term = e.target.value.toLowerCase();
+                const filtered = allCmdItems.filter(item =>
+                    item.title.toLowerCase().includes(term) ||
+                    (item.desc && item.desc.toLowerCase().includes(term))
+                ).slice(0, 10);
+                renderCmdItems(filtered);
+            });
+
+            cmdInput.addEventListener('keydown', e => {
+                const current = cmdList.querySelector('.selected');
+                const items = cmdList.querySelectorAll('.cmd-item');
+                if (!items.length) return;
+                let index = Array.from(items).indexOf(current);
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    index = (index + 1) % items.length;
+                    items.forEach(i => i.classList.remove('selected'));
+                    items[index].classList.add('selected');
+                    items[index].scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    index = (index - 1 + items.length) % items.length;
+                    items.forEach(i => i.classList.remove('selected'));
+                    items[index].classList.add('selected');
+                    items[index].scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (current) current.click();
+                }
+            });
+        }
     </script>
 </body>
 
