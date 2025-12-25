@@ -21,9 +21,6 @@ const {
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 
-// Temporarily disable validation for testing
-// router.post('/register', register);  // validation hata di
-// router.post('/login', login);
 
 // ═══════════════════════════════════════════════════════════
 //                    PROTECTED ROUTES

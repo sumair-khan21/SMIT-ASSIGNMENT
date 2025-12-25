@@ -13,8 +13,8 @@ const ApiResponse = require('../utils/ApiResponse');
 // @access  Private (Employer only)
 exports.getProfile = async (req, res, next) => {
   try {
-    const profile = await EmployerProfile.findOne({ user: req.user.id })
-      .populate('user', 'firstName lastName email phone avatar');
+    const profile = await EmployerProfile.findOne({ userId: req.user.id })
+      .populate('userId', 'firstName lastName email phone avatar');
 
     if (!profile) {
       throw new ApiError(404, 'Company profile not found. Please create your company profile first.');
@@ -34,7 +34,7 @@ exports.getProfile = async (req, res, next) => {
 exports.createProfile = async (req, res, next) => {
   try {
     // Check if profile already exists
-    const existingProfile = await EmployerProfile.findOne({ user: req.user.id });
+    const existingProfile = await EmployerProfile.findOne({ userId: req.user.id });
     
     if (existingProfile) {
       throw new ApiError(400, 'Company profile already exists. Use update endpoint to modify.');
@@ -42,14 +42,14 @@ exports.createProfile = async (req, res, next) => {
 
     // Create new profile
     const profileData = {
-      user: req.user.id,
+      userId: req.user.id,
       ...req.body
     };
 
     const profile = await EmployerProfile.create(profileData);
 
     // Populate user data
-    await profile.populate('user', 'firstName lastName email phone avatar');
+    await profile.populate('userId', 'firstName lastName email phone avatar');
 
     res.status(201).json(
       new ApiResponse(201, { profile }, 'Company profile created successfully')
@@ -64,7 +64,7 @@ exports.createProfile = async (req, res, next) => {
 // @access  Private (Employer only)
 exports.updateProfile = async (req, res, next) => {
   try {
-    let profile = await EmployerProfile.findOne({ user: req.user.id });
+    let profile = await EmployerProfile.findOne({ userId: req.user.id });
 
     if (!profile) {
       throw new ApiError(404, 'Company profile not found. Please create your profile first.');
@@ -72,13 +72,13 @@ exports.updateProfile = async (req, res, next) => {
 
     // Update profile
     profile = await EmployerProfile.findOneAndUpdate(
-      { user: req.user.id },
+      { userId: req.user.id },
       req.body,
       {
         new: true,
         runValidators: true
       }
-    ).populate('user', 'firstName lastName email phone avatar');
+    ).populate('userId', 'firstName lastName email phone avatar');
 
     res.status(200).json(
       new ApiResponse(200, { profile }, 'Company profile updated successfully')
@@ -93,7 +93,7 @@ exports.updateProfile = async (req, res, next) => {
 // @access  Private (Employer only)
 exports.deleteProfile = async (req, res, next) => {
   try {
-    const profile = await EmployerProfile.findOne({ user: req.user.id });
+    const profile = await EmployerProfile.findOne({ userId: req.user.id });
 
     if (!profile) {
       throw new ApiError(404, 'Company profile not found');
@@ -114,7 +114,7 @@ exports.deleteProfile = async (req, res, next) => {
 // @access  Private (Employer only)
 exports.getDashboardStats = async (req, res, next) => {
   try {
-    const profile = await EmployerProfile.findOne({ user: req.user.id });
+    const profile = await EmployerProfile.findOne({ userId: req.user.id });
 
     if (!profile) {
       throw new ApiError(404, 'Company profile not found');
