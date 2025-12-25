@@ -147,6 +147,14 @@ app.get('/api/health', (req, res) => {
 // app.use('/api/applications', applicationRoutes);
 // app.use('/api/admin', adminRoutes);
 
+
+// ═══════════════════════════════════════════════════════════
+//                      API ROUTES
+// ═══════════════════════════════════════════════════════════
+
+const routes = require('./routes');
+app.use('/api', routes);
+
 // ═══════════════════════════════════════════════════════════
 //                      404 HANDLER
 //              (Jab koi route match nahi hota)

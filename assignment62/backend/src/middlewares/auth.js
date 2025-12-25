@@ -44,7 +44,8 @@ const protect = async (req, res, next) => {
         // Get user from database
         // ─────────────────────────────────────────────────────
         
-        const user = await User.findById(decoded.id);
+        // const user = await User.findById(decoded.id);
+        const user = await User.findById(decoded.id).select('+passwordChangedAt');
 
         if (!user) {
             throw ApiError.unauthorized('User not found - Please login again');
