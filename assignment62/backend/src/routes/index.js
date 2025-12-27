@@ -5,8 +5,9 @@ const router = express.Router();
 const authRoutes = require('./authRoutes');
 const seekerRoutes = require('./seekerRoutes');
 const employerRoutes = require('./employerRoutes');
-// const jobRoutes = require('./jobRoutes');              // Coming in Phase 4
-// const applicationRoutes = require('./applicationRoutes'); // Coming in Phase 5
+const jobRoutes = require('./jobRoutes');
+const applicationRoutes = require('./applicationRoutes');
+const savedJobRoutes = require('./savedJobRoutes');
 
 // ═══════════════════════════════════════════════════════════
 //                      MOUNT ROUTES
@@ -15,8 +16,9 @@ const employerRoutes = require('./employerRoutes');
 router.use('/auth', authRoutes);
 router.use('/seeker', seekerRoutes);
 router.use('/employer', employerRoutes);
-// router.use('/jobs', jobRoutes);
-// router.use('/applications', applicationRoutes);
+router.use('/jobs', jobRoutes);
+router.use('/applications', applicationRoutes);
+router.use('/saved-jobs', savedJobRoutes);
 
 // ═══════════════════════════════════════════════════════════
 //                    HEALTH CHECK ROUTE
@@ -30,7 +32,10 @@ router.get('/health', (req, res) => {
     routes: {
       auth: '/api/auth',
       seeker: '/api/seeker',
-      employer: '/api/employer'
+      employer: '/api/employer',
+      jobs: '/api/jobs',
+      applications: '/api/applications',
+      savedJobs: '/api/saved-jobs'
     }
   });
 });
