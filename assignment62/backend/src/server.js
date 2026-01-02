@@ -91,3 +91,10 @@ const startServer = async () => {
 // ═══════════════════════════════════════════════════════════
 
 startServer();
+
+
+// ... baqi code ke niche
+startServer();
+
+// Vercel ke liye export lazmi hai
+module.exports = app;
