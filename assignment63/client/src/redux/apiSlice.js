@@ -68,6 +68,15 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Product'],
         }),
+
+        // File Upload Endpoint
+        uploadImage: builder.mutation({
+            query: (formData) => ({
+                url: '/files/upload',
+                method: 'POST',
+                body: formData,
+            }),
+        }),
     }),
 });
 
@@ -80,4 +89,5 @@ export const {
     useAddProductMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,
+    useUploadImageMutation,
 } = apiSlice;

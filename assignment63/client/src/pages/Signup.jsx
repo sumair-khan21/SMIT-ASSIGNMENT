@@ -28,7 +28,7 @@ const Signup = () => {
       alert('Registration successful! Please login.');
       navigate('/login');
     } catch (err) {
-      setErrorMsg(err.data?.message || err.error || 'Signup failed. Please check your details.');
+      setErrorMsg(err.data?.error || err.error || 'Signup failed. Please check your details.');
     }
   };
 

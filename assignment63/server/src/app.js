@@ -6,6 +6,7 @@ const cors = require('cors');
 const { authRouter } = require('./router/auth');
 const { productRouter } = require('./router/product');
 const { authMiddleware } = require('./middleware/auth');
+const { fileRouter } = require('./router/files');
 dotenv.config();
 
 const app = express();
@@ -21,7 +22,7 @@ app.use(cookieParser());
 
 app.use('/auth', authRouter);
 app.use('/products', authMiddleware, productRouter);
-
+app.use('/files', fileRouter);
 
 
 const port = process.env.PORT || 5000;
